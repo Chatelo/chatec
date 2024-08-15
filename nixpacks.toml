@@ -1,15 +1,16 @@
 [phases.setup]
 commands = [
   "npm install -g pnpm",
-  "pnpm install --frozen-lockfile"
+  "pnpm install --no-frozen-lockfile"
 ]
 
 [phases.build]
 commands = [
+  "pnpm install --frozen-lockfile",
   "pnpm run build"
 ]
 
 [phases.start]
 commands = [
-  "pnpm start"
+  "pnpm run start"
 ]

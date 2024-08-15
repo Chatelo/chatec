@@ -6,6 +6,9 @@
 .pnp.js
 .yarn/install-state.gz
 
+# Ensure pnpm-lock.yaml is not ignored for the opurpose of deployment in Railway
+!.pnpm-lock.yaml
+
 # testing
 /coverage
 

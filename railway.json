@@ -1,0 +1,10 @@
+{
+  "build": {
+    "builder": "nixpacks",
+    "services": {
+      "web": {
+        "start": "pnpm run start"
+      }
+    }
+  }
+}
