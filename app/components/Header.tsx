@@ -10,7 +10,7 @@ export default function Header() {
             className="text-xl font-bold"
             aria-label="DevCompany Home"
           >
-            Chatec Inc.
+            Chatec Technologies
           </Link>
           <div className="hidden md:flex space-x-4">
             <Link href="/" className="hover:text-blue-500" aria-current="page">
