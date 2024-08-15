@@ -16,6 +16,9 @@ RUN pnpm install --frozen-lockfile
 # Copy the rest of the application code
 COPY . .
 
+# Generate Prisma client
+RUN pnpm prisma generate
+
 # Build the Next.js app
 RUN pnpm build
 
