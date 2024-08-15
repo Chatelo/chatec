@@ -70,8 +70,8 @@ export default function Contact() {
         <div>
           <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
           <p className="mb-2">Email: contact@devcompany.com</p>
-          <p className="mb-2">Phone: (123) 456-7890</p>
-          <p className="mb-2">Address: 123 Dev Street, Tech City, 12345</p>
+          <p className="mb-2">Phone: (+254) 729-057-932</p>
+          <p className="mb-2">Address: Bomet</p>
         </div>
       </div>
     </div>
