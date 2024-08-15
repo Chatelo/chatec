@@ -8,11 +8,10 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install -g pnpm && pnpm install
+RUN npm install -g pnpm && pnpm install --frozen-lockfile
 
 # Bundle app source
-COPY . .
-
+COPY . /app
 # Build the Next.js application
 RUN pnpm run build
 
