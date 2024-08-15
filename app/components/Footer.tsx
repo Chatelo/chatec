@@ -5,10 +5,10 @@ export default function Footer() {
     <footer className="bg-gray-800 text-white ">
       <div className="container mx-auto px-6 py-10">
         <div className="flex flex-col md:flex-row justify-between">
-          <div className="mb-6 md:mb-0">
+          {/* <div className="mb-6 md:mb-0">
             <h2 className="text-2xl font-bold">Chatec Technologies</h2>
             <p className="mt-2">Building modern web and mobile applications.</p>
-          </div>
+          </div> */}
           <div className="flex flex-col md:flex-row md:space-x-8">
             <div>
               <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
