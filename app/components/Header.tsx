@@ -2,7 +2,10 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="bg-white shadow-md" role="banner">
+    <header
+      className="bg-white shadow-md"
+      role="banner fixed top-0 left-0 right-0"
+    >
       <nav className="container mx-auto px-6 py-3" aria-label="Main Navigation">
         <div className="flex justify-between items-center">
           <Link
