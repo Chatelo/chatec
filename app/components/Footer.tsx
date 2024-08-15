@@ -1,14 +1,42 @@
+"use client";
+
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import clsx from "clsx";
 
 export default function Footer() {
+  const [isFixed, setIsFixed] = useState(false);
+
+  useEffect(() => {
+    const checkFooterPosition = () => {
+      if (typeof window !== "undefined") {
+        const windowHeight = window.innerHeight;
+        const bodyHeight = document.body.offsetHeight;
+        const footerHeight =
+          document.querySelector("footer")?.offsetHeight || 0;
+
+        setIsFixed(windowHeight > bodyHeight - footerHeight);
+      }
+    };
+
+    checkFooterPosition();
+    window.addEventListener("resize", checkFooterPosition);
+
+    return () => {
+      window.removeEventListener("resize", checkFooterPosition);
+    };
+  }, []);
+
   return (
-    <footer className="bg-gray-800 text-white ">
+    <footer
+      className={clsx(
+        "bg-gray-800 text-white w-full",
+        isFixed ? "fixed bottom-0 left-0 right-0 md:fixed" : "",
+        "md:static" // This ensures the footer is static on mobile
+      )}
+    >
       <div className="container mx-auto px-6 py-10">
         <div className="flex flex-col md:flex-row justify-between">
-          {/* <div className="mb-6 md:mb-0">
-            <h2 className="text-2xl font-bold">Chatec Technologies</h2>
-            <p className="mt-2">Building modern web and mobile applications.</p>
-          </div> */}
           <div className="flex flex-col md:flex-row md:space-x-8">
             <div>
               <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
