@@ -35,44 +35,75 @@ export default function Footer() {
         "md:static" // This ensures the footer is static on mobile
       )}
     >
-      <div className="container mx-auto px-6 py-10">
-        <div className="flex flex-col md:flex-row justify-between">
-          <div className="flex flex-col md:flex-row md:space-x-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/" className="hover:text-blue-400">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services" className="hover:text-blue-400">
-                    Services
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" className="hover:text-blue-400">
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/pricing" className="hover:text-blue-400">
-                    Pricing
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" className="hover:text-blue-400">
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="mt-6 md:mt-0">
-              <h3 className="text-lg font-semibold mb-2">Follow Us</h3>
-              <div className="flex space-x-4">
-                {/* Add social media icons/links here */}
-              </div>
+      <div className="container mx-auto px-4 py-6 md:px-6 md:py-10">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-8">
+          <div>
+            <h3 className="text-base md:text-lg font-semibold mb-2">
+              Quick Links
+            </h3>
+            <ul className="space-y-1 md:space-y-2">
+              <li>
+                <Link
+                  href="/"
+                  className="text-sm md:text-base hover:text-blue-400"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/services"
+                  className="text-sm md:text-base hover:text-blue-400"
+                >
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-sm md:text-base hover:text-blue-400"
+                >
+                  Blog
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-base md:text-lg font-semibold mb-2">More</h3>
+            <ul className="space-y-1 md:space-y-2">
+              <li>
+                <Link
+                  href="/pricing"
+                  className="text-sm md:text-base hover:text-blue-400"
+                >
+                  Pricing
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-sm md:text-base hover:text-blue-400"
+                >
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="col-span-2 md:col-span-1">
+            <h3 className="text-base md:text-lg font-semibold mb-2">
+              Follow Us
+            </h3>
+            <div className="flex space-x-4">
+              {/* Add social media icons/links here */}
+              <a href="#" className="text-sm md:text-base hover:text-blue-400">
+                Facebook
+              </a>
+              <a href="#" className="text-sm md:text-base hover:text-blue-400">
+                Twitter
+              </a>
+              <a href="#" className="text-sm md:text-base hover:text-blue-400">
+                LinkedIn
+              </a>
             </div>
           </div>
         </div>
