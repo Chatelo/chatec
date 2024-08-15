@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install -g pnpm && pnpm install
 
 # Bundle app source
-COPY . /app
+COPY ./app /app
 # Build the Next.js application
 RUN pnpm run build
 
