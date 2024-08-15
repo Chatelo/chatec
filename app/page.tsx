@@ -29,7 +29,7 @@ export default function Home() {
           user engagement as well personal blogs.
         </p>
         <Link
-          href="/contact"
+          href="/services"
           className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300 animate-fade-in-delay-2"
         >
           Get Started
