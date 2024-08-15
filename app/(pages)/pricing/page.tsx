@@ -2,12 +2,12 @@ export default function Pricing() {
   const plans = [
     {
       name: "Basic",
-      price: "$999",
-      features: ["5 pages", "Basic SEO", "1 month support"],
+      price: "Kshs. 25,000",
+      features: [" Upto 5 pages", "Basic SEO", "1 month support"],
     },
     {
       name: "Pro",
-      price: "$1,999",
+      price: "Kshs. 40,000",
       features: [
         "10 pages",
         "Advanced SEO",
