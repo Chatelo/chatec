@@ -1,1 +1,1 @@
-Web and mobile development & design Coimpany
+Web and mobile development & design Company
