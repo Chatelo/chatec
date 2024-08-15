@@ -1,22 +1,26 @@
-# Use an official Node.js runtime as a parent image
-FROM node:alpine
+# Use an official Node.js runtime as the base image
+FROM node:20-alpine
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json (or pnpm-lock.yaml) to the working directory
-COPY package*.json ./
+# Install pnpm
+RUN npm install -g pnpm
+
+# Copy package.json and pnpm-lock.yaml (if available)
+COPY package.json pnpm-lock.yaml* ./
 
 # Install dependencies
-RUN npm install -g pnpm && pnpm install
+RUN pnpm install --frozen-lockfile
 
-# Bundle app source
-COPY ./app /app
-# Build the Next.js application
-RUN pnpm run build
+# Copy the rest of the application code
+COPY . .
 
-# Expose port 3000 for the application
+# Build the Next.js app
+RUN pnpm build
+
+# Expose the port the app runs on
 EXPOSE 3000
 
-# Define the command to run the application
-CMD ["pnpm", "run", "start"]
+# Start the application
+CMD ["pnpm", "start"]
