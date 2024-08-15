@@ -26,7 +26,7 @@ export default function Home() {
         </h1>
         <p className="text-xl mb-12 animate-fade-in-delay">
           We create cutting-edge applications that drive business growth and
-          user engagement.
+          user engagement as well personal blogs.
         </p>
         <Link
           href="/contact"
