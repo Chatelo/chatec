@@ -1,14 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
+    console.log("Toggling menu. Current state:", isMenuOpen);
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const MenuLink = ({
+    href,
+    children,
+  }: {
+    href: string;
+    children: ReactNode;
+  }) => (
+    <Link
+      href={href}
+      className="block py-2 hover:text-blue-500"
+      onClick={closeMenu}
+    >
+      {children}
+    </Link>
+  );
 
   return (
     <header
@@ -42,7 +63,7 @@ export default function Header() {
             </Link>
           </div>
           <button
-            className="md:hidden"
+            className="md:hidden p-2"
             onClick={toggleMenu}
             aria-expanded={isMenuOpen}
             aria-label="Toggle menu"
@@ -60,25 +81,19 @@ export default function Header() {
             </svg>
           </button>
         </div>
-        {isMenuOpen && (
-          <div className="md:hidden mt-4">
-            <Link href="/" className="block py-2 hover:text-blue-500">
-              Home
-            </Link>
-            <Link href="/services" className="block py-2 hover:text-blue-500">
-              Services
-            </Link>
-            <Link href="/blog" className="block py-2 hover:text-blue-500">
-              Blog
-            </Link>
-            <Link href="/pricing" className="block py-2 hover:text-blue-500">
-              Pricing
-            </Link>
-            <Link href="/contact" className="block py-2 hover:text-blue-500">
-              Contact
-            </Link>
-          </div>
-        )}
+        <div
+          className={`md:hidden mt-4 bg-white w-full absolute left-0 transition-all duration-300 ease-in-out ${
+            isMenuOpen
+              ? "max-h-screen opacity-100"
+              : "max-h-0 opacity-0 overflow-hidden"
+          }`}
+        >
+          <MenuLink href="/">Home</MenuLink>
+          <MenuLink href="/services">Services</MenuLink>
+          <MenuLink href="/blog">Blog</MenuLink>
+          <MenuLink href="/pricing">Pricing</MenuLink>
+          <MenuLink href="/contact">Contact</MenuLink>
+        </div>
       </nav>
     </header>
   );
