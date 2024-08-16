@@ -1,8 +1,28 @@
 import Link from "next/link";
 
 import StructuredData from "./components/StructuredData";
+import AnimatedServiceCard from "./components/AnimatedServiceCard";
 
 export default function Home() {
+  const services = [
+    {
+      title: "Web Development",
+      description: "Custom web applications tailored to your needs.",
+    },
+    {
+      title: "Mobile App Development",
+      description: "Native and cross-platform mobile apps for iOS and Android.",
+    },
+    {
+      title: "UI/UX Design",
+      description: "User-centric designs that enhance user experience.",
+    },
+    {
+      title: "Cloud Solutions",
+      description:
+        "Scalable and secure cloud infrastructure for your applications.",
+    },
+  ];
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -21,7 +41,7 @@ export default function Home() {
       <StructuredData data={structuredData} />
 
       <div className="container mx-auto px-6 py-16">
-        <h1 className="text-4xl md:text-6xl font-bold mb-8 animate-fade-in">
+        <h1 className="text-4xl md:text-6xl font-bold mb-8 animate-fade-in pt-12">
           Building the Future of Web and Mobile
         </h1>
         <p className="text-xl mb-12 animate-fade-in-delay">
@@ -34,6 +54,18 @@ export default function Home() {
         >
           Get Started
         </Link>
+        <div className="pt-36">
+          <h2 className="text-4xl font-bold mb-12">Services we offer</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {services.map((service, index) => (
+              <AnimatedServiceCard
+                key={index}
+                title={service.title}
+                description={service.description}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </>
   );
