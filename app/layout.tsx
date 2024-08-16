@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import WhatsAppFloat from "./components/WhatsAppFloat";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -29,6 +30,7 @@ export default async function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
+          <WhatsAppFloat />
         </ThemeProvider>
       </body>
     </html>
