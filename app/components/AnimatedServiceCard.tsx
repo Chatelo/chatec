@@ -16,7 +16,7 @@ export default function AnimatedServiceCard({
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-white p-6 rounded-lg shadow-md"
+      className="bg-skin-fill text-skin-base p-6 rounded-lg shadow-md"
     >
       <h2 className="text-2xl font-semibold mb-4">{title}</h2>
       <p>{description}</p>

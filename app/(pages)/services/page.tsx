@@ -22,7 +22,7 @@ export default function Services() {
   ];
 
   return (
-    <div className="container mx-auto px-6 py-16">
+    <div className="container text-skin-base bg-skin-fill mx-auto px-6 py-16">
       <h1 className="text-4xl font-bold mb-12">Our Services</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {services.map((service, index) => (

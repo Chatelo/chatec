@@ -34,7 +34,7 @@ export default function Pricing() {
         {plans.map((plan, index) => (
           <div
             key={index}
-            className="bg-white p-6 rounded-lg shadow-md text-center"
+            className="bg-skin-fill text-skin-base p-6 rounded-lg shadow-md text-center"
           >
             <h2 className="text-2xl font-semibold mb-4">{plan.name}</h2>
             <p className="text-3xl font-bold mb-6">{plan.price}</p>

@@ -9,6 +9,16 @@ const config: Config = {
   darkMode: "class",
   theme: {
     extend: {
+      textColor: {
+        skin: {
+          base: "rgb(var(--foreground))",
+        },
+      },
+      backgroundColor: {
+        skin: {
+          fill: "rgb(var(--background))",
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -18,4 +28,5 @@ const config: Config = {
   },
   plugins: [],
 };
+
 export default config;
