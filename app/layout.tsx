@@ -13,7 +13,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: "Chatec Inc. - Modern Web and Mobile Applications",
+  title: "Chatec Technologies - Modern Web and Mobile Applications",
   description:
     "We build cutting-edge web and mobile applications for businesses and personal.",
 };
@@ -24,9 +24,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ThemeProvider attribute="class">
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} dark:bg-gray-900 dark:text-white`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
           <main>{children}</main>
           <Footer />
