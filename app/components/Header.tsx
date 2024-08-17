@@ -25,7 +25,7 @@ export default function Header() {
   }) => (
     <Link
       href={href}
-      className="block py-2 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
+      className="block py-2 px-4 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
       onClick={closeMenu}
     >
       {children}
@@ -106,7 +106,7 @@ export default function Header() {
           </div>
         </div>
         <div
-          className={`md:hidden mt-4 bg-white dark:bg-gray-800 absolute right-0 top-full w-48 transition-all duration-300 ease-in-out ${
+          className={`md:hidden mt-4 bg-white dark:bg-gray-800 absolute right-6 top-full w-48 shadow-lg rounded-lg transition-all duration-300 ease-in-out ${
             isMenuOpen
               ? "opacity-100 translate-y-0"
               : "opacity-0 -translate-y-2 pointer-events-none"
