@@ -13,9 +13,13 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: "Chatec Technologies - Modern Web and Mobile Applications",
+  title: {
+    template: "%s | Chatec Technologies",
+    default: "Chatec Technologies",
+  },
   description:
     "We build cutting-edge web and mobile applications for businesses and personal.",
+  metadataBase: new URL("https://chatec.tech/"),
 };
 
 export default async function RootLayout({
