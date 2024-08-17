@@ -1,3 +1,9 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pricing",
+  metadataBase: new URL("https://chatec.tech/pricing"),
+};
 export default function Pricing() {
   const plans = [
     {
@@ -28,7 +34,7 @@ export default function Pricing() {
   ];
 
   return (
-    <div className="container mx-auto px-6 py-16">
+    <div className="container mx-auto px-6 py-32">
       <h1 className="text-4xl font-bold mb-12">Pricing Plans</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {plans.map((plan, index) => (

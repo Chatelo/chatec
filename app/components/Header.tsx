@@ -37,7 +37,10 @@ export default function Header() {
       className="bg-white dark:bg-gray-800 shadow-md fixed top-0 left-0 right-0 z-10 transition-colors duration-200"
       role="banner"
     >
-      <nav className="container mx-auto px-6 py-3" aria-label="Main Navigation">
+      <nav
+        className="container mx-auto px-6 py-3 relative"
+        aria-label="Main Navigation"
+      >
         <div className="flex justify-between items-center">
           <Link
             href="/"
@@ -103,10 +106,10 @@ export default function Header() {
           </div>
         </div>
         <div
-          className={`md:hidden mt-4 bg-white dark:bg-gray-800 w-full absolute left-0 transition-all duration-300 ease-in-out ${
+          className={`md:hidden mt-4 bg-white dark:bg-gray-800 absolute right-0 top-full w-48 transition-all duration-300 ease-in-out ${
             isMenuOpen
-              ? "max-h-screen opacity-100"
-              : "max-h-0 opacity-0 overflow-hidden"
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 -translate-y-2 pointer-events-none"
           }`}
         >
           <MenuLink href="/">Home</MenuLink>
