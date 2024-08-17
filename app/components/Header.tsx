@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useState, ReactNode } from "react";
+import { useState, ReactNode, useEffect, useRef } from "react";
 import DarkModeToggle from "./DarkModeToggle";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const toggleMenu = () => {
     console.log("Toggling menu. Current state:", isMenuOpen);
@@ -15,6 +17,23 @@ export default function Header() {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isMenuOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        closeMenu();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   const MenuLink = ({
     href,
@@ -86,6 +105,7 @@ export default function Header() {
           <div className="md:hidden flex items-center">
             <DarkModeToggle />
             <button
+              ref={buttonRef}
               className="ml-4 p-2 text-gray-800 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
               onClick={toggleMenu}
               aria-expanded={isMenuOpen}
@@ -106,6 +126,7 @@ export default function Header() {
           </div>
         </div>
         <div
+          ref={menuRef}
           className={`md:hidden mt-4 bg-white dark:bg-gray-800 absolute right-6 top-full w-48 shadow-lg rounded-lg transition-all duration-300 ease-in-out ${
             isMenuOpen
               ? "opacity-100 translate-y-0"
