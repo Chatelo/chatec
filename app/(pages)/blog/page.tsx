@@ -34,9 +34,15 @@ export default function Blog() {
     fetchPosts();
   }, [fetchPosts]);
 
-  const handleSearch = (query: string) => {
-    // Implement search functionality
-  };
+  const handleSearch = useCallback(
+    async (query: string) => {
+      const searchedPosts = await getPosts(1, POSTS_PER_PAGE, query);
+      setPosts(searchedPosts);
+      setHasMore(searchedPosts.length === POSTS_PER_PAGE);
+      setPage(1);
+    },
+    [getPosts]
+  );
 
   return (
     <div className="container mx-auto px-6 py-16">
