@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { getPost, updatePost } from "@/lib/actions";
+import { getPost, updatePost } from "@/app/lib/actions";
 
 export default async function EditPost({ params }: { params: { id: string } }) {
   const post = await getPost(parseInt(params.id));
