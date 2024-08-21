@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Pricing",
-  metadataBase: new URL("https://chatec.tech/pricing"),
+  metadataBase: new URL("https://sigira.com/pricing"),
 };
 export default function Pricing() {
   const plans = [

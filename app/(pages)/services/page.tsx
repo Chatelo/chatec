@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Services",
-  metadataBase: new URL("https://chatec.tech/services"),
+  metadataBase: new URL("https://sigira.com/services"),
 };
 
 export default function Services() {

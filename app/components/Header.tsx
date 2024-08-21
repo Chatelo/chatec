@@ -66,7 +66,7 @@ export default function Header() {
             className="text-xl font-bold text-gray-800 dark:text-white transition-colors duration-200"
             aria-label="DevCompany Home"
           >
-            Chatec Technologies
+            Sigira Technologies
           </Link>
           <div className="hidden md:flex items-center space-x-6">
             <Link

@@ -26,9 +26,9 @@ export default function Home() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Chatec Technologies",
-    url: "https://www.chatec.tech",
-    logo: "https://www.chatec.tech/logo.png",
+    name: "Sigira Technologies",
+    url: "https://www.sigira.com",
+    logo: "https://www.sigira.com/logo.png",
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+254729057932",
