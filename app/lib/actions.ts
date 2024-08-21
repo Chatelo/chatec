@@ -4,9 +4,13 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/(pages)/api/auth/[...nextauth]";
 import prisma from "./prisma";
 
-export async function getPosts(page = 1, limit = 10) {
+export async function getPosts(
+  page: number = 1,
+  limit: number = 10,
+  query?: string
+): Promise<Post[]> {
   const skip = (page - 1) * limit;
-  const posts = await prisma.post.findMany({
+  let posts = await prisma.post.findMany({
     skip,
     take: limit,
     orderBy: {
@@ -16,7 +20,22 @@ export async function getPosts(page = 1, limit = 10) {
       author: true,
     },
   });
-  return posts;
+
+  if (query) {
+    posts = posts.filter((post) =>
+      post.title.toLowerCase().includes(query.toLowerCase())
+    );
+  }
+
+  return posts.map((post) => ({
+    id: post.id,
+    title: post.title,
+    slug: post.slug,
+    createdAt: post.createdAt.toISOString(),
+    author: {
+      name: post.author.name ?? "",
+    },
+  }));
 }
 
 export async function getPost(id: number) {
