@@ -25,7 +25,21 @@ export default function Blog() {
 
   const fetchPosts = useCallback(async () => {
     const newPosts = await getPosts(page, POSTS_PER_PAGE);
-    setPosts((prevPosts) => [...prevPosts, ...newPosts]);
+    setPosts((prevPosts) => {
+      const updatedPosts: Post[] = [];
+      for (const post of [...prevPosts, ...newPosts]) {
+        updatedPosts.push({
+          id: post.id,
+          title: post.title,
+          slug: post.slug,
+          createdAt: new Date(post.createdAt).toISOString(),
+          author: {
+            name: post.author.name,
+          },
+        });
+      }
+      return updatedPosts;
+    });
     setHasMore(newPosts.length === POSTS_PER_PAGE);
     setPage((prevPage) => prevPage + 1);
   }, [page]);
@@ -34,15 +48,22 @@ export default function Blog() {
     fetchPosts();
   }, [fetchPosts]);
 
-  const handleSearch = useCallback(
-    async (query: string) => {
-      const searchedPosts = await getPosts(1, POSTS_PER_PAGE, query);
-      setPosts(searchedPosts);
-      setHasMore(searchedPosts.length === POSTS_PER_PAGE);
-      setPage(1);
-    },
-    [getPosts]
-  );
+  const handleSearch = useCallback(async (query: string) => {
+    const searchedPosts = await getPosts(1, POSTS_PER_PAGE, query);
+    setPosts(
+      searchedPosts.map((post) => ({
+        id: post.id,
+        title: post.title,
+        slug: post.slug,
+        createdAt: new Date(post.createdAt).toISOString(),
+        author: {
+          name: post.author.name || "",
+        },
+      }))
+    );
+    setHasMore(searchedPosts.length === POSTS_PER_PAGE);
+    setPage(1);
+  }, []);
 
   return (
     <div className="container mx-auto px-6 py-16">
