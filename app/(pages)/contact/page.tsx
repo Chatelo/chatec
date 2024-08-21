@@ -1,12 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Contact",
-  metadataBase: new URL("https://chatec.tech/contact"),
-};
 
 export default function Contact() {
   const [formData, setFormData] = useState({
