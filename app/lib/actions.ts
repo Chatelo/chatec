@@ -4,6 +4,16 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/(pages)/api/auth/[...nextauth]";
 import prisma from "./prisma";
 
+type Post = {
+  id: number;
+  title: string;
+  slug: string;
+  createdAt: string;
+  author: {
+    name: string;
+  };
+};
+
 export async function getPosts(
   page: number = 1,
   limit: number = 10,
