@@ -14,6 +14,14 @@ type Post = {
   };
 };
 
+// Update the session user type to include id
+type SessionUser = {
+  id: string;
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+};
+
 export async function getPosts(
   page: number = 1,
   limit: number = 10,
@@ -64,7 +72,8 @@ export async function createPost(data: {
   slug: string;
 }) {
   const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
+  const user = session?.user as SessionUser;
+  if (!user?.id) {
     throw new Error("Unauthorized");
   }
 
@@ -73,7 +82,7 @@ export async function createPost(data: {
       title: data.title,
       content: data.content,
       slug: data.slug,
-      authorId: session.user.id,
+      authorId: parseInt(user.id),
     },
   });
   return post;
@@ -88,7 +97,8 @@ export async function updatePost(
   }
 ) {
   const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
+  const user = session?.user as SessionUser;
+  if (!user?.id) {
     throw new Error("Unauthorized");
   }
 
@@ -99,7 +109,7 @@ export async function updatePost(
     },
   });
 
-  if (post?.authorId !== session.user.id) {
+  if (post?.authorId !== undefined && post.authorId !== parseInt(user.id)) {
     throw new Error("Unauthorized");
   }
 
@@ -116,7 +126,8 @@ export async function updatePost(
 
 export async function deletePost(id: number) {
   const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
+  const user = session?.user as SessionUser;
+  if (!user?.id) {
     throw new Error("Unauthorized");
   }
 
@@ -127,7 +138,7 @@ export async function deletePost(id: number) {
     },
   });
 
-  if (post?.authorId !== session.user.id) {
+  if (post?.authorId !== parseInt(user.id)) {
     throw new Error("Unauthorized");
   }
 
