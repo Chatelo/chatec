@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       content,
       slug,
       author: {
-        id: authorId,
+        connect: authorId,
       },
     },
   });
