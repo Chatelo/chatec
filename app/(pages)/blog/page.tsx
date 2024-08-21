@@ -34,7 +34,7 @@ export default function Blog() {
           slug: post.slug,
           createdAt: new Date(post.createdAt).toISOString(),
           author: {
-            name: post.author.name,
+            name: post.author.name ?? "",
           },
         });
       }
