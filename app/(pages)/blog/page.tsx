@@ -4,13 +4,18 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "@/app/components/SearchBar";
+import { getPosts } from "@/app/lib/actions";
 
 interface Post {
   id: number;
   title: string;
   slug: string;
   createdAt: string;
+  author: {
+    name: string;
+  };
 }
+
 const POSTS_PER_PAGE = 10;
 
 export default function Blog() {
@@ -19,8 +24,7 @@ export default function Blog() {
   const [page, setPage] = useState(1);
 
   const fetchPosts = useCallback(async () => {
-    const res = await fetch(`/api/posts?page=${page}&limit=${POSTS_PER_PAGE}`);
-    const newPosts = await res.json();
+    const newPosts = await getPosts(page, POSTS_PER_PAGE);
     setPosts((prevPosts) => [...prevPosts, ...newPosts]);
     setHasMore(newPosts.length === POSTS_PER_PAGE);
     setPage((prevPage) => prevPage + 1);
@@ -30,7 +34,9 @@ export default function Blog() {
     fetchPosts();
   }, [fetchPosts]);
 
-  const handleSearch = (query: string) => {};
+  const handleSearch = (query: string) => {
+    // Implement search functionality
+  };
 
   return (
     <div className="container mx-auto px-6 py-16">
@@ -50,6 +56,7 @@ export default function Blog() {
               className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
             >
               <h2 className="text-2xl font-semibold mb-4">{post.title}</h2>
+              <p className="text-gray-500">By {post.author.name}</p>
               <p className="text-gray-500">
                 {new Date(post.createdAt).toLocaleDateString()}
               </p>
