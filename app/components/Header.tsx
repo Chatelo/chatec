@@ -12,13 +12,13 @@ export default function Header() {
   const { data: session } = useSession();
 
   const toggleMenu = () => {
-    console.log("Toggling menu. Current state:", isMenuOpen);
     setIsMenuOpen(!isMenuOpen);
   };
 
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -122,10 +122,10 @@ export default function Header() {
                 </Link>
 
                 <span className="text-gray-800 dark:text-gray-200">
-                  Hi, {session.user.name || session.user.email}
+                  Hi, {session.user?.name || session.user?.email || "User"}
                 </span>
                 <button
-                  onClick={() => signOut()}
+                  onClick={handleSignOut}
                   className="text-red-400 hover:text-blue-500 dark:text-red-400 dark:hover:text-blue-400 transition-colors duration-200"
                 >
                   Sign Out
@@ -192,7 +192,7 @@ export default function Header() {
                 Sign Out
               </MenuLink>
               <div className="py-2 px-4 text-gray-800 dark:text-gray-200">
-                Welcome, {session.user.name || session.user.email}
+                Welcome, {session.user?.name || session.user?.email || "User"}
               </div>
             </>
           ) : (
