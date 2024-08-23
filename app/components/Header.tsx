@@ -120,15 +120,16 @@ export default function Header() {
                 >
                   Manage Posts
                 </Link>
+
+                <span className="text-gray-800 dark:text-gray-200">
+                  Hi, {session.user.name || session.user.email}
+                </span>
                 <button
                   onClick={() => signOut()}
-                  className="text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
+                  className="text-red-400 hover:text-blue-500 dark:text-red-400 dark:hover:text-blue-400 transition-colors duration-200"
                 >
                   Sign Out
                 </button>
-                <span className="text-gray-800 dark:text-gray-200">
-                  Welcome, {session.user.name || session.user.email}
-                </span>
               </>
             ) : (
               <>
