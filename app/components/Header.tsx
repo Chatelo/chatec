@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { useState, ReactNode, useEffect, useRef } from "react";
+import { useSession, signOut } from "next-auth/react";
 import DarkModeToggle from "./DarkModeToggle";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const { data: session } = useSession();
 
   const toggleMenu = () => {
     console.log("Toggling menu. Current state:", isMenuOpen);
@@ -38,18 +40,28 @@ export default function Header() {
   const MenuLink = ({
     href,
     children,
+    onClick,
   }: {
     href: string;
     children: ReactNode;
+    onClick?: () => void;
   }) => (
     <Link
       href={href}
       className="block py-2 px-4 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
-      onClick={closeMenu}
+      onClick={() => {
+        closeMenu();
+        if (onClick) onClick();
+      }}
     >
       {children}
     </Link>
   );
+
+  const handleSignOut = () => {
+    signOut();
+    closeMenu();
+  };
 
   return (
     <header
@@ -100,6 +112,40 @@ export default function Header() {
             >
               Contact
             </Link>
+            {session ? (
+              <>
+                <Link
+                  href="/admin/blog"
+                  className="text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
+                >
+                  Manage Posts
+                </Link>
+                <button
+                  onClick={() => signOut()}
+                  className="text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
+                >
+                  Sign Out
+                </button>
+                <span className="text-gray-800 dark:text-gray-200">
+                  Welcome, {session.user.name || session.user.email}
+                </span>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/auth/signin"
+                  className="text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/auth/register"
+                  className="text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
+                >
+                  Register
+                </Link>
+              </>
+            )}
             <DarkModeToggle />
           </div>
           <div className="md:hidden flex items-center">
@@ -138,6 +184,22 @@ export default function Header() {
           <MenuLink href="/blog">Blog</MenuLink>
           <MenuLink href="/pricing">Pricing</MenuLink>
           <MenuLink href="/contact">Contact</MenuLink>
+          {session ? (
+            <>
+              <MenuLink href="/admin/blog">Manage Posts</MenuLink>
+              <MenuLink href="#" onClick={handleSignOut}>
+                Sign Out
+              </MenuLink>
+              <div className="py-2 px-4 text-gray-800 dark:text-gray-200">
+                Welcome, {session.user.name || session.user.email}
+              </div>
+            </>
+          ) : (
+            <>
+              <MenuLink href="/auth/signin">Sign In</MenuLink>
+              <MenuLink href="/auth/register">Register</MenuLink>
+            </>
+          )}
         </div>
       </nav>
     </header>

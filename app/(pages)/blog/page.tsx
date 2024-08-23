@@ -5,6 +5,7 @@ import Link from "next/link";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "@/app/components/SearchBar";
 import { getPosts } from "@/app/lib/actions";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 interface Post {
   id: number;
@@ -73,7 +74,11 @@ export default function Blog() {
         dataLength={posts.length}
         next={fetchPosts}
         hasMore={hasMore}
-        loader={<h4>Loading...</h4>}
+        loader={
+          <h4>
+            <LoadingSpinner />
+          </h4>
+        }
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {posts.map((post) => (

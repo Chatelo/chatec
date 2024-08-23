@@ -1,8 +1,13 @@
 import Link from "next/link";
-import { getPosts, deletePost } from "@/app/lib/actions";
+import { getPosts, deletePost, getCurrentUser } from "@/app/lib/actions";
+import { redirect } from "next/navigation";
 
 export default async function AdminBlog() {
-  const posts = await getPosts();
+  const user = await getCurrentUser();
+  if (!user) {
+    redirect("/auth/signin");
+  }
+  const posts = await getPosts(1, 100, user.id);
 
   return (
     <div className="container mx-auto px-6 py-16">
