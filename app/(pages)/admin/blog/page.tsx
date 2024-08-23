@@ -7,7 +7,7 @@ export default async function AdminBlog() {
   if (!user) {
     redirect("/auth/signin");
   }
-  const posts = await getPosts(1, 100, user.id);
+  const posts = await getPosts(1, 100, user.id.toString());
 
   return (
     <div className="container mx-auto px-6 py-16">
@@ -28,7 +28,7 @@ export default async function AdminBlog() {
           </tr>
         </thead>
         <tbody>
-          {posts.map((post) => (
+          {posts.posts.map((post) => (
             <tr key={post.id}>
               <td>{post.title}</td>
               <td>{post.author.name}</td>
