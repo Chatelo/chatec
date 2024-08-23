@@ -1,7 +1,7 @@
 "use server";
 
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/(pages)/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/lib/auth";
 import prisma from "./prisma";
 import bcrypt from "bcrypt";
 
