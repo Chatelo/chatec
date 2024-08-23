@@ -1,20 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getPost, updatePost } from "@/app/lib/actions";
 
-export default async function EditPost({ params }: { params: { id: string } }) {
-  const post = await getPost(parseInt(params.id));
-  const [title, setTitle] = useState(post?.title || "");
-  const [content, setContent] = useState(post?.content || "");
-  const [slug, setSlug] = useState(post?.slug || "");
+export default function EditPost({ params }: { params: { id: string } }) {
+  const [post, setPost] = useState<{
+    id: number;
+    title: string;
+    content: string;
+    slug: string;
+  } | null>(null);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [slug, setSlug] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const post = await getPost(parseInt(params.id));
+      if (post) {
+        setPost(post);
+        setTitle(post.title);
+        setContent(post.content);
+        setSlug(post.slug);
+      }
+    };
+
+    fetchData();
+  }, [params.id]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await updatePost(post?.id!, { title, content, slug });
-    router.push("/admin/blog");
+    if (post) {
+      await updatePost(post.id, { title, content, slug });
+      router.push("/admin/blog");
+    }
   };
 
   if (!post) {

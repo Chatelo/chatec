@@ -26,22 +26,19 @@ export default function Blog() {
 
   const fetchPosts = useCallback(async () => {
     const newPosts = await getPosts(page, POSTS_PER_PAGE);
-    setPosts((prevPosts) => {
-      const updatedPosts: Post[] = [];
-      for (const post of [...prevPosts, ...newPosts]) {
-        updatedPosts.push({
-          id: post.id,
-          title: post.title,
-          slug: post.slug,
-          createdAt: new Date(post.createdAt).toISOString(),
-          author: {
-            name: post.author.name ?? "",
-          },
-        });
-      }
-      return updatedPosts;
-    });
-    setHasMore(newPosts.length === POSTS_PER_PAGE);
+    setPosts((prevPosts) => [
+      ...prevPosts,
+      ...newPosts.posts.map((post: Post) => ({
+        id: post.id,
+        title: post.title,
+        slug: post.slug,
+        createdAt: new Date(post.createdAt).toISOString(),
+        author: {
+          name: post.author.name ?? "",
+        },
+      })),
+    ]);
+    setHasMore(newPosts.posts.length === POSTS_PER_PAGE);
     setPage((prevPage) => prevPage + 1);
   }, [page]);
 
@@ -52,7 +49,7 @@ export default function Blog() {
   const handleSearch = useCallback(async (query: string) => {
     const searchedPosts = await getPosts(1, POSTS_PER_PAGE, query);
     setPosts(
-      searchedPosts.map((post) => ({
+      searchedPosts.posts.map((post) => ({
         id: post.id,
         title: post.title,
         slug: post.slug,
@@ -62,7 +59,7 @@ export default function Blog() {
         },
       }))
     );
-    setHasMore(searchedPosts.length === POSTS_PER_PAGE);
+    setHasMore(searchedPosts.posts.length === POSTS_PER_PAGE);
     setPage(1);
   }, []);
 
