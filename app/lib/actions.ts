@@ -2,8 +2,11 @@
 
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/lib/auth";
+import { Prisma } from "@prisma/client";
 import prisma from "./prisma";
 import bcrypt from "bcrypt";
+
+const { QueryMode } = Prisma;
 
 type Post = {
   id: number;
@@ -46,8 +49,8 @@ export async function getPosts(
   const where = query
     ? {
         OR: [
-          { title: { contains: query, mode: "insensitive" } },
-          { content: { contains: query, mode: "insensitive" } },
+          { title: { contains: query, mode: QueryMode.insensitive } },
+          { content: { contains: query, mode: QueryMode.insensitive } },
         ],
       }
     : {};
