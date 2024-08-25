@@ -37,7 +37,10 @@ export default function NewPost() {
       router.push("/admin/blog");
     } catch (error) {
       console.error("Failed to create post:", error);
-      //TODO   show an error message to the user
+      // Display the error message to the user
+      alert(
+        error instanceof Error ? error.message : "An unknown error occurred"
+      );
     }
   };
 
