@@ -44,9 +44,16 @@ export default function Blog() {
         id: post.id,
         title: post.title,
         slug: post.slug,
+        content: post.content,
+        authorId: post.authorId,
         createdAt: new Date(post.createdAt).toISOString(),
+        updatedAt: new Date().toISOString(),
         author: {
+          id: post.author.id,
           name: post.author.name || "",
+          email: post.author.email,
+          isAdmin: post.author.isAdmin,
+          password: post.author.password,
         },
       }))
     );
