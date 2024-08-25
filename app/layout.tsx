@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import WhatsAppFloat from "./components/WhatsAppFloat";
 import "./globals.css";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -63,6 +64,20 @@ export const metadata: Metadata = {
     shortcut: "/public/favicon-16x16.png",
     apple: "/public/apple-touch-icon.png",
   },
+  // languages
+  alternates: {
+    canonical: "https://sigira.com",
+    languages: {
+      "en-US": "https://sigira.com/en",
+      "es-ES": "https://sigira.com/es",
+    },
+  },
+  // Viewport
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
 };
 
 export default async function RootLayout({
@@ -73,6 +88,26 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script
+          id="schema-org"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Sigira Technologies",
+              url: "https://sigira.com",
+              logo: `https://sigira.com/${"/public/android-192x192.png"}`,
+              sameAs: [
+                "https://twitter.com/sigiratech",
+                "https://www.linkedin.com/company/sigiratech",
+                "https://www.facebook.com/sigiratech",
+              ],
+            }),
+          }}
+        />
+      </head>
       <body className={`${inter.className} dark:bg-gray-900 dark:text-white`}>
         <SessionProvider session={session}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
