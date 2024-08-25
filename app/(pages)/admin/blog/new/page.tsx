@@ -1,17 +1,27 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { createPost } from "@/app/lib/actions";
 import { SessionUser } from "@/app/types";
 
+// Function to generate slug from title
+const generateSlug = (title: string) => {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+};
+
 export default function NewPost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [slug, setSlug] = useState("");
   const router = useRouter();
   const { data: session, status } = useSession();
+
+  // Generate slug from title using useMemo
+  const slug = useMemo(() => generateSlug(title), [title]);
 
   useEffect(() => {
     if (status === "loading") return;
@@ -70,17 +80,8 @@ export default function NewPost() {
           ></textarea>
         </div>
         <div className="mb-4">
-          <label htmlFor="slug" className="block mb-2">
-            Slug
-          </label>
-          <input
-            type="text"
-            id="slug"
-            value={slug}
-            onChange={(e) => setSlug(e.target.value)}
-            className="w-full p-2 border rounded"
-            required
-          />
+          <label className="block mb-2">Generated Slug</label>
+          <p className="p-2 bg-gray-100 rounded">{slug}</p>
         </div>
         <button
           type="submit"
