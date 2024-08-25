@@ -6,16 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import SearchBar from "@/app/components/SearchBar";
 import { getPosts } from "@/app/lib/actions";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
-
-interface Post {
-  id: number;
-  title: string;
-  slug: string;
-  createdAt: string;
-  author: {
-    name: string;
-  };
-}
+import { Post } from "@/app/types";
 
 const POSTS_PER_PAGE = 10;
 
@@ -28,7 +19,7 @@ export default function Blog() {
     const newPosts = await getPosts(page, POSTS_PER_PAGE);
     setPosts((prevPosts) => [
       ...prevPosts,
-      ...newPosts.posts.map((post: Post) => ({
+      ...(newPosts.posts.map((post: Post) => ({
         id: post.id,
         title: post.title,
         slug: post.slug,
@@ -36,7 +27,7 @@ export default function Blog() {
         author: {
           name: post.author.name ?? "",
         },
-      })),
+      })) as Post[]),
     ]);
     setHasMore(newPosts.posts.length === POSTS_PER_PAGE);
     setPage((prevPage) => prevPage + 1);
