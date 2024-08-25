@@ -3,7 +3,30 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Services",
-  metadataBase: new URL("https://sigira.com/services"),
+  description:
+    "Explore our range of services including web development, mobile app development, UI/UX design, and cloud solutions.",
+  openGraph: {
+    title: "Services",
+    description:
+      "Explore our range of services including web development, mobile app development, UI/UX design, and cloud solutions.",
+    url: "https://sigira.com/services",
+    type: "website",
+    images: [
+      {
+        url: "https://sigira.com/android-192x192.png",
+        width: 1200,
+        height: 630,
+        alt: "Sigira Technologies Services",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services",
+    description:
+      "Explore our range of services including web development, mobile app development, UI/UX design, and cloud solutions.",
+    images: ["https://sigira.com/sigira-og.png"],
+  },
 };
 
 export default function Services() {

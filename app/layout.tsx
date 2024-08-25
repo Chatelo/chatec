@@ -26,14 +26,14 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://sigira.com/"),
 
   openGraph: {
-    title: "Sigira Technologies",
+    title: "%s | Sigira Technologies",
     description:
       "We build cutting-edge web and mobile applications for businesses and personal.",
     url: "https://sigira.com/",
     siteName: "Sigira Technologies",
     images: [
       {
-        url: `https://sigira.com/${"/public/sigira-og.png"}`,
+        url: "https://sigira.com/sigira-og.png",
         width: 1200,
         height: 630,
       },
@@ -43,10 +43,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sigira Technologies",
+    title: "%s | Sigira Technologies",
     description:
       "We build cutting-edge web and mobile applications for businesses and personal.",
-    images: [`https://sigira.com/${"/public/sigira-og.png"}`],
+    images: ["https://sigira.com/sigira-og.png"],
   },
   robots: {
     index: true,
@@ -98,7 +98,7 @@ export default async function RootLayout({
               "@type": "Organization",
               name: "Sigira Technologies",
               url: "https://sigira.com",
-              logo: `https://sigira.com/${"/public/android-192x192.png"}`,
+              logo: "https://sigira.com/android-192x192.png",
               sameAs: [
                 "https://twitter.com/sigiratech",
                 "https://www.linkedin.com/company/sigiratech",

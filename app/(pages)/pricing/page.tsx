@@ -2,7 +2,30 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Pricing",
-  metadataBase: new URL("https://sigira.com/pricing"),
+  description:
+    "Transparent and flexible pricing options for our web and mobile development services. Find the perfect plan for your project and budget.",
+  openGraph: {
+    title: "Pricing",
+    description:
+      "Explore our competitive pricing for web development, mobile apps, UI/UX design, and cloud solutions. Get the best value for your investment.",
+    url: "https://sigira.com/pricing",
+    type: "website",
+    images: [
+      {
+        url: "https://sigira.com/android-192x192.png",
+        width: 1200,
+        height: 630,
+        alt: "Sigira Technologies Pricing",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services",
+    description:
+      "Discover our cost-effective pricing plans for top-notch web and mobile solutions. Tailored options to suit businesses of all sizes.",
+    images: ["https://sigira.com/sigira-og.png"],
+  },
 };
 export default function Pricing() {
   const plans = [
