@@ -72,12 +72,6 @@ export const metadata: Metadata = {
       "es-ES": "https://sigira.com/es",
     },
   },
-  // Viewport
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
 };
 
 export default async function RootLayout({
