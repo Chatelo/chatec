@@ -23,6 +23,46 @@ export const metadata: Metadata = {
   description:
     "We build cutting-edge web and mobile applications for businesses and personal.",
   metadataBase: new URL("https://sigira.com/"),
+
+  openGraph: {
+    title: "Sigira Technologies",
+    description:
+      "We build cutting-edge web and mobile applications for businesses and personal.",
+    url: "https://sigira.com/",
+    siteName: "Sigira Technologies",
+    images: [
+      {
+        url: `https://sigira.com/${"/public/sigira-og.png"}`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sigira Technologies",
+    description:
+      "We build cutting-edge web and mobile applications for businesses and personal.",
+    images: [`https://sigira.com/${"/public/sigira-og.png"}`],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/public/favicon-16x16.png",
+    apple: "/public/apple-touch-icon.png",
+  },
 };
 
 export default async function RootLayout({
