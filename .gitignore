@@ -7,6 +7,9 @@ cmdx.txt
 .pnp.js
 .yarn/install-state.gz
 
+# other
+scripts/
+
 # Ensure pnpm-lock.yaml is not ignored for the opurpose of deployment in Railway
 !.pnpm-lock.yaml
 
