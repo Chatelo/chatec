@@ -7,7 +7,9 @@ export type Post = {
   title: string;
   content: string;
   slug: string;
-  createdAt: string;
+  authorId: number;
+  createdAt: string | Date; // Allow both string and Date
+  updatedAt: string | Date; // Allow both string and Date
   author: {
     name: string;
   };
