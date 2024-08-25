@@ -40,7 +40,7 @@ export default function CreateAdmin() {
 
   return (
     <div>
-      <h1>Create Admin User</h1>
+      <h1 className="text-black">Create Admin User</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
