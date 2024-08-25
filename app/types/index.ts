@@ -11,7 +11,11 @@ export type Post = {
   createdAt: string | Date; // Allow both string and Date
   updatedAt: string | Date; // Allow both string and Date
   author: {
-    name: string;
+    id: number;
+    name: string | null; // Updated to allow null
+    email: string;
+    isAdmin: boolean;
+    password: string;
   };
 };
 
