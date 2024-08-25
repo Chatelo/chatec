@@ -8,11 +8,11 @@ export type Post = {
   content: string;
   slug: string;
   authorId: number;
-  createdAt: string | Date; // Allow both string and Date
-  updatedAt: string | Date; // Allow both string and Date
+  createdAt: string | Date;
+  updatedAt: string | Date;
   author: {
     id: number;
-    name: string | null; // Updated to allow null
+    name: string | null;
     email: string;
     isAdmin: boolean;
     password: string;
