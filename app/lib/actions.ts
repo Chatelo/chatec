@@ -157,8 +157,13 @@ export async function createPost(data: {
   slug: string;
 }) {
   const session = await getServerSession(authOptions);
+  console.log("Session in createPost:", JSON.stringify(session, null, 2));
   const user = session?.user as SessionUser;
-  if (!user?.id || !user?.isAdmin) {
+  console.log("User in createPost:", JSON.stringify(user, null, 2));
+
+  if (!user?.isAdmin) {
+    console.log("Unauthorized user attempted to create post");
+    console.log("Is Admin:", user?.isAdmin);
     throw new Error("Unauthorized");
   }
 
@@ -168,7 +173,9 @@ export async function createPost(data: {
         title: data.title,
         content: data.content,
         slug: data.slug,
-        authorId: parseInt(user.id),
+        authorId: user.id
+          ? parseInt(user.id)
+          : (undefined as unknown as number),
       },
     });
     return post;

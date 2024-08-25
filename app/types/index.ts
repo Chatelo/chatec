@@ -20,7 +20,7 @@ export type Post = {
 };
 
 export type SessionUser = {
-  id: string;
+  id?: string | null;
   name?: string | null;
   email?: string | null;
   image?: string | null;

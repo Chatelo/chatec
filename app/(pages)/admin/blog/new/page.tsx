@@ -25,7 +25,9 @@ export default function NewPost() {
 
   useEffect(() => {
     if (status === "loading") return;
+    console.log("Session in NewPost:", session);
     if (!session || !(session.user as SessionUser).isAdmin) {
+      console.log("User is not admin, redirecting");
       router.push("/auth/signin");
     }
   }, [session, status, router]);
@@ -36,11 +38,19 @@ export default function NewPost() {
       await createPost({ title, content, slug });
       router.push("/admin/blog");
     } catch (error) {
+      if (error instanceof Error) {
+        if (error.message === "Unauthorized") {
+          alert(
+            "You are not authorized to create posts. Please log in as an admin."
+          );
+          router.push("/auth/signin");
+        } else {
+          alert("An error occurred while creating the post: " + error.message);
+        }
+      } else {
+        alert("An unknown error occurred");
+      }
       console.error("Failed to create post:", error);
-      // Display the error message to the user
-      alert(
-        error instanceof Error ? error.message : "An unknown error occurred"
-      );
     }
   };
 
