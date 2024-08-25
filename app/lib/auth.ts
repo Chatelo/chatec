@@ -13,7 +13,7 @@ export const authOptions: NextAuthOptions = {
         email: {
           label: "Email",
           type: "email",
-          placeholder: "jdoe@example.com",
+          placeholder: "info@sigira.com",
         },
         password: { label: "Password", type: "password" },
       },
