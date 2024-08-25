@@ -22,9 +22,15 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Invalid credentials");
         }
 
-        const user = await prisma.user.findUnique({
+        const user = (await prisma.user.findUnique({
           where: { email: credentials.email },
-        });
+        })) as {
+          id: number;
+          name: string | null;
+          email: string;
+          password: string;
+          isAdmin: boolean;
+        };
 
         if (!user || !user.password) {
           throw new Error("User not found");
@@ -43,10 +49,25 @@ export const authOptions: NextAuthOptions = {
           id: user.id.toString(),
           name: user.name,
           email: user.email,
+          isAdmin: user.isAdmin,
         };
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.isAdmin = user.isAdmin;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.isAdmin = token.isAdmin as boolean;
+      }
+      return session;
+    },
+  },
   secret: process.env.NEXTAUTH_SECRET,
   session: { strategy: "jwt" },
   pages: {

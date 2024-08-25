@@ -114,13 +114,15 @@ export default function Header() {
             </Link>
             {session ? (
               <>
-                <Link
-                  href="/admin/blog"
-                  className="text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
-                >
-                  Manage Posts
-                </Link>
-
+                {/* TODO : to fix the error before pushing */}
+                {session.user?.isAdmin && (
+                  <Link
+                    href="/admin/blog"
+                    className="text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
+                  >
+                    Manage Posts
+                  </Link>
+                )}
                 <span className="text-gray-800 dark:text-gray-200">
                   Hi, {session.user?.name || session.user?.email || "User"}
                 </span>
@@ -187,7 +189,9 @@ export default function Header() {
           <MenuLink href="/contact">Contact</MenuLink>
           {session ? (
             <>
-              <MenuLink href="/admin/blog">Manage Posts</MenuLink>
+              {session.user?.isAdmin && (
+                <MenuLink href="/admin/blog">Manage Posts</MenuLink>
+              )}
               <MenuLink href="#" onClick={handleSignOut}>
                 Sign Out
               </MenuLink>

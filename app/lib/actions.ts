@@ -2,29 +2,9 @@
 
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/lib/auth";
-import { Prisma } from "@prisma/client";
 import prisma from "./prisma";
 import bcrypt from "bcrypt";
-
-const { QueryMode } = Prisma;
-
-type Post = {
-  id: number;
-  title: string;
-  slug: string;
-  createdAt: string;
-  author: {
-    name: string;
-  };
-};
-
-// Update the session user type to include id
-type SessionUser = {
-  id: string;
-  name?: string | null;
-  email?: string | null;
-  image?: string | null;
-};
+import { Post, SessionUser, QueryMode } from "@/app/types";
 
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions);
@@ -164,7 +144,7 @@ export async function createPost(data: {
 }) {
   const session = await getServerSession(authOptions);
   const user = session?.user as SessionUser;
-  if (!user?.id) {
+  if (!user?.id || !user?.isAdmin) {
     throw new Error("Unauthorized");
   }
 

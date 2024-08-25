@@ -1,45 +1,64 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { getPost, updatePost } from "@/app/lib/actions";
+import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { updatePost, getPost } from "@/app/lib/actions";
+import { Post, SessionUser } from "@/app/types";
 
 export default function EditPost({ params }: { params: { id: string } }) {
-  const [post, setPost] = useState<{
-    id: number;
-    title: string;
-    content: string;
-    slug: string;
-  } | null>(null);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [slug, setSlug] = useState("");
+  const [post, setPost] = useState<Post | null>(null);
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  const fetchPost = useCallback(async () => {
+    try {
+      const fetchedPost = await getPost(parseInt(params.id));
+      if (fetchedPost) {
+        setPost(fetchedPost); // TODO : fix the type of fetchedPost
+      }
+    } catch (error) {
+      console.error("Failed to fetch post:", error);
+      // You might want to show an error message to the user here
+    }
+  }, [params.id]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const post = await getPost(parseInt(params.id));
-      if (post) {
-        setPost(post);
-        setTitle(post.title);
-        setContent(post.content);
-        setSlug(post.slug);
-      }
-    };
-
-    fetchData();
-  }, [params.id]);
+    if (status === "loading") return;
+    if (!session || !(session.user as SessionUser).isAdmin) {
+      router.push("/auth/signin");
+    } else {
+      fetchPost();
+    }
+  }, [session, status, router, fetchPost]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (post) {
-      await updatePost(post.id, { title, content, slug });
+    if (!post) return;
+
+    try {
+      await updatePost(parseInt(params.id), {
+        title: post.title,
+        content: post.content as string, // Assuming content is not included in the Post type but is needed for update
+        slug: post.slug,
+      });
       router.push("/admin/blog");
+    } catch (error) {
+      console.error("Failed to update post:", error);
+      // You might want to show an error message to the user here
     }
   };
 
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (!session || !(session.user as SessionUser).isAdmin) {
+    return null;
+  }
+
   if (!post) {
-    return <div>Post not found</div>;
+    return <div>Loading post...</div>;
   }
 
   return (
@@ -53,8 +72,8 @@ export default function EditPost({ params }: { params: { id: string } }) {
           <input
             type="text"
             id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={post.title}
+            onChange={(e) => setPost({ ...post, title: e.target.value })}
             className="w-full p-2 border rounded"
             required
           />
@@ -65,8 +84,8 @@ export default function EditPost({ params }: { params: { id: string } }) {
           </label>
           <textarea
             id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            value={post.content as string}
+            onChange={(e) => setPost({ ...post, content: e.target.value })}
             className="w-full p-2 border rounded"
             rows={10}
             required
@@ -79,8 +98,8 @@ export default function EditPost({ params }: { params: { id: string } }) {
           <input
             type="text"
             id="slug"
-            value={slug}
-            onChange={(e) => setSlug(e.target.value)}
+            value={post.slug}
+            onChange={(e) => setPost({ ...post, slug: e.target.value })}
             className="w-full p-2 border rounded"
             required
           />

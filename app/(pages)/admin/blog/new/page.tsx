@@ -1,20 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { createPost } from "@/app/lib/actions";
+import { SessionUser } from "@/app/types";
 
 export default function NewPost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [slug, setSlug] = useState("");
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "loading") return;
+    if (!session || !(session.user as SessionUser).isAdmin) {
+      router.push("/auth/signin");
+    }
+  }, [session, status, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await createPost({ title, content, slug });
-    router.push("/admin/blog");
+    try {
+      await createPost({ title, content, slug });
+      router.push("/admin/blog");
+    } catch (error) {
+      console.error("Failed to create post:", error);
+      //TODO   show an error message to the user
+    }
   };
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (!session || !(session.user as SessionUser).isAdmin) {
+    return null;
+  }
 
   return (
     <div className="container mx-auto px-6 py-16">
