@@ -39,6 +39,7 @@ export default async function BlogPost({
       <p className="text-gray-500 mb-8">
         {new Date(post.createdAt).toLocaleDateString()}
       </p>
+      <p className="text-gray-500 mb-8">Views: {post.views}</p>
       <div
         className="prose lg:prose-xl"
         dangerouslySetInnerHTML={{ __html: post.content }}

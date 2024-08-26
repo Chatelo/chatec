@@ -8,6 +8,7 @@ export type Post = {
   content: string;
   slug: string;
   authorId: number;
+  views: number;
   createdAt: string | Date;
   updatedAt: string | Date;
   author: {

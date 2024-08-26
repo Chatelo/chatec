@@ -93,7 +93,6 @@ export async function getPostBySlug(slug: string) {
       author: true,
     },
   });
-  // return post;
   if (!post) {
     return null;
   }
@@ -104,6 +103,7 @@ export async function getPostBySlug(slug: string) {
     slug: post.slug,
     content: post.content,
     createdAt: post.createdAt.toISOString(),
+    views: post.views,
     author: {
       name: post.author.name || "",
     },
