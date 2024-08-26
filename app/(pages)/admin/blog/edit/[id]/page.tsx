@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { updatePost, getPost } from "@/app/lib/actions";
 import { Post, SessionUser } from "@/app/types";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import isHotkey from "is-hotkey";
 import {
   Transforms,
@@ -20,6 +20,12 @@ import { Slate, Editable, withReact, useSlate, ReactEditor } from "slate-react";
 import { BaseEditor } from "slate";
 import { withHistory, HistoryEditor } from "slate-history";
 import Image from "next/image";
+
+interface PostFormData {
+  title: string;
+  content: Descendant[];
+  slug: string;
+}
 
 type CustomElement = {
   type: string;
@@ -302,7 +308,7 @@ export default function EditPost({ params }: { params: { id: string } }) {
   );
   const router = useRouter();
   const { data: session, status } = useSession();
-  const { control, handleSubmit, setValue } = useForm();
+  const { control, handleSubmit, setValue } = useForm<PostFormData>();
 
   const fetchPost = useCallback(async () => {
     try {
@@ -337,11 +343,7 @@ export default function EditPost({ params }: { params: { id: string } }) {
     }
   }, [session, status, router, fetchPost]);
 
-  const onSubmit = async (data: {
-    title: string;
-    content: Descendant[];
-    slug: string;
-  }) => {
+  const onSubmit: SubmitHandler<PostFormData> = async (data) => {
     if (!post) return;
 
     try {

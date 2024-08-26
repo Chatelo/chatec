@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { createPost } from "@/app/lib/actions";
 import { SessionUser } from "@/app/types";
-import { useForm, Controller, ControllerRenderProps } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import isHotkey from "is-hotkey";
 import {
   Transforms,
@@ -353,7 +353,7 @@ export default function NewPost() {
             name="title"
             control={control}
             rules={{ required: "Title is required" }}
-            render={({ field }: { field: ControllerRenderProps }) => (
+            render={({ field }) => (
               <input
                 {...field}
                 type="text"
