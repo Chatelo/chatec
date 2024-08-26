@@ -1,6 +1,6 @@
-import prisma from "../lib/prisma";
+import { Prisma } from "@prisma/client";
 
-export const { QueryMode } = prisma;
+export const { QueryMode } = Prisma;
 
 export type Post = {
   id: number;
