@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getPostBySlug } from "@/app/lib/actions";
 import { notFound } from "next/navigation";
+import ClientSideViewCounter from "@/app/components/ClientSideViewCounter";
 
 export async function generateMetadata({
   params,
@@ -36,10 +37,10 @@ export default async function BlogPost({
     <div className="container mx-auto px-6 py-16">
       <h1 className="text-4xl font-bold mb-6">{post.title}</h1>
       <p className="text-gray-500 mb-4">By {post.author.name}</p>
-      <p className="text-gray-500 mb-8">
+      <p className="text-gray-500 mb-2">
         {new Date(post.createdAt).toLocaleDateString()}
       </p>
-      <p className="text-gray-500 mb-8">Views: {post.views}</p>
+      <ClientSideViewCounter slug={post.slug} initialViews={post.views} />
       <div
         className="prose lg:prose-xl"
         dangerouslySetInnerHTML={{ __html: post.content }}
