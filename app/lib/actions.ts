@@ -54,20 +54,17 @@ export async function getPosts(
 
   return {
     posts: posts.map((post: Post) => ({
-      id: post.id,
-      title: post.title,
-      slug: post.slug,
-      content: post.content,
-      authorId: post.authorId,
-      views: post.views,
-      updatedAt: post.updatedAt,
-      createdAt: post.createdAt,
+      ...post,
+      content:
+        typeof post.content === "string"
+          ? JSON.parse(post.content)
+          : post.content,
+      createdAt: new Date(post.createdAt).toISOString(),
       author: {
         id: post.author.id,
         name: post.author.name ?? "",
         email: post.author.email,
         isAdmin: post.author.isAdmin,
-        password: post.author.password,
       },
     })),
     totalPages,
@@ -102,7 +99,10 @@ export async function getPostBySlug(slug: string) {
     id: post.id,
     title: post.title,
     slug: post.slug,
-    content: post.content,
+    content:
+      typeof post.content === "string"
+        ? JSON.parse(post.content)
+        : post.content,
     createdAt: new Date(post.createdAt).toISOString(),
     views: post.views,
     author: {
@@ -137,20 +137,17 @@ export async function getPostsByAuthor(
 
   return {
     posts: posts.map((post: Post) => ({
-      id: post.id,
-      title: post.title,
-      slug: post.slug,
-      content: post.content,
-      authorId: post.authorId,
-      views: post.views, // Add the 'views' property
-      updatedAt: post.updatedAt,
+      ...post,
+      content:
+        typeof post.content === "string"
+          ? JSON.parse(post.content)
+          : post.content,
       createdAt: new Date(post.createdAt).toISOString(),
       author: {
         id: post.author.id,
         name: post.author.name ?? "",
         email: post.author.email,
         isAdmin: post.author.isAdmin,
-        password: post.author.password,
       },
     })),
     totalPages,
@@ -164,7 +161,24 @@ export async function getPost(id: number) {
       author: true,
     },
   });
-  return post;
+
+  if (post) {
+    return {
+      ...post,
+      content:
+        typeof post.content === "string"
+          ? JSON.parse(post.content)
+          : post.content,
+      author: {
+        id: post.author.id,
+        name: post.author.name ?? "",
+        email: post.author.email,
+        isAdmin: post.author.isAdmin,
+      },
+    };
+  }
+
+  return null;
 }
 
 export async function createPost(data: {
@@ -173,13 +187,9 @@ export async function createPost(data: {
   slug: string;
 }) {
   const session = await getServerSession(authOptions);
-  console.log("Session in createPost:", JSON.stringify(session, null, 2));
   const user = session?.user as SessionUser;
-  console.log("User in createPost:", JSON.stringify(user, null, 2));
 
   if (!user?.isAdmin) {
-    console.log("Unauthorized user attempted to create post");
-    console.log("Is Admin:", user?.isAdmin);
     throw new Error("Unauthorized");
   }
 
@@ -187,7 +197,7 @@ export async function createPost(data: {
     const post = await prisma.post.create({
       data: {
         title: data.title,
-        content: data.content,
+        content: data.content, // This should already be stringified
         slug: data.slug,
         authorId: user.id
           ? parseInt(user.id)
@@ -238,7 +248,7 @@ export async function updatePost(
     where: { id },
     data: {
       title: data.title,
-      content: data.content,
+      content: data.content, // This should already be stringified
       slug: data.slug,
     },
   });
