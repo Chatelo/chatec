@@ -93,7 +93,21 @@ export async function getPostBySlug(slug: string) {
       author: true,
     },
   });
-  return post;
+  // return post;
+  if (!post) {
+    return null;
+  }
+
+  return {
+    id: post.id,
+    title: post.title,
+    slug: post.slug,
+    content: post.content,
+    createdAt: post.createdAt.toISOString(),
+    author: {
+      name: post.author.name || "",
+    },
+  };
 }
 
 export async function getPostsByAuthor(

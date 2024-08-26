@@ -1,5 +1,25 @@
+import { Metadata } from "next";
 import { getPostBySlug } from "@/app/lib/actions";
 import { notFound } from "next/navigation";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug);
+
+  if (!post) {
+    return {
+      title: "Post Not Found",
+    };
+  }
+
+  return {
+    title: post.title,
+    description: `${post.title} by ${post.author.name}`,
+  };
+}
 
 export default async function BlogPost({
   params,
