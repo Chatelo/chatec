@@ -1,5 +1,6 @@
 "use client";
 
+import { EyeIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 
 interface ClientSideViewCounterProps {
@@ -35,5 +36,10 @@ export default function ClientSideViewCounter({
     incrementView();
   }, [slug]);
 
-  return <p className="text-gray-500 mb-8">Views: {views}</p>;
+  return (
+    <p className="text-gray-500 mb-8 flex items-center">
+      <EyeIcon className="h-5 w-5 mr-2" />
+      <span>{views}</span>
+    </p>
+  );
 }
