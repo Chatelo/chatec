@@ -59,6 +59,7 @@ export async function getPosts(
       slug: post.slug,
       content: post.content,
       authorId: post.authorId,
+      views: post.views,
       updatedAt: post.updatedAt,
       createdAt: post.createdAt,
       author: {
@@ -141,6 +142,7 @@ export async function getPostsByAuthor(
       slug: post.slug,
       content: post.content,
       authorId: post.authorId,
+      views: post.views, // Add the 'views' property
       updatedAt: post.updatedAt,
       createdAt: post.createdAt.toISOString(),
       author: {
