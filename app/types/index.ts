@@ -1,6 +1,6 @@
-import { Prisma } from "@prisma/client";
+import prisma from "../lib/prisma";
 
-export const { QueryMode } = Prisma;
+export const { QueryMode } = prisma;
 
 export type Post = {
   id: number;
@@ -16,7 +16,7 @@ export type Post = {
     name: string | null;
     email: string;
     isAdmin: boolean;
-    password: string;
+    password?: string;
   };
 };
 
