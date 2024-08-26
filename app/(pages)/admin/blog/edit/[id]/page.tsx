@@ -148,7 +148,7 @@ const Element = ({
           <Image
             src={element.url ?? ""}
             className="max-w-full h-auto"
-            alt="image"
+            alt="Image"
           />
           {children}
         </div>
@@ -306,8 +306,17 @@ export default function EditPost({ params }: { params: { id: string } }) {
       const fetchedPost = await getPost(parseInt(params.id));
       if (fetchedPost) {
         setPost(fetchedPost);
-        // Parse the content JSON and set it as the editor's initial value
-        editor.children = JSON.parse(fetchedPost.content as string);
+        // Parse the content JSON if it's a string, otherwise use it as is
+        const initialContent =
+          typeof fetchedPost.content === "string"
+            ? JSON.parse(fetchedPost.content)
+            : [
+                {
+                  type: "paragraph",
+                  children: [{ text: fetchedPost.content }],
+                },
+              ];
+        editor.children = initialContent;
       }
     } catch (error) {
       console.error("Failed to fetch post:", error);
@@ -380,7 +389,11 @@ export default function EditPost({ params }: { params: { id: string } }) {
           </label>
           <Slate
             editor={editor}
-            initialValue={JSON.parse(post.content as string)}
+            initialValue={
+              typeof post.content === "string"
+                ? JSON.parse(post.content)
+                : [{ type: "paragraph", children: [{ text: post.content }] }]
+            }
           >
             <div className="border rounded p-2">
               <div className="flex flex-wrap mb-2">
@@ -390,7 +403,7 @@ export default function EditPost({ params }: { params: { id: string } }) {
                 <MarkButton format="code" icon="<>" />
                 <BlockButton format="heading-one" icon="H1" />
                 <BlockButton format="heading-two" icon="H2" />
-                <BlockButton format="block-quote" icon="" />
+                <BlockButton format="block-quote" icon="❝" />
                 <BlockButton format="numbered-list" icon="1." />
                 <BlockButton format="bulleted-list" icon="•" />
                 <BlockButton format="left" icon="Left" />
