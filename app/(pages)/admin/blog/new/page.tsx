@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { createPost } from "@/app/lib/actions";
 import { SessionUser } from "@/app/types";
+import { useForm, Controller, ControllerRenderProps } from "react-hook-form";
 import isHotkey from "is-hotkey";
 import {
   Transforms,
@@ -41,14 +42,6 @@ declare module "slate" {
   }
 }
 
-// Function to generate slug from title
-const generateSlug = (title: string) => {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-};
-
 const HOTKEYS: { [key: string]: string } = {
   "mod+b": "bold",
   "mod+i": "italic",
@@ -59,12 +52,12 @@ const HOTKEYS: { [key: string]: string } = {
 const LIST_TYPES = ["numbered-list", "bulleted-list"];
 const TEXT_ALIGN_TYPES = ["left", "center", "right", "justify"];
 
-const initialValue: Descendant[] = [
-  {
-    type: "paragraph",
-    children: [{ text: "Start writing your post here..." }],
-  },
-];
+const generateSlug = (title: string) => {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+};
 
 const withImages = (editor: ReactEditor & HistoryEditor) => {
   const { insertData, isVoid } = editor;
@@ -78,8 +71,7 @@ const withImages = (editor: ReactEditor & HistoryEditor) => {
     const { files } = data;
 
     if (files && files.length > 0) {
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
+      for (const file of Array.from(files)) {
         const reader = new FileReader();
         const [mime] = file.type.split("/");
 
@@ -163,8 +155,10 @@ const Element = ({
         <div {...attributes}>
           <Image
             src={element.url ?? ""}
+            alt="Inserted image"
+            width={500}
+            height={300}
             className="max-w-full h-auto"
-            alt="Image"
           />
           {children}
         </div>
@@ -193,76 +187,16 @@ const Leaf = ({
   if (leaf.bold) {
     children = <strong>{children}</strong>;
   }
-
   if (leaf.code) {
     children = <code className="bg-gray-100 rounded px-1">{children}</code>;
   }
-
   if (leaf.italic) {
     children = <em>{children}</em>;
   }
-
   if (leaf.underline) {
     children = <u>{children}</u>;
   }
-
   return <span {...attributes}>{children}</span>;
-};
-
-const BlockButton = ({ format, icon }: { format: string; icon: string }) => {
-  const editor = useSlate();
-  return (
-    <button
-      className={`p-2 ${
-        isBlockActive(editor, format) ? "text-blue-500" : "text-gray-500"
-      }`}
-      onMouseDown={(event) => {
-        event.preventDefault();
-        toggleBlock(editor, format);
-      }}
-    >
-      {icon}
-    </button>
-  );
-};
-
-const MarkButton = ({ format, icon }: { format: string; icon: string }) => {
-  const editor = useSlate();
-  return (
-    <button
-      className={`p-2 ${
-        isMarkActive(editor, format) ? "text-blue-500" : "text-gray-500"
-      }`}
-      onMouseDown={(event) => {
-        event.preventDefault();
-        toggleMark(editor, format);
-      }}
-    >
-      {icon}
-    </button>
-  );
-};
-
-const isBlockActive = (editor: Editor, format: string, blockType = "type") => {
-  const { selection } = editor;
-  if (!selection) return false;
-
-  const [match] = Array.from(
-    Editor.nodes(editor, {
-      at: Editor.unhangRange(editor, selection),
-      match: (n) =>
-        !Editor.isEditor(n) &&
-        SlateElement.isElement(n) &&
-        n[blockType as keyof typeof n] === format,
-    })
-  );
-
-  return !!match;
-};
-
-const isMarkActive = (editor: Editor, format: string) => {
-  const marks = Editor.marks(editor);
-  return marks ? marks[format as keyof typeof marks] === true : false;
 };
 
 const toggleBlock = (editor: Editor, format: string) => {
@@ -309,51 +243,95 @@ const toggleMark = (editor: Editor, format: string) => {
   }
 };
 
+const isBlockActive = (editor: Editor, format: string, blockType = "type") => {
+  const { selection } = editor;
+  if (!selection) return false;
+
+  const [match] = Array.from(
+    Editor.nodes(editor, {
+      at: Editor.unhangRange(editor, selection),
+      match: (n) =>
+        !Editor.isEditor(n) &&
+        SlateElement.isElement(n) &&
+        n[blockType as keyof typeof n] === format,
+    })
+  );
+
+  return !!match;
+};
+
+const isMarkActive = (editor: Editor, format: string) => {
+  const marks = Editor.marks(editor);
+  return marks ? marks[format as keyof typeof marks] === true : false;
+};
+
+const BlockButton = ({ format, icon }: { format: string; icon: string }) => {
+  const editor = useSlate();
+  return (
+    <button
+      className={`p-2 ${
+        isBlockActive(editor, format) ? "text-blue-500" : "text-gray-500"
+      }`}
+      onMouseDown={(event) => {
+        event.preventDefault();
+        toggleBlock(editor, format);
+      }}
+    >
+      {icon}
+    </button>
+  );
+};
+
+const MarkButton = ({ format, icon }: { format: string; icon: string }) => {
+  const editor = useSlate();
+  return (
+    <button
+      className={`p-2 ${
+        isMarkActive(editor, format) ? "text-blue-500" : "text-gray-500"
+      }`}
+      onMouseDown={(event) => {
+        event.preventDefault();
+        toggleMark(editor, format);
+      }}
+    >
+      {icon}
+    </button>
+  );
+};
+
 export default function NewPost() {
-  const [title, setTitle] = useState("");
   const [editor] = useState(() =>
     withImages(withHistory(withReact(createEditor())))
   );
   const router = useRouter();
   const { data: session, status } = useSession();
+  const { control, handleSubmit, watch } = useForm({
+    defaultValues: {
+      title: "",
+      content: [{ type: "paragraph", children: [{ text: "" }] }],
+    },
+  });
 
-  // Generate slug from title using useMemo
+  const title = watch("title");
   const slug = useMemo(() => generateSlug(title), [title]);
 
   useEffect(() => {
     if (status === "loading") return;
-    console.log("Session in NewPost:", session);
     if (!session || !(session.user as SessionUser).isAdmin) {
-      console.log("User is not admin, redirecting");
       router.push("/auth/signin");
     }
   }, [session, status, router]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: { title: string; content: any }) => {
     try {
-      const content = JSON.stringify(editor.children);
-      await createPost({ title, content, slug });
+      const content = JSON.stringify(data.content);
+      await createPost({ title: data.title, content, slug });
       router.push("/admin/blog");
     } catch (error) {
-      if (error instanceof Error) {
-        if (error.message === "Unauthorized") {
-          alert(
-            "You are not authorized to create posts. Please log in as an admin."
-          );
-          router.push("/auth/signin");
-        } else {
-          alert("An error occurred while creating the post: " + error.message);
-        }
-      } else {
-        alert("An unknown error occurred");
-      }
       console.error("Failed to create post:", error);
+      alert("An error occurred while creating the post.");
     }
   };
-
-  const renderElement = useCallback((props: any) => <Element {...props} />, []);
-  const renderLeaf = useCallback((props: any) => <Leaf {...props} />, []);
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -366,60 +344,75 @@ export default function NewPost() {
   return (
     <div className="container mx-auto px-6 py-16">
       <h1 className="text-4xl font-bold mb-8">Create New Post</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label htmlFor="title" className="block mb-2">
             Title
           </label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 border rounded"
-            required
+          <Controller
+            name="title"
+            control={control}
+            rules={{ required: "Title is required" }}
+            render={({ field }: { field: ControllerRenderProps }) => (
+              <input
+                {...field}
+                type="text"
+                id="title"
+                className="w-full p-2 border rounded"
+              />
+            )}
           />
         </div>
         <div className="mb-4">
           <label htmlFor="content" className="block mb-2">
             Content
           </label>
-          <Slate editor={editor} initialValue={initialValue}>
-            <div className="border rounded p-2">
-              <div className="flex flex-wrap mb-2">
-                <MarkButton format="bold" icon="B" />
-                <MarkButton format="italic" icon="I" />
-                <MarkButton format="underline" icon="U" />
-                <MarkButton format="code" icon="<>" />
-                <BlockButton format="heading-one" icon="H1" />
-                <BlockButton format="heading-two" icon="H2" />
-                <BlockButton format="block-quote" icon="&ldquo;" />
-                <BlockButton format="numbered-list" icon="1." />
-                <BlockButton format="bulleted-list" icon="•" />
-                <BlockButton format="left" icon="Left" />
-                <BlockButton format="center" icon="Center" />
-                <BlockButton format="right" icon="Right" />
-                <BlockButton format="justify" icon="Justify" />
-              </div>
-              <Editable
-                renderElement={renderElement}
-                renderLeaf={renderLeaf}
-                placeholder="Enter some rich text…"
-                spellCheck
-                autoFocus
-                className="min-h-[200px]"
-                onKeyDown={(event) => {
-                  for (const hotkey in HOTKEYS) {
-                    if (isHotkey(hotkey, event as any)) {
-                      event.preventDefault();
-                      const mark = HOTKEYS[hotkey];
-                      toggleMark(editor, mark);
-                    }
-                  }
-                }}
-              />
-            </div>
-          </Slate>
+          <Controller
+            name="content"
+            control={control}
+            render={({ field }) => (
+              <Slate
+                editor={editor}
+                initialValue={field.value}
+                onChange={field.onChange}
+              >
+                <div className="border rounded p-2">
+                  <div className="flex flex-wrap mb-2">
+                    <MarkButton format="bold" icon="B" />
+                    <MarkButton format="italic" icon="I" />
+                    <MarkButton format="underline" icon="U" />
+                    <MarkButton format="code" icon="<>" />
+                    <BlockButton format="heading-one" icon="H1" />
+                    <BlockButton format="heading-two" icon="H2" />
+                    <BlockButton format="block-quote" icon="❝" />
+                    <BlockButton format="numbered-list" icon="1." />
+                    <BlockButton format="bulleted-list" icon="•" />
+                    <BlockButton format="left" icon="Left" />
+                    <BlockButton format="center" icon="Center" />
+                    <BlockButton format="right" icon="Right" />
+                    <BlockButton format="justify" icon="Justify" />
+                  </div>
+                  <Editable
+                    renderElement={Element}
+                    renderLeaf={Leaf}
+                    placeholder="Enter some rich text…"
+                    spellCheck
+                    autoFocus
+                    className="min-h-[200px]"
+                    onKeyDown={(event) => {
+                      for (const hotkey in HOTKEYS) {
+                        if (isHotkey(hotkey, event as any)) {
+                          event.preventDefault();
+                          const mark = HOTKEYS[hotkey];
+                          toggleMark(editor, mark);
+                        }
+                      }
+                    }}
+                  />
+                </div>
+              </Slate>
+            )}
+          />
         </div>
         <div className="mb-4">
           <label className="block mb-2">Generated Slug</label>

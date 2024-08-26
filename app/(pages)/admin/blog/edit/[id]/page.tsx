@@ -1,21 +1,23 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+"use client";
+
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { updatePost, getPost } from "@/app/lib/actions";
 import { Post, SessionUser } from "@/app/types";
+import { useForm, Controller } from "react-hook-form";
 import isHotkey from "is-hotkey";
 import {
   Transforms,
   Editor,
-  Text,
   createEditor,
   Descendant,
   Element as SlateElement,
-  BaseEditor,
 } from "slate";
 import { Slate, Editable, withReact, useSlate, ReactEditor } from "slate-react";
+import { BaseEditor } from "slate";
 import { withHistory, HistoryEditor } from "slate-history";
 import Image from "next/image";
 
@@ -232,7 +234,7 @@ const isBlockActive = (editor: Editor, format: string, blockType = "type") => {
   if (!selection) return false;
 
   const [match] = Array.from(
-    Editor.nodes(editor, {
+    Editor.nodes<CustomElement>(editor, {
       at: Editor.unhangRange(editor, selection),
       match: (n) =>
         !Editor.isEditor(n) &&
@@ -300,13 +302,15 @@ export default function EditPost({ params }: { params: { id: string } }) {
   );
   const router = useRouter();
   const { data: session, status } = useSession();
+  const { control, handleSubmit, setValue } = useForm();
 
   const fetchPost = useCallback(async () => {
     try {
       const fetchedPost = await getPost(parseInt(params.id));
       if (fetchedPost) {
         setPost(fetchedPost);
-        // Parse the content JSON if it's a string, otherwise use it as is
+        setValue("title", fetchedPost.title);
+        setValue("slug", fetchedPost.slug);
         const initialContent =
           typeof fetchedPost.content === "string"
             ? JSON.parse(fetchedPost.content)
@@ -316,13 +320,13 @@ export default function EditPost({ params }: { params: { id: string } }) {
                   children: [{ text: fetchedPost.content }],
                 },
               ];
+        setValue("content", initialContent);
         editor.children = initialContent;
       }
     } catch (error) {
       console.error("Failed to fetch post:", error);
-      // You might want to show an error message to the user here
     }
-  }, [params.id, editor]);
+  }, [params.id, editor, setValue]);
 
   useEffect(() => {
     if (status === "loading") return;
@@ -333,28 +337,33 @@ export default function EditPost({ params }: { params: { id: string } }) {
     }
   }, [session, status, router, fetchPost]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: {
+    title: string;
+    content: Descendant[];
+    slug: string;
+  }) => {
     if (!post) return;
 
     try {
       const updatedPost = {
         ...post,
-        content: JSON.stringify(editor.children),
+        title: data.title,
+        content: JSON.stringify(data.content),
+        slug: data.slug,
       };
 
       await updatePost(parseInt(params.id), updatedPost);
       router.push("/admin/blog");
     } catch (error) {
       console.error("Failed to update post:", error);
-      // Set an error state and display it to the user
+      alert("An error occurred while updating the post.");
     }
   };
 
   const renderElement = useCallback((props: any) => <Element {...props} />, []);
   const renderLeaf = useCallback((props: any) => <Leaf {...props} />, []);
 
-  if (status === "loading") {
+  if (status === "loading" || !post) {
     return <div>Loading...</div>;
   }
 
@@ -362,86 +371,95 @@ export default function EditPost({ params }: { params: { id: string } }) {
     return null;
   }
 
-  if (!post) {
-    return <div>Loading post...</div>;
-  }
-
   return (
     <div className="container mx-auto px-6 py-16">
       <h1 className="text-4xl font-bold mb-8">Edit Post</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label htmlFor="title" className="block mb-2">
             Title
           </label>
-          <input
-            type="text"
-            id="title"
-            value={post.title}
-            onChange={(e) => setPost({ ...post, title: e.target.value })}
-            className="w-full p-2 border rounded"
-            required
+          <Controller
+            name="title"
+            control={control}
+            rules={{ required: "Title is required" }}
+            render={({ field }) => (
+              <input
+                {...field}
+                type="text"
+                id="title"
+                className="w-full p-2 border rounded"
+              />
+            )}
           />
         </div>
         <div className="mb-4">
           <label htmlFor="content" className="block mb-2">
             Content
           </label>
-          <Slate
-            editor={editor}
-            initialValue={
-              typeof post.content === "string"
-                ? JSON.parse(post.content)
-                : [{ type: "paragraph", children: [{ text: post.content }] }]
-            }
-          >
-            <div className="border rounded p-2">
-              <div className="flex flex-wrap mb-2">
-                <MarkButton format="bold" icon="B" />
-                <MarkButton format="italic" icon="I" />
-                <MarkButton format="underline" icon="U" />
-                <MarkButton format="code" icon="<>" />
-                <BlockButton format="heading-one" icon="H1" />
-                <BlockButton format="heading-two" icon="H2" />
-                <BlockButton format="block-quote" icon="❝" />
-                <BlockButton format="numbered-list" icon="1." />
-                <BlockButton format="bulleted-list" icon="•" />
-                <BlockButton format="left" icon="Left" />
-                <BlockButton format="center" icon="Center" />
-                <BlockButton format="right" icon="Right" />
-                <BlockButton format="justify" icon="Justify" />
-              </div>
-              <Editable
-                renderElement={renderElement}
-                renderLeaf={renderLeaf}
-                placeholder="Enter some rich text…"
-                spellCheck
-                autoFocus
-                className="min-h-[200px]"
-                onKeyDown={(event) => {
-                  for (const hotkey in HOTKEYS) {
-                    if (isHotkey(hotkey, event as any)) {
-                      event.preventDefault();
-                      const mark = HOTKEYS[hotkey];
-                      toggleMark(editor, mark);
-                    }
-                  }
-                }}
-              />
-            </div>
-          </Slate>
+          <Controller
+            name="content"
+            control={control}
+            render={({ field }) => (
+              <Slate
+                editor={editor}
+                initialValue={field.value}
+                onChange={field.onChange}
+              >
+                <div className="border rounded p-2">
+                  <div className="flex flex-wrap mb-2">
+                    <MarkButton format="bold" icon="B" />
+                    <MarkButton format="italic" icon="I" />
+                    <MarkButton format="underline" icon="U" />
+                    <MarkButton format="code" icon="<>" />
+                    <BlockButton format="heading-one" icon="H1" />
+                    <BlockButton format="heading-two" icon="H2" />
+                    <BlockButton format="block-quote" icon="❝" />
+                    <BlockButton format="numbered-list" icon="1." />
+                    <BlockButton format="bulleted-list" icon="•" />
+                    <BlockButton format="left" icon="Left" />
+                    <BlockButton format="center" icon="Center" />
+                    <BlockButton format="right" icon="Right" />
+                    <BlockButton format="justify" icon="Justify" />
+                  </div>
+                  <Editable
+                    renderElement={renderElement}
+                    renderLeaf={renderLeaf}
+                    placeholder="Enter some rich text…"
+                    spellCheck
+                    autoFocus
+                    className="min-h-[200px]"
+                    onKeyDown={(event) => {
+                      for (const hotkey in HOTKEYS) {
+                        if (isHotkey(hotkey, event as any)) {
+                          event.preventDefault();
+                          const mark = HOTKEYS[hotkey];
+                          toggleMark(editor, mark);
+                        }
+                      }
+                    }}
+                  />
+                </div>
+              </Slate>
+            )}
+          />
         </div>
         <div className="mb-4">
           <label htmlFor="slug" className="block mb-2">
             Slug
           </label>
-          <input
-            type="text"
-            id="slug"
-            value={post.slug}
-            onChange={(e) => setPost({ ...post, slug: e.target.value })}
-            className="w-full p-2 border rounded"
-            required
+          <Controller
+            name="slug"
+            control={control}
+            rules={{ required: "Slug is required" }}
+            render={({ field }) => (
+              <input
+                {...field}
+                type="text"
+                id="slug"
+                className="w-full p-2 border rounded"
+              />
+            )}
           />
         </div>
         <button
