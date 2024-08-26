@@ -7,6 +7,7 @@ import SearchBar from "@/app/components/SearchBar";
 import { getPosts } from "@/app/lib/actions";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import { Post } from "@/app/types";
+import ClientSideViewCounter from "@/app/components/ClientSideViewCounter";
 
 const POSTS_PER_PAGE = 10;
 
@@ -90,6 +91,10 @@ export default function Blog() {
               <p className="text-gray-500">
                 {new Date(post.createdAt).toLocaleDateString()}
               </p>
+              <ClientSideViewCounter
+                slug={post.slug}
+                initialViews={post.views}
+              />
               <p className="text-blue-500 mt-4">Read more →</p>
             </Link>
           ))}
