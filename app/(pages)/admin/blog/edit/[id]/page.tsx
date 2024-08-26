@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { updatePost, getPost } from "@/app/lib/actions";
 import { Post, SessionUser } from "@/app/types";
@@ -15,7 +15,7 @@ export default function EditPost({ params }: { params: { id: string } }) {
     try {
       const fetchedPost = await getPost(parseInt(params.id));
       if (fetchedPost) {
-        setPost(fetchedPost); // TODO : fix the type of fetchedPost
+        setPost(fetchedPost);
       }
     } catch (error) {
       console.error("Failed to fetch post:", error);
@@ -37,15 +37,26 @@ export default function EditPost({ params }: { params: { id: string } }) {
     if (!post) return;
 
     try {
-      await updatePost(parseInt(params.id), {
-        title: post.title,
-        content: post.content as string, // Assuming content is not included in the Post type but is needed for update
-        slug: post.slug,
+      const response = await fetch(`/api/posts/${params.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: post.title,
+          content: post.content,
+          slug: post.slug,
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error("Failed to update post");
+      }
+
       router.push("/admin/blog");
     } catch (error) {
       console.error("Failed to update post:", error);
-      // You might want to show an error message to the user here
+      // Set an error state and display it to the user
     }
   };
 

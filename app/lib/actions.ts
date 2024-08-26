@@ -53,7 +53,7 @@ export async function getPosts(
   const totalPages = Math.ceil(totalCount / limit);
 
   return {
-    posts: posts.map((post) => ({
+    posts: posts.map((post: Post) => ({
       id: post.id,
       title: post.title,
       slug: post.slug,
@@ -103,7 +103,7 @@ export async function getPostBySlug(slug: string) {
     title: post.title,
     slug: post.slug,
     content: post.content,
-    createdAt: post.createdAt.toISOString(),
+    createdAt: new Date(post.createdAt).toISOString(),
     views: post.views,
     author: {
       name: post.author.name || "",
@@ -136,7 +136,7 @@ export async function getPostsByAuthor(
   const totalPages = Math.ceil(totalCount / limit);
 
   return {
-    posts: posts.map((post) => ({
+    posts: posts.map((post: Post) => ({
       id: post.id,
       title: post.title,
       slug: post.slug,
@@ -144,7 +144,7 @@ export async function getPostsByAuthor(
       authorId: post.authorId,
       views: post.views, // Add the 'views' property
       updatedAt: post.updatedAt,
-      createdAt: post.createdAt.toISOString(),
+      createdAt: new Date(post.createdAt).toISOString(),
       author: {
         id: post.author.id,
         name: post.author.name ?? "",
