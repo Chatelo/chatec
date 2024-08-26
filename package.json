@@ -17,16 +17,21 @@
     "bcrypt": "^5.1.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.27",
+    "is-hotkey": "^0.2.0",
     "next": "14.2.5",
     "next-auth": "^4.24.7",
     "next-themes": "^0.3.0",
     "prisma": "^5.18.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-infinite-scroll-component": "^6.1.0"
+    "react-infinite-scroll-component": "^6.1.0",
+    "slate": "^0.103.0",
+    "slate-history": "^0.109.0",
+    "slate-react": "^0.109.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/is-hotkey": "^0.1.10",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
