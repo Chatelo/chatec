@@ -48,6 +48,7 @@ export default function Blog() {
         authorId: post.authorId,
         createdAt: new Date(post.createdAt).toISOString(),
         updatedAt: new Date().toISOString(),
+        views: post.views,
         author: {
           id: post.author.id,
           name: post.author.name || "",
