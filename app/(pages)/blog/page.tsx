@@ -82,7 +82,9 @@ export default function Blog() {
               href={`/blog/${post.slug}`}
               className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
             >
-              <h2 className="text-2xl font-semibold mb-4">{post.title}</h2>
+              <h2 className="text-2xl font-semibold mb-4 text-black">
+                {post.title}
+              </h2>
               <p className="text-gray-500">By {post.author.name}</p>
               <p className="text-gray-500">
                 {new Date(post.createdAt).toLocaleDateString()}
