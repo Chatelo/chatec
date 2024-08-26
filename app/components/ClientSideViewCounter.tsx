@@ -38,7 +38,7 @@ export default function ClientSideViewCounter({
 
   return (
     <p className="text-gray-500 mb-8 flex items-center">
-      <EyeIcon className="h-8 w-8 mr-2" />
+      <EyeIcon className="h-6 w-6 mr-2" />
       <span>{views}</span>
     </p>
   );
