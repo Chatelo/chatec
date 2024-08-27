@@ -183,7 +183,7 @@ export async function getPost(id: number) {
 
 export async function createPost(data: {
   title: string;
-  content: string;
+  content: string | object;
   slug: string;
 }) {
   const session = await getServerSession(authOptions);
@@ -197,7 +197,10 @@ export async function createPost(data: {
     const post = await prisma.post.create({
       data: {
         title: data.title,
-        content: data.content, // This should already be stringified
+        content:
+          typeof data.content === "string"
+            ? data.content
+            : JSON.stringify(data.content),
         slug: data.slug,
         authorId: user.id
           ? parseInt(user.id)
@@ -223,7 +226,7 @@ export async function updatePost(
   id: number,
   data: {
     title: string;
-    content: string;
+    content: string | object;
     slug: string;
   }
 ) {
@@ -248,7 +251,10 @@ export async function updatePost(
     where: { id },
     data: {
       title: data.title,
-      content: data.content, // This should already be stringified
+      content:
+        typeof data.content === "string"
+          ? data.content
+          : JSON.stringify(data.content), // This should already be stringified
       slug: data.slug,
     },
   });

@@ -324,8 +324,7 @@ export default function NewPost() {
 
   const onSubmit = async (data: { title: string; content: any }) => {
     try {
-      const content = JSON.stringify(data.content);
-      await createPost({ title: data.title, content, slug });
+      await createPost({ title: data.title, content: data.content, slug });
       router.push("/admin/blog");
     } catch (error) {
       console.error("Failed to create post:", error);

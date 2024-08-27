@@ -310,15 +310,7 @@ export default function EditPost({ params }: { params: { id: string } }) {
         setPost(fetchedPost);
         setValue("title", fetchedPost.title);
         setValue("slug", fetchedPost.slug);
-        const initialContent =
-          typeof fetchedPost.content === "string"
-            ? JSON.parse(fetchedPost.content)
-            : [
-                {
-                  type: "paragraph",
-                  children: [{ text: fetchedPost.content }],
-                },
-              ];
+        const initialContent = fetchedPost.content;
         setValue("content", initialContent);
         editor.children = initialContent;
       }
@@ -341,9 +333,8 @@ export default function EditPost({ params }: { params: { id: string } }) {
 
     try {
       const updatedPost = {
-        ...post,
         title: data.title as string,
-        content: JSON.stringify(data.content as Descendant[]),
+        content: data.content, // Send the content as is, without stringifying
         slug: data.slug as string,
       };
 
