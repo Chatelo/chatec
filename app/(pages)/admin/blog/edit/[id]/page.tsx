@@ -198,6 +198,7 @@ const BlockButton = ({ format, icon }: { format: string; icon: string }) => {
   const editor = useSlate();
   return (
     <button
+      type="button"
       className={`p-2 ${
         isBlockActive(editor, format) ? "text-blue-500" : "text-gray-500"
       }`}
@@ -215,6 +216,7 @@ const MarkButton = ({ format, icon }: { format: string; icon: string }) => {
   const editor = useSlate();
   return (
     <button
+      type="button"
       className={`p-2 ${
         isMarkActive(editor, format) ? "text-blue-500" : "text-gray-500"
       }`}
@@ -334,7 +336,7 @@ export default function EditPost({ params }: { params: { id: string } }) {
     try {
       const updatedPost = {
         title: data.title as string,
-        content: data.content, // Send the content as is, without stringifying
+        content: JSON.stringify(editor.children), // Send the content as is, without stringifying
         slug: data.slug as string,
       };
 
@@ -390,7 +392,9 @@ export default function EditPost({ params }: { params: { id: string } }) {
               <Slate
                 editor={editor}
                 initialValue={field.value}
-                onChange={field.onChange}
+                onChange={(value) => {
+                  field.onChange(value);
+                }}
               >
                 <div className="border rounded p-2">
                   <div className="flex flex-wrap mb-2">

@@ -373,7 +373,9 @@ export default function NewPost() {
               <Slate
                 editor={editor}
                 initialValue={field.value}
-                onChange={field.onChange}
+                onChange={(value) => {
+                  field.onChange(value);
+                }}
               >
                 <div className="border rounded p-2">
                   <div className="flex flex-wrap mb-2">
