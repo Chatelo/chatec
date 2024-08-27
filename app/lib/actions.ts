@@ -5,6 +5,7 @@ import { authOptions } from "@/app/lib/auth";
 import prisma from "./prisma";
 import bcrypt from "bcrypt";
 import { Post, SessionUser, QueryMode } from "@/app/types";
+import { redirect } from "next/navigation";
 
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions);
@@ -276,6 +277,7 @@ export async function deletePost(id: number) {
   await prisma.post.delete({
     where: { id },
   });
+  redirect("/blog");
 }
 
 export async function registerUser(data: {
