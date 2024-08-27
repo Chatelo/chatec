@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.ico",
-    shortcut: "/public/favicon-16x16.png",
+    shortcut: "/favicon.ico",
     apple: "/public/apple-touch-icon.png",
   },
   // languages
