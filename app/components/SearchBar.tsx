@@ -15,13 +15,13 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-8">
+    <form onSubmit={handleSubmit} className="mb-8 ">
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search posts..."
-        className="w-full p-2 border rounded"
+        className="w-1/3 p-2 border rounded"
       />
       <button
         type="submit"
