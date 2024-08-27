@@ -23,15 +23,7 @@ export default function AnimatedServiceCard({
     >
       {icon && (
         <div className="mb-4">
-          {/* <Image src={icon} alt={title} width={600} height={400} priority /> */}
-          <Image
-            src={icon}
-            alt={title}
-            width={600}
-            height={400}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            loading="lazy"
-          />
+          <Image src={icon} alt={title} width={600} height={100} />
         </div>
       )}
       <h2 className="text-2xl font-semibold mb-4">{title}</h2>
