@@ -20,22 +20,21 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          return null;
+          throw new Error("Invalid credentials");
         }
 
-        const user = await prisma.user.findUnique({
+        const user = (await prisma.user.findUnique({
           where: { email: credentials.email },
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            password: true,
-            isAdmin: true,
-          },
-        });
+        })) as {
+          id: number;
+          name: string | null;
+          email: string;
+          password: string;
+          isAdmin: boolean;
+        };
 
         if (!user || !user.password) {
-          return null;
+          throw new Error("User not found");
         }
 
         const isPasswordValid = await bcrypt.compare(
@@ -44,7 +43,7 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (!isPasswordValid) {
-          return null;
+          throw new Error("Invalid password");
         }
 
         return {
@@ -73,13 +72,9 @@ export const authOptions: NextAuthOptions = {
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-  },
+  session: { strategy: "jwt" },
   pages: {
     signIn: "/auth/signin",
     error: "/auth/error",
   },
-  debug: process.env.NODE_ENV === "development",
 };
