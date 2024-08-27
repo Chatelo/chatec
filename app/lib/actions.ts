@@ -96,18 +96,12 @@ export async function getPostBySlug(slug: string) {
   }
 
   return {
-    id: post.id,
-    title: post.title,
-    slug: post.slug,
+    ...post,
     content:
       typeof post.content === "string"
         ? JSON.parse(post.content)
         : post.content,
     createdAt: new Date(post.createdAt).toISOString(),
-    views: post.views,
-    author: {
-      name: post.author.name || "",
-    },
   };
 }
 
