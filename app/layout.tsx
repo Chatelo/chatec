@@ -30,6 +30,8 @@ export const metadata: Metadata = {
     description:
       "We build cutting-edge web and mobile applications for businesses and personal.",
     url: "https://sigira.com/",
+    images: "/opengraph-image.png",
+
     siteName: "Sigira Technologies",
     // images: [
     //   {
