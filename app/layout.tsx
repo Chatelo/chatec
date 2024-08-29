@@ -43,9 +43,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "%s | Sigira Technologies",
-    description:
-      "We build cutting-edge web and mobile applications for businesses and personal.",
   },
   robots: {
     index: true,
