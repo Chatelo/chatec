@@ -63,6 +63,13 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: `${post.title} by ${post.author.name}`,
+    openGraph: {
+      images: [
+        {
+          url: post.imageUrl ?? "",
+        },
+      ],
+    },
   };
 }
 
