@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { deletePost, getPostBySlug } from "@/app/lib/actions";
 import { notFound } from "next/navigation";
 import ClientSideViewCounter from "@/app/components/ClientSideViewCounter";
+import DeleteButton from "./DeleteButton";
 import escapeHtml from "escape-html";
 import { Text } from "slate";
 
@@ -102,15 +103,7 @@ export default async function BlogPost({
         className="prose lg:prose-xl"
         dangerouslySetInnerHTML={{ __html: contentHtml }}
       />
-      <form
-        action={deletePost.bind(null, post.id)}
-        method="POST"
-        className="inline"
-      >
-        <button type="submit" className="text-red-500">
-          Delete
-        </button>
-      </form>
+      <DeleteButton postId={post.id.toString()} />
     </div>
   );
 }
