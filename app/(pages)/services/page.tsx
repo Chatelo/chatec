@@ -40,6 +40,7 @@ export default function Services() {
             key={index}
             title={service.title}
             icon={service.icon}
+            slug={service.slug}
             description={service.description}
           />
         ))}
