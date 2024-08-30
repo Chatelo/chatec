@@ -23,7 +23,7 @@ export default function Home() {
       <StructuredData data={structuredData} />
 
       <div className="container mx-auto px-6 py-16">
-        <div className="bg-teal-500 px-12 pb-8">
+        <div className=" px-12 pb-8">
           <h1 className="text-4xl md:text-6xl font-bold mb-8 animate-fade-in pt-12">
             Building the Future of Web and Mobile
           </h1>
