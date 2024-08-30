@@ -40,6 +40,7 @@ export default function BlogPosts({ initialPosts }: { initialPosts: Post[] }) {
             {new Date(post.createdAt).toLocaleDateString()}
           </p>
           <ClientSideViewCounter slug={post.slug} initialViews={post.views} />
+          <p>{post.content.substring(0, 150)}...</p>
           <p className="text-blue-500 mt-4">Read more →</p>
         </Link>
       ))}
