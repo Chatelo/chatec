@@ -1,52 +1,13 @@
 import { Metadata } from "next";
-import { deletePost, getPostBySlug } from "@/app/lib/actions";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { getPostBySlug } from "@/app/lib/actions";
 import ClientSideViewCounter from "@/app/components/ClientSideViewCounter";
 import DeleteButton from "./DeleteButton";
-import escapeHtml from "escape-html";
-import { Text } from "slate";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
+import { serializeContent } from "@/app/utils/contentSerializer";
 
-const serialize = (node: any): string => {
-  if (Text.isText(node)) {
-    let string = escapeHtml(node.text);
-    if (node.bold) {
-      string = `<strong>${string}</strong>`;
-    }
-    if (node.italic) {
-      string = `<em>${string}</em>`;
-    }
-    if (node.underline) {
-      string = `<u>${string}</u>`;
-    }
-    if (node.code) {
-      string = `<code>${string}</code>`;
-    }
-    return string;
-  }
-
-  const children = node.children.map((n: any) => serialize(n)).join("");
-
-  switch (node.type) {
-    case "block-quote":
-      return `<blockquote>${children}</blockquote>`;
-    case "paragraph":
-      return `<p>${children}</p>`;
-    case "heading-one":
-      return `<h1>${children}</h1>`;
-    case "heading-two":
-      return `<h2>${children}</h2>`;
-    case "list-item":
-      return `<li>${children}</li>`;
-    case "numbered-list":
-      return `<ol>${children}</ol>`;
-    case "bulleted-list":
-      return `<ul>${children}</ul>`;
-    case "image":
-      return `<img src="${escapeHtml(node.url)}" alt="Image" />`;
-    default:
-      return children;
-  }
-};
+export const revalidate = 3600; // revalidate every hour
 
 export async function generateMetadata({
   params,
@@ -74,22 +35,22 @@ export async function generateMetadata({
   };
 }
 
+async function fetchPost(slug: string) {
+  return await getPostBySlug(slug);
+}
+
 export default async function BlogPost({
   params,
 }: {
   params: { slug: string };
 }) {
-  const post = await getPostBySlug(params.slug);
+  const post = await fetchPost(params.slug);
 
   if (!post) {
     notFound();
   }
 
-  const contentHtml = Array.isArray(post.content)
-    ? post.content.map(serialize).join("")
-    : typeof post.content === "string"
-    ? post.content
-    : "";
+  const contentHtml = serializeContent(post.content);
 
   return (
     <div className="container mx-auto px-6 py-16">
@@ -98,12 +59,16 @@ export default async function BlogPost({
       <p className="text-gray-500 mb-2">
         {new Date(post.createdAt).toLocaleDateString()}
       </p>
-      <ClientSideViewCounter slug={post.slug} initialViews={post.views} />
+      <Suspense fallback={<LoadingSpinner />}>
+        <ClientSideViewCounter slug={post.slug} initialViews={post.views} />
+      </Suspense>
       <div
-        className="prose lg:prose-xl"
+        className="prose lg:prose-xl mt-8"
         dangerouslySetInnerHTML={{ __html: contentHtml }}
       />
-      <DeleteButton postId={post.id.toString()} />
+      <Suspense fallback={<LoadingSpinner />}>
+        <DeleteButton postId={post.id.toString()} />
+      </Suspense>
     </div>
   );
 }
