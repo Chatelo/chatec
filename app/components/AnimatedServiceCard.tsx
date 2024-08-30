@@ -2,17 +2,20 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ServiceCardProps {
   title: string;
   description: string;
   icon?: string;
+  slug: string;
 }
 
 export default function AnimatedServiceCard({
   title,
   description,
   icon,
+  slug,
 }: ServiceCardProps) {
   return (
     <motion.div
@@ -26,7 +29,11 @@ export default function AnimatedServiceCard({
           <Image src={icon} alt={title} width={600} height={100} />
         </div>
       )}
-      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
+      <Link href={`/services/${slug}`}>
+        <h2 className="text-2xl font-bold mb-2 hover:text-blue-500 transition duration-300">
+          {title}
+        </h2>
+      </Link>
       <p>{description}</p>
     </motion.div>
   );
