@@ -19,8 +19,8 @@ We create user interfaces that don't just look good – they feel right. Our UI/
   },
   {
     title: "Cloud Solutions",
-    description:
-      "Scalable and secure cloud infrastructure for your applications.",
+    description: `Sky's the Limit: Unleash the Power of the Cloud!
+Elevate your business with our cutting-edge cloud solutions. We help you harness the full potential of cloud technology, offering scalability, security, and efficiency that propels your operations to new heights. Say goodbye to IT headaches and hello to seamless, cost-effective cloud infrastructure tailored to your needs.`,
     icon: "/cloud.jpg",
   },
   {
