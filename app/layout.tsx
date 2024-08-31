@@ -72,6 +72,8 @@ export const metadata: Metadata = {
   },
   authors: [{ name: "Benard Ronoh" }],
   keywords: [
+    "sigira",
+    "sigira technologies",
     "web development",
     "mobile development",
     "software development",
