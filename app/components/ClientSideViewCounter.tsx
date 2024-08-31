@@ -2,6 +2,7 @@
 
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
+import { debounce } from "lodash";
 
 interface ClientSideViewCounterProps {
   slug: string;
@@ -15,7 +16,7 @@ export default function ClientSideViewCounter({
   const [views, setViews] = useState(initialViews);
 
   useEffect(() => {
-    const incrementView = async () => {
+    const incrementView = debounce(async () => {
       try {
         const response = await fetch("/api/incrementView", {
           method: "POST",
@@ -31,7 +32,7 @@ export default function ClientSideViewCounter({
       } catch (error) {
         console.error("Error incrementing view count:", error);
       }
-    };
+    });
 
     incrementView();
   }, [slug]);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 import { getPosts } from "@/app/lib/actions";
@@ -17,26 +17,48 @@ function getTextContent(content: any[]): string {
     .substring(0, 150);
 }
 
+function formatDate(dateString: string | Date): string {
+  const date = new Date(dateString);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+    2,
+    "0"
+  )}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
 export default function BlogPosts({ initialPosts }: { initialPosts: Post[] }) {
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [page, setPage] = useState(2);
   const [ref, inView] = useInView();
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const loadingRef = useRef(false);
 
   const loadMorePosts = useCallback(async () => {
+    if (loadingRef.current || !hasMore) return;
+
+    loadingRef.current = true;
+    setIsLoading(true);
     try {
       const newPosts = await getPosts(page, POSTS_PER_PAGE);
-      setPosts((prevPosts) => [...prevPosts, ...newPosts.posts]);
-      setPage((prevPage) => prevPage + 1);
+      if (newPosts.posts.length === 0) {
+        setHasMore(false);
+      } else {
+        setPosts((prevPosts) => [...prevPosts, ...newPosts.posts]);
+        setPage((prevPage) => prevPage + 1);
+      }
     } catch (error) {
       console.error("Failed to load more posts:", error);
+    } finally {
+      setIsLoading(false);
+      loadingRef.current = false;
     }
-  }, [page]);
+  }, [page, hasMore]);
 
   useEffect(() => {
-    if (inView) {
+    if (inView && !isLoading) {
       loadMorePosts();
     }
-  }, [inView, loadMorePosts]);
+  }, [inView, isLoading, loadMorePosts]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -50,9 +72,7 @@ export default function BlogPosts({ initialPosts }: { initialPosts: Post[] }) {
             {post.title}
           </h2>
           <p className="text-gray-500">By {post.author.name}</p>
-          <p className="text-gray-500">
-            {new Date(post.createdAt).toLocaleDateString()}
-          </p>
+          <p className="text-gray-500">{formatDate(post.createdAt)}</p>
           <ClientSideViewCounter slug={post.slug} initialViews={post.views} />
           <p>
             {Array.isArray(post.content)
@@ -65,7 +85,9 @@ export default function BlogPosts({ initialPosts }: { initialPosts: Post[] }) {
           <p className="text-blue-500 mt-4">Read more →</p>
         </Link>
       ))}
-      <div ref={ref}></div>
+      {hasMore && (
+        <div ref={ref}>{isLoading && <p>Loading more posts...</p>}</div>
+      )}
     </div>
   );
 }
