@@ -26,6 +26,8 @@ export default function ServicePage({ params }: { params: any }) {
         width={1000}
         height={400}
         className=" mb-8"
+        placeholder="blur"
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII="
       />
       {/* <p className="text-xl mb-12">{service.description}</p> */}
 
