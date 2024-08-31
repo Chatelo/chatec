@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 import { getPosts } from "@/app/lib/actions";
@@ -9,20 +9,34 @@ import ClientSideViewCounter from "@/app/components/ClientSideViewCounter";
 
 const POSTS_PER_PAGE = 10;
 
+function getTextContent(content: any[]): string {
+  return content
+    .filter((block) => block.type === "paragraph")
+    .map((block) => block.children.map((child: any) => child.text).join(""))
+    .join(" ")
+    .substring(0, 150);
+}
+
 export default function BlogPosts({ initialPosts }: { initialPosts: Post[] }) {
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [page, setPage] = useState(2);
   const [ref, inView] = useInView();
 
   const loadMorePosts = useCallback(async () => {
-    const newPosts = await getPosts(page, POSTS_PER_PAGE);
-    setPosts((prevPosts) => [...prevPosts, ...newPosts.posts]);
-    setPage((prevPage) => prevPage + 1);
+    try {
+      const newPosts = await getPosts(page, POSTS_PER_PAGE);
+      setPosts((prevPosts) => [...prevPosts, ...newPosts.posts]);
+      setPage((prevPage) => prevPage + 1);
+    } catch (error) {
+      console.error("Failed to load more posts:", error);
+    }
   }, [page]);
 
-  if (inView) {
-    loadMorePosts();
-  }
+  useEffect(() => {
+    if (inView) {
+      loadMorePosts();
+    }
+  }, [inView, loadMorePosts]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -40,7 +54,14 @@ export default function BlogPosts({ initialPosts }: { initialPosts: Post[] }) {
             {new Date(post.createdAt).toLocaleDateString()}
           </p>
           <ClientSideViewCounter slug={post.slug} initialViews={post.views} />
-          <p>{post.content.substring(0, 150)}...</p>
+          <p>
+            {Array.isArray(post.content)
+              ? getTextContent(post.content)
+              : typeof post.content === "string"
+              ? post.content.substring(0, 150)
+              : "No content available"}
+            ...
+          </p>
           <p className="text-blue-500 mt-4">Read more →</p>
         </Link>
       ))}
