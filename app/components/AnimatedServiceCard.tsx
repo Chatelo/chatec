@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import AnimatedLink from "./AnimatedServiceLink";
 
 interface ServiceCardProps {
   title: string;
@@ -34,7 +35,10 @@ export default function AnimatedServiceCard({
           {title}
         </h2>
       </Link>
-      <p>{description}</p>
+      <p>
+        {description}
+        <AnimatedLink href={`/services/${slug}`} title={title} slug={slug} />
+      </p>
     </motion.div>
   );
 }
