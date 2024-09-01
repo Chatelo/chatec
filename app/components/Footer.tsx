@@ -41,8 +41,8 @@ export default function Footer() {
             <Link href="/" className="text-sm hover:text-blue-400">
               Home
             </Link>
-            <Link href="/services" className="text-sm hover:text-blue-400">
-              Services
+            <Link href="/blog" className="text-sm hover:text-blue-400">
+              Blog
             </Link>
             <Link href="/contact" className="text-sm hover:text-blue-400">
               Contact
@@ -60,14 +60,7 @@ export default function Footer() {
                     Home
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/services"
-                    className="text-base hover:text-blue-400"
-                  >
-                    Services
-                  </Link>
-                </li>
+                <li></li>
                 <li>
                   <Link href="/blog" className="text-base hover:text-blue-400">
                     Blog

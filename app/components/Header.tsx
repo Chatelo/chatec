@@ -89,12 +89,6 @@ export default function Header() {
               Home
             </Link>
             <Link
-              href="/services"
-              className="text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
-            >
-              Services
-            </Link>
-            <Link
               href="/blog"
               className="text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
             >
@@ -183,7 +177,6 @@ export default function Header() {
           }`}
         >
           <MenuLink href="/">Home</MenuLink>
-          <MenuLink href="/services">Services</MenuLink>
           <MenuLink href="/blog">Blog</MenuLink>
           <MenuLink href="/pricing">Pricing</MenuLink>
           <MenuLink href="/contact">Contact</MenuLink>
