@@ -23,8 +23,8 @@ export default function ServicePage({ params }: { params: any }) {
       <Image
         src={service.icon}
         alt={service.title}
-        width={200}
-        height={100}
+        width={400}
+        height={300}
         className=" mb-8"
         placeholder="blur"
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII="
