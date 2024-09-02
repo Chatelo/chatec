@@ -4,7 +4,7 @@ import React from "react";
 const WhatsAppFloat = () => {
   const handleWhatsAppClick = () => {
     const message = "I am interested on your services. Tell me more.";
-    const phoneNumber = "254729057932";
+    const phoneNumber = "254729830969";
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
       message
     )}`;

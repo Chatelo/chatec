@@ -13,7 +13,7 @@ export default function Home() {
     logo: "https://www.sigira.com/logo.png",
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+254729057932",
+      telephone: "254729830969",
       contactType: "customer service",
     },
   };

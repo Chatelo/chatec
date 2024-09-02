@@ -5,7 +5,7 @@ import React from "react";
 const WhatsAppButton = () => {
   const handleWhatsAppClick = () => {
     const message = "I am interested in your services. Tell me more.";
-    const phoneNumber = "254729057932";
+    const phoneNumber = "254729830969";
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
       message
     )}`;
