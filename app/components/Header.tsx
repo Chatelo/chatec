@@ -94,12 +94,12 @@ export default function Header() {
             >
               Blog
             </Link>
-            <Link
+            {/* <Link
               href="/pricing"
               className="text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
             >
               Pricing
-            </Link>
+            </Link> */}
             <Link
               href="/contact"
               className="text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 transition-colors duration-200"
