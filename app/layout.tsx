@@ -153,6 +153,20 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Google analytics */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-CWSCX66NFB"
+        ></Script>
+        <Script id="google-analytics">
+          {`window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CWSCX66NFB');`}
+        </Script>
+        {/* End Google analytics */}
+
         <Script
           id="schema-org"
           type="application/ld+json"
