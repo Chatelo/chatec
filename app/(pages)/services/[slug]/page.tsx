@@ -46,7 +46,10 @@ export default function ServicePage({ params }: { params: any }) {
         <h2 className="text-3xl font-bold mb-6">Our Process</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {service.process?.map((step) => (
-            <div key={step.step} className="bg-gray-100 p-6 rounded-lg">
+            <div
+              key={step.step}
+              className="bg-skin-fill text-skin-base p-6 rounded-lg shadow-md text-center"
+            >
               <h3 className="text-xl font-bold mb-2">
                 Step {step.step}: {step.title}
               </h3>
