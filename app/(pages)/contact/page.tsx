@@ -8,6 +8,7 @@ export default function Contact() {
     email: "",
     message: "",
   });
+  const [status, setStatus] = useState<string>("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -17,10 +18,27 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the form data to your API
-    console.log(formData);
-    // Reset form after submission
-    setFormData({ name: "", email: "", message: "" });
+    setStatus("Sending...");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus("Message sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setStatus("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setStatus("An error occurred. Please try again later.");
+    }
   };
 
   return (
@@ -66,10 +84,11 @@ export default function Contact() {
               Send Message
             </button>
           </form>
+          {status && <p className="mt-4 text-green-600">{status}</p>}
         </div>
         <div>
           <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
-          <p className="mb-2">Email: chatectechnologies@gmailcom</p>
+          <p className="mb-2">Email: chatectechnologies@gmail.com</p>
           <p className="mb-2">Phone: (+254) 729-057-932</p>
           <p className="mb-2">Address: Bomet</p>
         </div>
