@@ -30,7 +30,9 @@ export default function Contact() {
       });
 
       if (response.ok) {
-        setStatus("Message sent successfully!");
+        setStatus(
+          `Message sent successfully! You'll be contacted through ${formData.email}`
+        );
         setFormData({ name: "", email: "", message: "" });
       } else {
         setStatus("Failed to send message. Please try again.");
