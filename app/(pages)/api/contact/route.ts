@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     await transporter.sendMail({
       from: `"Contact Form" <${process.env.SMTP_FROM_EMAIL}>`,
       to: process.env.CONTACT_EMAIL,
-      subject: `New Contact Form Submission from ${name}`,
+      subject: `New Contact Sigira Message from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
       html: `<p><strong>Name:</strong> ${name}</p>
              <p><strong>Email:</strong> ${email}</p>
