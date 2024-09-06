@@ -6,6 +6,7 @@ import prisma from "./prisma";
 import bcrypt from "bcrypt";
 import { Post, SessionUser, QueryMode } from "@/app/types";
 import { redirect } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
 
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions);
@@ -311,5 +312,38 @@ export async function registerUser(data: {
     } else {
       throw new Error("Failed to register user");
     }
+  }
+}
+
+export async function registerAffiliate(commissionRate: number) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session || !session.user?.email) {
+      return { success: false, error: "User not authenticated" };
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+    });
+
+    if (!user) {
+      return { success: false, error: "User not found" };
+    }
+
+    const affiliateCode = uuidv4().substring(0, 8);
+
+    const affiliate = await prisma.affiliate.create({
+      data: {
+        userId: user.id,
+        affiliateCode,
+        commissionRate,
+      },
+    });
+
+    return { success: true, affiliateCode: affiliate.affiliateCode };
+  } catch (error) {
+    console.error("Error registering affiliate:", error);
+    return { success: false, error: "Internal server error" };
   }
 }
