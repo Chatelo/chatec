@@ -332,16 +332,22 @@ export async function registerAffiliate(commissionRate: number) {
     }
 
     const affiliateCode = uuidv4().substring(0, 8);
+    const referralLink = `${process.env.NEXT_PUBLIC_BASE_URL}/ref/${affiliateCode}`;
 
     const affiliate = await prisma.affiliate.create({
       data: {
         userId: user.id,
         affiliateCode,
         commissionRate,
+        referralLink,
       },
     });
 
-    return { success: true, affiliateCode: affiliate.affiliateCode };
+    return {
+      success: true,
+      affiliateCode: affiliate.affiliateCode,
+      referralLink: affiliate.referralLink,
+    };
   } catch (error) {
     console.error("Error registering affiliate:", error);
     return { success: false, error: "Internal server error" };

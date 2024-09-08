@@ -32,7 +32,7 @@ export const AffiliateDashboard: React.FC<{ affiliate: Affiliate }> = ({
         <h2 className="text-lg font-semibold mb-2">Statistics</h2>
         <p>Total Referrals: {affiliate.referrals.length}</p>
         <p>
-          Total Commissions: $
+          Total Commissions: Kshs.
           {affiliate.commissions
             .reduce((sum, commission) => sum + commission.amount, 0)
             .toFixed(2)}
