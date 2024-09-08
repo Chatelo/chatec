@@ -23,12 +23,12 @@ export const AffiliateDashboard: React.FC<{ affiliate: Affiliate }> = ({
 }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div className="bg-white shadow rounded-lg p-4">
+      <div className="bg-skin-fill text-skin-base shadow rounded-lg p-4">
         <h2 className="text-lg font-semibold mb-2">Affiliate Information</h2>
         <p>Affiliate Code: {affiliate.affiliateCode}</p>
         <p>Commission Rate: {affiliate.commissionRate}%</p>
       </div>
-      <div className="bg-white shadow rounded-lg p-4">
+      <div className="bg-skin-fill text-skin-base shadow rounded-lg p-4">
         <h2 className="text-lg font-semibold mb-2">Statistics</h2>
         <p>Total Referrals: {affiliate.referrals.length}</p>
         <p>
@@ -38,7 +38,7 @@ export const AffiliateDashboard: React.FC<{ affiliate: Affiliate }> = ({
             .toFixed(2)}
         </p>
       </div>
-      <div className="bg-white shadow rounded-lg p-4 col-span-full">
+      <div className="bg-skin-fill text-skin-base shadow rounded-lg p-4 col-span-full">
         <h2 className="text-lg font-semibold mb-2">Recent Referrals</h2>
         <ul>
           {affiliate.referrals.slice(0, 5).map((referral) => (

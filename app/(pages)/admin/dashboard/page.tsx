@@ -38,7 +38,7 @@ export default async function AdminDashboard() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
-      <div className="bg-white shadow rounded-lg p-4 mb-4">
+      <div className="bg-skin-fill text-skin-base shadow rounded-lg p-4 mb-4">
         <h2 className="text-lg font-semibold mb-2">Affiliates</h2>
         <ul>
           {affiliates.map((affiliate) => (
@@ -49,7 +49,7 @@ export default async function AdminDashboard() {
           ))}
         </ul>
       </div>
-      <div className="bg-white shadow rounded-lg p-4">
+      <div className="bg-skin-fill text-skin-base shadow rounded-lg p-4">
         <h2 className="text-lg font-semibold mb-2">Submitted Agreements</h2>
         <ul>
           {agreements.map((agreement) => (
