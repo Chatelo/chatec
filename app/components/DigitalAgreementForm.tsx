@@ -1,10 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/lib/auth";
-import prisma from "@/app/lib/prisma";
 import {
   Card,
   CardHeader,
@@ -13,37 +10,51 @@ import {
 } from "@/app/components/ui/card";
 import { Button } from "@/app/components/ui/button";
 
+// Define the CustomSession type
+interface CustomSession {
+  user: {
+    id: string;
+    email: string;
+    isAdmin?: boolean;
+  };
+}
+
 export const DigitalAgreementForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
     agreementText: "",
     signature: "",
   });
+  const [session, setSession] = useState<CustomSession | null>(null); // Explicitly type the session
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const res = await fetch("/api/check-session");
+      if (res.ok) {
+        const data = await res.json();
+        setSession(data.session); // Type will now match CustomSession
+      } else {
+        alert("You must be logged in to submit the agreement.");
+        router.push("/auth/signin");
+      }
+    };
+    fetchSession();
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!session || !session.user) {
+      alert("You must be logged in to submit the agreement.");
+      return;
+    }
+
     try {
-      const session = await getServerSession(authOptions);
-      if (!session || !session.user?.email) {
-        alert("You must be logged in to submit the agreement.");
-        return;
-      }
-
-      const user = await prisma.user.findUnique({
-        where: { email: session.user.email },
-      });
-
-      if (!user) {
-        alert("User not found.");
-        return;
-      }
-
       const result = await fetch("/api/submit-agreement", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...formData, userId: user.id }),
+        body: JSON.stringify({ ...formData, userId: session.user.id }), // Now session.user.id is correctly typed
       });
 
       if (result.ok) {
