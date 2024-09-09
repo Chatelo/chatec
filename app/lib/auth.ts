@@ -2,7 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/app/lib/prisma";
-import bcrypt from "bcrypt";
+import bcrypt from "bcrypt-nodejs";
 import { SessionUser } from "../types";
 
 export const authOptions: NextAuthOptions = {
@@ -37,7 +37,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error("User not found");
         }
 
-        const isPasswordValid = await bcrypt.compare(
+        const isPasswordValid = await bcrypt.compareSync(
           credentials.password,
           user.password
         );

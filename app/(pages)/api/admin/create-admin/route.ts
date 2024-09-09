@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/lib/auth";
 import prisma from "@/app/lib/prisma";
-import bcrypt from "bcrypt";
+import bcrypt from "bcrypt-nodejs";
 
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hashSync(password, "10");
     const newAdmin = await prisma.user.create({
       data: {
         email,
