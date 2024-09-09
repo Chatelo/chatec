@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardHeader, CardContent } from "@/app/components/ui/card";
 import { Badge } from "@/app/components/ui/badge";
 
+// Update Affiliate type to include totalCommissions
 type Affiliate = {
   id: number;
   userId: number;
@@ -9,7 +10,7 @@ type Affiliate = {
   commissionRate: number;
   createdAt: Date;
   totalClicks: number;
-  totalCommissions: number;
+  totalCommissions: number; // Ensure this field is included
   referrals: Array<{ id: number; status: string }>;
   commissions: Array<{ id: number; amount: number; status: string }>;
 };
@@ -34,10 +35,7 @@ export const AffiliateDashboard: React.FC<{ affiliate: Affiliate }> = ({
           <p>Total Referrals: {affiliate.referrals.length}</p>
           <p>Total Clicks: {affiliate.totalClicks}</p>
           <p>
-            Total Commissions: Kshs.{" "}
-            {typeof affiliate.totalCommissions === "number"
-              ? affiliate.totalCommissions.toFixed(2)
-              : "N/A"}
+            Total Commissions: Kshs. {affiliate.totalCommissions.toFixed(2)}
           </p>
         </CardContent>
       </Card>
