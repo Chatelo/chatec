@@ -80,7 +80,7 @@ export const DigitalAgreementForm = () => {
       <CardHeader>Digital Agreement Form</CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+          <div className="bg-skin-fill text-skin-base mb-4 ">
             <label
               htmlFor="agreementText"
               className="block text-gray-700 text-sm font-bold mb-2"
