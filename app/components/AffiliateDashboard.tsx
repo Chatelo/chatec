@@ -34,7 +34,10 @@ export const AffiliateDashboard: React.FC<{ affiliate: Affiliate }> = ({
           <p>Total Referrals: {affiliate.referrals.length}</p>
           <p>Total Clicks: {affiliate.totalClicks}</p>
           <p>
-            Total Commissions: Kshs. {affiliate.totalCommissions.toFixed(2)}
+            Total Commissions: Kshs.{" "}
+            {typeof affiliate.totalCommissions === "number"
+              ? affiliate.totalCommissions.toFixed(2)
+              : "N/A"}
           </p>
         </CardContent>
       </Card>

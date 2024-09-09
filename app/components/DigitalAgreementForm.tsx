@@ -1,6 +1,5 @@
 "use client";
 
-// app/components/DigitalAgreementForm.tsx
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getServerSession } from "next-auth/next";
