@@ -59,7 +59,7 @@ export const DigitalAgreementForm = () => {
 
       if (result.ok) {
         alert("Agreement submitted successfully!");
-        router.push("/dashboard");
+        router.push("/contact");
       } else {
         alert("Failed to submit agreement. Please try again.");
       }
