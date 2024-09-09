@@ -3,7 +3,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/lib/auth";
 import prisma from "./prisma";
-import { hash } from "argon2";
+import argon2 from "argon2";
 import { Post, SessionUser, QueryMode } from "@/app/types";
 import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
@@ -295,7 +295,7 @@ export async function registerUser(data: {
       throw new Error("Email already in use");
     }
 
-    const hashedPassword = await hash(data.password);
+    const hashedPassword = await argon2.hash(data.password);
 
     const user = await prisma.user.create({
       data: {
