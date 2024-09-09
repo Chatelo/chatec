@@ -26,11 +26,13 @@ export default async function ReferralPage({
   params: { code: string };
 }) {
   const affiliateCode = params.code;
-
   try {
     // Find the affiliate with the given code
     const affiliate = await prisma.affiliate.findUnique({
       where: { affiliateCode },
+      include: {
+        referrals: true,
+      },
     });
 
     if (!affiliate) {

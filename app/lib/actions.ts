@@ -318,28 +318,31 @@ export async function registerUser(data: {
 export async function registerAffiliate(commissionRate: number) {
   try {
     const session = await getServerSession(authOptions);
-
     if (!session || !session.user?.email) {
       return { success: false, error: "User not authenticated" };
     }
-
     const user = await prisma.user.findUnique({
       where: { email: session.user.email },
     });
-
     if (!user) {
       return { success: false, error: "User not found" };
     }
-
     const affiliateCode = uuidv4().substring(0, 8);
     const referralLink = `${process.env.NEXT_PUBLIC_BASE_URL}/ref/${affiliateCode}`;
-
     const affiliate = await prisma.affiliate.create({
       data: {
         userId: user.id,
         affiliateCode,
         commissionRate,
         referralLink,
+      },
+    });
+
+    // Create a new referral click record
+    await prisma.referralClick.create({
+      data: {
+        affiliateId: affiliate.id,
+        clickedAt: new Date(),
       },
     });
 
