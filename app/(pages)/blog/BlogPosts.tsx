@@ -61,7 +61,7 @@ export default function BlogPosts({ initialPosts }: { initialPosts: Post[] }) {
   }, [inView, isLoading, loadMorePosts]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className=" bg-skin-fill text-skin-base grid grid-cols-1 md:grid-cols-2 gap-8">
       {posts.map((post) => (
         <Link
           key={post.id}
