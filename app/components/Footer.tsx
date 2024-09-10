@@ -21,17 +21,19 @@ export default function Footer() {
 
     checkFooterPosition();
     window.addEventListener("resize", checkFooterPosition);
+    window.addEventListener("scroll", checkFooterPosition);
 
     return () => {
       window.removeEventListener("resize", checkFooterPosition);
+      window.removeEventListener("scroll", checkFooterPosition);
     };
   }, []);
 
   return (
     <footer
       className={clsx(
-        "bg-gray-800 text-white w-full fixed bottom-0 left-0 right-0",
-        isFixed ? "md:fixed md:bottom-0 md:left-0 md:right-0" : "md:static"
+        "bg-gray-800 text-white w-full",
+        isFixed ? "fixed bottom-0 left-0 right-0" : "relative"
       )}
     >
       <div className="container mx-auto px-4 py-2 md:px-6 md:py-10">
@@ -60,7 +62,6 @@ export default function Footer() {
                     Home
                   </Link>
                 </li>
-                <li></li>
                 <li>
                   <Link href="/blog" className="text-base hover:text-blue-400">
                     Blog
