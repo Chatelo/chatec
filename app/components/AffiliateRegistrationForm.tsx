@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { registerAffiliate } from "@/app/lib/actions";
 
 export const AffiliateRegistrationForm = () => {
-  const [commissionRate, setCommissionRate] = useState("");
+  const [commissionRate, setCommissionRate] = useState("10");
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -39,7 +39,7 @@ export const AffiliateRegistrationForm = () => {
           value={commissionRate}
           onChange={(e) => setCommissionRate(e.target.value)}
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          required
+          readOnly={true}
           min="0"
           max="100"
           step="0.01"
