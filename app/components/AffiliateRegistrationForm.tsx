@@ -26,7 +26,7 @@ export const AffiliateRegistrationForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8">
-      <div className="mb-4">
+      <div className="mb-4 bg-skin-fill text-skin-base">
         <label
           htmlFor="commissionRate"
           className="block text-gray-700 text-sm font-bold mb-2"
@@ -51,7 +51,7 @@ export const AffiliateRegistrationForm = () => {
       >
         Register as Affiliate
       </button>
-      {message && <p className="mt-4 text-sm text-gray-600">{message}</p>}
+      {message && <p className="mt-4 text-sm text-red-600">{message}</p>}
     </form>
   );
 };
