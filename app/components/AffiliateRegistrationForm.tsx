@@ -26,10 +26,10 @@ export const AffiliateRegistrationForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8">
-      <div className="mb-4 bg-skin-fill text-skin-base">
+      <div className="mb-4">
         <label
           htmlFor="commissionRate"
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="block text-skin-base text-sm font-bold mb-2"
         >
           Commission Rate (%)
         </label>
@@ -38,7 +38,7 @@ export const AffiliateRegistrationForm = () => {
           id="commissionRate"
           value={commissionRate}
           onChange={(e) => setCommissionRate(e.target.value)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full py-2 px-3bg-skin-fill text-skin-base leading-tight focus:outline-none focus:shadow-outline"
           readOnly={true}
           min="0"
           max="100"
