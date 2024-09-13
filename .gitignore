@@ -9,6 +9,7 @@ cmdx.txt
 
 # other
 scripts/
+.save/
 
 # Ensure pnpm-lock.yaml is not ignored for the opurpose of deployment in Railway
 !.pnpm-lock.yaml
