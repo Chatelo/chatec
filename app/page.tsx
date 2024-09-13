@@ -55,9 +55,8 @@ export default function Home() {
             ))}
           </div>
         </div>
+        <NewsletterSubscription />
       </div>
-      <p className="mb-8">Stay updated with our latest news and offers!</p>
-      <NewsletterSubscription />
     </>
   );
 }
