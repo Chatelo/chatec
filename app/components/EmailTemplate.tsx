@@ -2,42 +2,84 @@ import React from "react";
 
 const EmailTemplate = () => (
   <div
-    className="font-sans max-w-[600px] mx-auto p-5 bg-gray-100 rounded-lg"
-    style={{ backgroundColor: "#f7f7f7" }}
+    style={{
+      fontFamily: "Arial, sans-serif",
+      maxWidth: "600px",
+      margin: "0 auto",
+      padding: "20px",
+      backgroundColor: "#f7f7f7",
+      borderRadius: "10px",
+    }}
   >
-    <div className="bg-white p-8 rounded-lg shadow-md">
+    <div
+      style={{
+        backgroundColor: "#ffffff",
+        padding: "30px",
+        borderRadius: "8px",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+      }}
+    >
       <h1
-        className="text-2xl text-gray-800 mb-5 text-center font-bold"
-        style={{ color: "#333333" }}
+        style={{
+          fontSize: "24px",
+          color: "#333333",
+          marginBottom: "20px",
+          textAlign: "center",
+          fontWeight: "bold",
+        }}
       >
         Welcome to Our Newsletter!
       </h1>
       <p
-        className="text-base text-gray-600 mb-4 leading-relaxed"
-        style={{ color: "#666666" }}
+        style={{
+          fontSize: "16px",
+          color: "#666666",
+          marginBottom: "15px",
+          lineHeight: "1.5",
+        }}
       >
         Thank you for subscribing to our newsletter. We're excited to have you
         on board!
       </p>
       <p
-        className="text-base text-gray-600 mb-6 leading-relaxed"
-        style={{ color: "#666666" }}
+        style={{
+          fontSize: "16px",
+          color: "#666666",
+          marginBottom: "25px",
+          lineHeight: "1.5",
+        }}
       >
         You'll be receiving our latest updates and exclusive content soon.
       </p>
-      <div className="text-center">
+      <div
+        style={{
+          textAlign: "center",
+        }}
+      >
         <a
           href="https://sigira.com"
-          className="bg-green-500 text-white px-6 py-3 rounded-md text-base font-bold inline-block no-underline hover:bg-green-600 transition duration-300"
-          style={{ backgroundColor: "#4CAF50" }}
+          style={{
+            backgroundColor: "#4CAF50",
+            color: "#ffffff",
+            padding: "12px 24px",
+            textDecoration: "none",
+            borderRadius: "5px",
+            fontSize: "16px",
+            fontWeight: "bold",
+            display: "inline-block",
+          }}
         >
           Visit Our Website for More
         </a>
       </div>
     </div>
     <div
-      className="text-center mt-5 text-sm text-gray-500"
-      style={{ color: "#999999" }}
+      style={{
+        textAlign: "center",
+        marginTop: "20px",
+        fontSize: "14px",
+        color: "#999999",
+      }}
     >
       © 2024 Sigira Technologies. All rights reserved.
     </div>
