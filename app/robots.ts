@@ -8,6 +8,10 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: ["/admin"],
       },
+      {
+        userAgent: "wget",
+        disallow: "/", // Block wget specifically
+      },
     ],
     sitemap: `${process.env.NEXT_PUBLIC_BASE_URL}/sitemap.xml`,
   };
