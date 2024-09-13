@@ -9,11 +9,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    await addSubscriber(email);
-    return NextResponse.json(
-      { message: "Subscription successful" },
-      { status: 200 }
-    );
+    const message = await addSubscriber(email);
+    return NextResponse.json({ message }, { status: 200 });
   } catch (error) {
     console.error("Subscription error:", error);
     return NextResponse.json(

@@ -1,9 +1,6 @@
 import nodemailer from "nodemailer";
+import { prisma } from "@/app/lib/prisma";
 
-// In-memory storage for subscribers (replace with database in production)
-let subscribers: string[] = [];
-
-// Create a transporter using Gmail's SMTP server
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -19,30 +16,24 @@ export async function addSubscriber(email: string): Promise<string> {
     throw new Error("Invalid email address");
   }
 
-  if (subscribers.includes(email)) {
-    return "This email is already subscribed to the newsletter.";
-  }
-
   try {
-    // Verify environment variables
     if (!process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
       throw new Error("Missing required environment variables");
     }
 
-    // Add to subscribers list
-    subscribers.push(email);
+    const subscriber = await prisma.subscriber.create({
+      data: { email },
+    });
 
-    // Send notification to admin
     await sendNewSubscriberNotification(email);
+    await sendWelcomeEmail(email);
 
     return "Subscription successful! You've been added to the newsletter.";
   } catch (error) {
     console.error("Error in addSubscriber:", error);
 
-    // Remove the email from subscribers if notification fails
-    const index = subscribers.indexOf(email);
-    if (index > -1) {
-      subscribers.splice(index, 1);
+    if ((error as any).code === "P2002") {
+      return "This email is already subscribed to the newsletter.";
     }
 
     if ((error as Error).message === "Failed to send notification email") {
@@ -64,6 +55,8 @@ export async function addSubscriber(email: string): Promise<string> {
 async function sendNewSubscriberNotification(
   subscriberEmail: string
 ): Promise<void> {
+  const subscriberCount = await prisma.subscriber.count();
+
   const mailOptions = {
     from: process.env.SMTP_USER,
     to: ADMIN_EMAIL,
@@ -73,7 +66,7 @@ async function sendNewSubscriberNotification(
       <h1>New Subscriber!</h1>
       <p>A new user has subscribed to your newsletter:</p>
       <p><strong>${subscriberEmail}</strong></p>
-      <p>Current subscriber count: ${subscribers.length}</p>
+      <p>Current subscriber count: ${subscriberCount}</p>
     `,
   };
 
@@ -86,28 +79,52 @@ async function sendNewSubscriberNotification(
   }
 }
 
+async function sendWelcomeEmail(subscriberEmail: string): Promise<void> {
+  const mailOptions = {
+    from: process.env.SMTP_USER,
+    to: subscriberEmail,
+    subject: "Welcome to Our Newsletter!",
+    text: "Thank you for subscribing to our newsletter. We're excited to have you on board!",
+    html: `
+      <h1>Welcome to Our Newsletter!</h1>
+      <p>Thank you for subscribing to our newsletter. We're excited to have you on board!</p>
+      <p>You'll be receiving our latest updates and exclusive content soon.</p>
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error("Error sending welcome email:", error);
+    console.error("Error details:", JSON.stringify(error, null, 2));
+    throw new Error("Failed to send welcome email");
+  }
+}
+
 function isValidEmail(email: string): boolean {
-  // Basic email validation regex
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
 
-// Utility function to get all subscribers (for admin purposes)
-export function getAllSubscribers(): string[] {
-  return [...subscribers];
+export async function getAllSubscribers(): Promise<string[]> {
+  const subscribers = await prisma.subscriber.findMany({
+    select: { email: true },
+  });
+  return subscribers.map((sub) => sub.email);
 }
 
-// Utility function to remove a subscriber (for unsubscribe functionality)
-export function removeSubscriber(email: string): boolean {
-  const index = subscribers.indexOf(email);
-  if (index > -1) {
-    subscribers.splice(index, 1);
+export async function removeSubscriber(email: string): Promise<boolean> {
+  try {
+    await prisma.subscriber.delete({
+      where: { email },
+    });
     return true;
+  } catch (error) {
+    console.error("Error removing subscriber:", error);
+    return false;
   }
-  return false;
 }
 
-// Test function to verify email sending
 export async function testEmailSending(): Promise<void> {
   const testMailOptions = {
     from: process.env.SMTP_USER,
