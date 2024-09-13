@@ -6,8 +6,9 @@ import { useState } from "react";
 export default function NewsletterSubscription() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
+    "idle" | "loading" | "success" | "error" | "alreadySubscribed"
   >("idle");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,14 +21,22 @@ export default function NewsletterSubscription() {
         body: JSON.stringify({ email }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        setStatus("success");
-        setEmail("");
+        if (data.message.includes("already subscribed")) {
+          setStatus("alreadySubscribed");
+        } else {
+          setStatus("success");
+          setEmail("");
+        }
       } else {
         setStatus("error");
       }
+      setMessage(data.message);
     } catch (error) {
       setStatus("error");
+      setMessage("An error occurred. Please try again.");
     }
   };
 
@@ -60,14 +69,11 @@ export default function NewsletterSubscription() {
         </button>
       </form>
 
-      {status === "success" && (
-        <p className="text-green-500 mt-2">Successfully subscribed!</p>
+      {status === "success" && <p className="text-green-500 mt-2">{message}</p>}
+      {status === "alreadySubscribed" && (
+        <p className="text-yellow-500 mt-2">{message}</p>
       )}
-      {status === "error" && (
-        <p className="text-red-500 mt-2">
-          An error occurred. Please try again.
-        </p>
-      )}
+      {status === "error" && <p className="text-red-500 mt-2">{message}</p>}
     </div>
   );
 }

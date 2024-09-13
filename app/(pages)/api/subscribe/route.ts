@@ -9,8 +9,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    const message = await addSubscriber(email);
-    return NextResponse.json({ message }, { status: 200 });
+    const { message, status } = await addSubscriber(email);
+    return NextResponse.json({ message }, { status });
   } catch (error) {
     console.error("Subscription error:", error);
     return NextResponse.json(

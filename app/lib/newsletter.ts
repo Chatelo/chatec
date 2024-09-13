@@ -13,14 +13,27 @@ const transporter = nodemailer.createTransport({
 
 const ADMIN_EMAIL = process.env.SMTP_FROM_EMAIL;
 
-export async function addSubscriber(email: string): Promise<string> {
+export async function addSubscriber(
+  email: string
+): Promise<{ message: string; status: number }> {
   if (!email || !isValidEmail(email)) {
-    throw new Error("Invalid email address");
+    return { message: "Invalid email address", status: 400 };
   }
 
   try {
     if (!process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
       throw new Error("Missing required environment variables");
+    }
+
+    const existingSubscriber = await prisma.subscriber.findUnique({
+      where: { email },
+    });
+
+    if (existingSubscriber) {
+      return {
+        message: "This email is already subscribed to the newsletter.",
+        status: 200,
+      };
     }
 
     const subscriber = await prisma.subscriber.create({
@@ -30,26 +43,31 @@ export async function addSubscriber(email: string): Promise<string> {
     await sendNewSubscriberNotification(email);
     await sendWelcomeEmail(email);
 
-    return "Subscription successful! You've been added to the newsletter.";
+    return {
+      message: "Subscription successful! You've been added to the newsletter.",
+      status: 201,
+    };
   } catch (error) {
     console.error("Error in addSubscriber:", error);
 
-    if ((error as any).code === "P2002") {
-      return "This email is already subscribed to the newsletter.";
-    }
-
     if ((error as Error).message === "Failed to send notification email") {
-      throw new Error(
-        "Subscription added but failed to notify admin. Please try again."
-      );
+      return {
+        message:
+          "Subscription added but failed to notify admin. Please try again.",
+        status: 500,
+      };
     } else if (
       (error as Error).message === "Missing required environment variables"
     ) {
-      throw new Error("Server configuration error. Please contact support.");
+      return {
+        message: "Server configuration error. Please contact support.",
+        status: 500,
+      };
     } else {
-      throw new Error(
-        "Failed to process subscription: " + (error as Error).message
-      );
+      return {
+        message: "Failed to process subscription: " + (error as Error).message,
+        status: 500,
+      };
     }
   }
 }
