@@ -1,5 +1,7 @@
 import nodemailer from "nodemailer";
 import { prisma } from "@/app/lib/prisma";
+import { render } from "@react-email/render";
+import EmailTemplate from "@/app/components/EmailTemplate";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -80,16 +82,14 @@ async function sendNewSubscriberNotification(
 }
 
 async function sendWelcomeEmail(subscriberEmail: string): Promise<void> {
+  const emailHtml = await render(EmailTemplate());
+
   const mailOptions = {
     from: process.env.SMTP_USER,
     to: subscriberEmail,
     subject: "Welcome to Our Newsletter!",
     text: "Thank you for subscribing to our newsletter. We're excited to have you on board!",
-    html: `
-      <h1>Welcome to Our Newsletter!</h1>
-      <p>Thank you for subscribing to our newsletter. We're excited to have you on board!</p>
-      <p>You'll be receiving our latest updates and exclusive content soon.</p>
-    `,
+    html: emailHtml,
   };
 
   try {
