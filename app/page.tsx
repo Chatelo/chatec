@@ -3,6 +3,7 @@ import Link from "next/link";
 import StructuredData from "./components/StructuredData";
 import AnimatedServiceCard from "./components/AnimatedServiceCard";
 import { services } from "@/app/data/servicesList";
+import NewsletterSubscription from "./components/NewsletterSubscription";
 
 export default function Home() {
   const structuredData = {
@@ -55,6 +56,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <p className="mb-8">Stay updated with our latest news and offers!</p>
+      <NewsletterSubscription />
     </>
   );
 }
