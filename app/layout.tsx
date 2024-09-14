@@ -195,7 +195,15 @@ export default async function RootLayout({
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <Header />
               <main>{children}</main>
-              <CopilotPopup />
+              <CopilotPopup
+                instructions="Help the user get anwers to their questions based on the service we offer and any other information they might need about our website."
+                defaultOpen={true}
+                labels={{
+                  title: "Sigira Technologies",
+                  initial: "Hi you! 👋, I am here to assist you.",
+                }}
+                clickOutsideToClose={false}
+              />
               <Footer />
               <WhatsAppFloat />
             </ThemeProvider>
