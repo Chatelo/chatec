@@ -9,6 +9,9 @@ import Header from "@/app/components/Header";
 import WhatsAppFloat from "@/app/components/WhatsAppFloat";
 import "@/app/globals.css";
 import Script from "next/script";
+import "@copilotkit/react-ui/styles.css";
+import CopilotWrapper from "./components/CopilotWrapper";
+import { CopilotPopup } from "@copilotkit/react-ui";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -187,14 +190,17 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.className} dark:bg-gray-900 dark:text-white`}>
-        <SessionProvider session={session}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-            <WhatsAppFloat />
-          </ThemeProvider>
-        </SessionProvider>
+        <CopilotWrapper>
+          <SessionProvider session={session}>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              <Header />
+              <main>{children}</main>
+              <CopilotPopup />
+              <Footer />
+              <WhatsAppFloat />
+            </ThemeProvider>
+          </SessionProvider>
+        </CopilotWrapper>
       </body>
     </html>
   );
