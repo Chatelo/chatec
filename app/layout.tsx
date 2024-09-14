@@ -197,7 +197,7 @@ export default async function RootLayout({
               <main>{children}</main>
               <CopilotPopup
                 instructions="Help the user get anwers to their questions based on the service we offer and any other information they might need about our website."
-                defaultOpen={true}
+                defaultOpen={false}
                 labels={{
                   title: "Sigira Technologies",
                   initial: "Hi you! 👋, I am here to assist you.",
