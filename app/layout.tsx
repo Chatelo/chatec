@@ -199,7 +199,7 @@ export default async function RootLayout({
                 instructions="Help the user get anwers to their questions based on the service we offer and any other information they might need about our website."
                 defaultOpen={false}
                 labels={{
-                  title: "Sigira Technologies",
+                  title: "Sigira Chatbot",
                   initial: "Hi you! 👋, I am here to assist you.",
                 }}
                 clickOutsideToClose={false}
