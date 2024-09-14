@@ -11,7 +11,7 @@ import "@/app/globals.css";
 import Script from "next/script";
 import "@copilotkit/react-ui/styles.css";
 import CopilotWrapper from "./components/CopilotWrapper";
-import { CopilotPopup } from "@copilotkit/react-ui";
+import { CopilotSidebar } from "@copilotkit/react-ui";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -195,7 +195,7 @@ export default async function RootLayout({
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <Header />
               <main>{children}</main>
-              <CopilotPopup />
+              <CopilotSidebar />
               <Footer />
               <WhatsAppFloat />
             </ThemeProvider>
