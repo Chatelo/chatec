@@ -7,6 +7,8 @@ cmdx.txt
 .pnp.js
 .yarn/install-state.gz
 
+.env
+
 # other
 scripts/
 .save/
