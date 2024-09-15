@@ -41,7 +41,7 @@ export default function NewsletterSubscription() {
   };
 
   return (
-    <div className="bg-gray-100 p-6 rounded-lg max-w-md mx-auto">
+    <div className="bg-skin-fill text-skin-base p-6 rounded-lg max-w-md mx-auto">
       <h2 className="text-2xl font-semibold mb-4">
         Subscribe to Our Newsletter
       </h2>
