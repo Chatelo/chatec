@@ -90,7 +90,7 @@ export default function Contact() {
         </div>
         <div>
           <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
-          <p className="mb-2">Email: chatectechnologies@gmail.com</p>
+          <p className="mb-2">Email: info@sigira.com</p>
           <p className="mb-2">Phone: (+254) 729-830-969</p>
           {/* <p className="mb-2">Address: Bomet</p> */}
         </div>
