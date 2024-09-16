@@ -19,7 +19,7 @@ export async function sendNotification(
 ) {
   try {
     await transporter.sendMail({
-      from: process.env.SMTP_FROM_MAIL,
+      from: process.env.OUR_EMAIL,
       to,
       subject,
       text,
