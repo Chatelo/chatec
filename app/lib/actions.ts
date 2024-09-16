@@ -7,7 +7,8 @@ import bcrypt from "bcrypt";
 import { Post, SessionUser, QueryMode } from "@/app/types";
 import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
-import { sendNotification } from "./email";
+import { sendNotification } from "@/app/lib/email";
+import { sendAgreementNotification } from "@/app/lib/email";
 
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions);
@@ -417,7 +418,7 @@ export async function generateAgreementLink(userId: number) {
 
   const link = uuidv4();
   const expiresAt = new Date();
-  expiresAt.setDate(expiresAt.getDate() + 1);
+  expiresAt.setDate(expiresAt.getDate() + 7); // Link expires in 7 days
 
   const agreementLink = await prisma.agreementLink.create({
     data: {
@@ -425,7 +426,11 @@ export async function generateAgreementLink(userId: number) {
       link,
       expiresAt,
     },
+    include: { user: true },
   });
+
+  // Send notification to the user
+  await sendAgreementNotification(agreementLink.user.email, link);
 
   return agreementLink;
 }
