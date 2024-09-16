@@ -84,7 +84,7 @@ export default async function AdminDashboard() {
             <ul>
               {agreementLinks.map((link) => (
                 <li key={link.id} className="mb-2">
-                  {link.user.name} - Link: {link.link} - Valid:{" "}
+                  {link.user.name} - Link: {link.link} - Valid:
                   <Badge variant={link.isValid ? "success" : "danger"}>
                     {link.isValid ? "Valid" : "Invalid"}
                   </Badge>
