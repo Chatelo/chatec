@@ -1,19 +1,7 @@
 import React from "react";
 import { Card, CardHeader, CardContent } from "@/app/components/ui/card";
 import { Badge } from "@/app/components/ui/badge";
-
-// Update Affiliate type to include totalCommissions
-type Affiliate = {
-  id: number;
-  userId: number;
-  affiliateCode: string;
-  commissionRate: number;
-  createdAt: Date;
-  totalClicks: number;
-  totalCommissions: number; // Ensure this field is included
-  referrals: Array<{ id: number; status: string }>;
-  commissions: Array<{ id: number; amount: number; status: string }>;
-};
+import { Affiliate } from "@/app/types/index";
 
 export const AffiliateDashboard: React.FC<{ affiliate: Affiliate }> = ({
   affiliate,

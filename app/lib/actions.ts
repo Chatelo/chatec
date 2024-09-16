@@ -7,6 +7,7 @@ import bcrypt from "bcrypt";
 import { Post, SessionUser, QueryMode } from "@/app/types";
 import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
+import { sendNotification } from "./email";
 
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions);
@@ -355,4 +356,124 @@ export async function registerAffiliate(commissionRate: number) {
     console.error("Error registering affiliate:", error);
     return { success: false, error: "Internal server error" };
   }
+}
+
+export async function completeReferral(referralId: number) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) {
+    throw new Error("Unauthorized");
+  }
+
+  const referral = await prisma.referral.findUnique({
+    where: { id: referralId },
+    include: { affiliate: true },
+  });
+
+  if (!referral) {
+    throw new Error("Referral not found");
+  }
+
+  if (referral.status === "COMPLETED") {
+    throw new Error("Referral already completed");
+  }
+
+  const updatedReferral = await prisma.referral.update({
+    where: { id: referralId },
+    data: {
+      status: "COMPLETED",
+      completedAt: new Date(),
+    },
+  });
+
+  // Calculate commission
+  const commissionAmount = calculateCommission(
+    referral.affiliate.commissionRate
+  );
+
+  await prisma.commission.create({
+    data: {
+      affiliateId: referral.affiliateId,
+      amount: commissionAmount,
+      status: "PENDING",
+    },
+  });
+
+  return updatedReferral;
+}
+
+export async function generateAgreementLink(userId: number) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) {
+    throw new Error("Unauthorized");
+  }
+
+  const admin = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  });
+
+  if (!admin?.isAdmin) {
+    throw new Error("Unauthorized");
+  }
+
+  const link = uuidv4();
+  const expiresAt = new Date();
+  expiresAt.setDate(expiresAt.getDate() + 1);
+
+  const agreementLink = await prisma.agreementLink.create({
+    data: {
+      userId,
+      link,
+      expiresAt,
+    },
+  });
+
+  return agreementLink;
+}
+
+export async function revokeAgreementLink(linkId: number) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) {
+    throw new Error("Unauthorized");
+  }
+
+  const admin = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  });
+
+  if (!admin?.isAdmin) {
+    throw new Error("Unauthorized");
+  }
+
+  const revokedLink = await prisma.agreementLink.update({
+    where: { id: linkId },
+    data: { isValid: false },
+  });
+
+  const user = await prisma.user.findUnique({
+    where: { id: revokedLink.userId },
+  });
+
+  if (user) {
+    await sendNotification(
+      user.email,
+      "Agreement Revoked",
+      "Your agreement link has been revoked."
+    );
+  }
+
+  return revokedLink;
+}
+
+export async function createNotification(userId: number, message: string) {
+  return prisma.notification.create({
+    data: {
+      userId,
+      message,
+    },
+  });
+}
+
+function calculateCommission(commissionRate: number) {
+  // Implement your commission calculation logic here
+  return 100 * (commissionRate / 100); // Example: $100 * commission rate
 }

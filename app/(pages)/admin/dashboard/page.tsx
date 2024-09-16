@@ -4,6 +4,8 @@ import prisma from "@/app/lib/prisma";
 import { redirect } from "next/navigation";
 import { Card, CardHeader, CardContent } from "@/app/components/ui/card";
 import { Badge } from "@/app/components/ui/badge";
+import { GenerateAgreementLink } from "@/app/components/GenerateAgreementLink";
+import { RevokeAgreementLink } from "@/app/components/RevokeAgreementLink";
 
 export default async function AdminDashboard() {
   const session = await getServerSession(authOptions);
@@ -25,6 +27,15 @@ export default async function AdminDashboard() {
     },
   });
   const agreements = await prisma.digitalAgreement.findMany({
+    include: {
+      user: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const agreementLinks = await prisma.agreementLink.findMany({
     include: {
       user: true,
     },
@@ -65,6 +76,23 @@ export default async function AdminDashboard() {
                 </li>
               ))}
             </ul>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>Agreement Links</CardHeader>
+          <CardContent>
+            <ul>
+              {agreementLinks.map((link) => (
+                <li key={link.id} className="mb-2">
+                  {link.user.name} - Link: {link.link} - Valid:{" "}
+                  <Badge variant={link.isValid ? "success" : "danger"}>
+                    {link.isValid ? "Valid" : "Invalid"}
+                  </Badge>
+                  <RevokeAgreementLink linkId={link.id} />
+                </li>
+              ))}
+            </ul>
+            <GenerateAgreementLink />
           </CardContent>
         </Card>
       </div>

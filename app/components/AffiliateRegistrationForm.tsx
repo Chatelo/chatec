@@ -6,20 +6,23 @@ import { registerAffiliate } from "@/app/lib/actions";
 export const AffiliateRegistrationForm = () => {
   const [commissionRate, setCommissionRate] = useState("10");
   const [message, setMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const result = await registerAffiliate(parseFloat(commissionRate));
       if (result.success) {
+        setIsSuccess(true);
         setMessage(
           `Affiliate registered successfully! Your affiliate code is: ${result.affiliateCode}`
         );
       } else {
+        setIsSuccess(false);
         setMessage("Failed to register affiliate: " + result.error);
       }
     } catch (error) {
-      console.error("Error registering affiliate:", error);
+      setIsSuccess(false);
       setMessage("An error occurred while registering");
     }
   };
@@ -51,7 +54,15 @@ export const AffiliateRegistrationForm = () => {
       >
         Register as Affiliate
       </button>
-      {message && <p className="mt-4 text-sm text-red-600">{message}</p>}
+      {message && (
+        <p
+          className={`mt-4 text-sm ${
+            isSuccess ? "text-green-600" : "text-red-600"
+          }`}
+        >
+          {message}
+        </p>
+      )}
     </form>
   );
 };
