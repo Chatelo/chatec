@@ -81,6 +81,7 @@ export type DigitalAgreement = {
   agreementText: string;
   signature: string;
   agreedItems: string[];
+  termsId: Date;
   createdAt: Date;
   user?: User;
 };

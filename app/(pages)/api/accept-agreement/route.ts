@@ -32,13 +32,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    // Generate a unique identifier for the terms and conditions
+    const termsId = `terms-${Date.now()}`;
+
     // Create a new DigitalAgreement
     const agreement = await prisma.digitalAgreement.create({
       data: {
         userId: agreementLink.userId,
-        agreementText: "Standard agreement text", // You might want to store this elsewhere
+        agreementText: `By signing this agreement, you agree to the Sigira Technologies Service Agreement, which can be found at: /terms/${termsId}`,
         signature: signature,
         agreedItems: agreedItems,
+        termsId: termsId,
       },
     });
 
@@ -48,7 +52,11 @@ export async function POST(request: Request) {
       data: { isValid: false },
     });
 
-    return NextResponse.json({ success: true, agreementId: agreement.id });
+    return NextResponse.json({
+      success: true,
+      agreementId: agreement.id,
+      termsId: termsId,
+    });
   } catch (error) {
     console.error("Error accepting agreement:", error);
     return NextResponse.json(

@@ -20,7 +20,19 @@ interface CardHeaderProps {
 }
 
 export const CardHeader: React.FC<CardHeaderProps> = ({ children }) => {
-  return <h2 className="text-lg font-semibold mb-2">{children}</h2>;
+  return <div className="mb-2">{children}</div>;
+};
+
+interface CardTitleProps {
+  children: ReactNode;
+  className?: string;
+}
+
+export const CardTitle: React.FC<CardTitleProps> = ({
+  children,
+  className = "",
+}) => {
+  return <h2 className={`text-xl font-semibold ${className}`}>{children}</h2>;
 };
 
 interface CardContentProps {
