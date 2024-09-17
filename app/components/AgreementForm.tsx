@@ -3,21 +3,21 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/components/ui/button";
+import TermsAndConditions from "@/app/components/TermsAndConditions";
+import { DigitalAgreement } from "@/app/types/index";
 
 interface AgreementFormProps {
   agreementLinkId: number;
+  agreement: DigitalAgreement;
 }
 
 export const AgreementForm: React.FC<AgreementFormProps> = ({
   agreementLinkId,
+  agreement,
 }) => {
   const [agreed, setAgreed] = useState(false);
   const [signature, setSignature] = useState("");
-  const [checkedItems, setCheckedItems] = useState({
-    item1: false,
-    item2: false,
-    item3: false,
-  });
+  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
   const router = useRouter();
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,9 +48,10 @@ export const AgreementForm: React.FC<AgreementFormProps> = ({
         },
         body: JSON.stringify({
           agreementLinkId,
+          agreementId: agreement.id,
           signature,
           agreedItems: Object.keys(checkedItems).filter(
-            (key) => checkedItems[key as keyof typeof checkedItems]
+            (key) => checkedItems[key]
           ),
         }),
       });
@@ -69,24 +70,21 @@ export const AgreementForm: React.FC<AgreementFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="bg-gray-100 p-4 rounded">
-        <h2 className="text-lg font-semibold mb-2">Agreement Terms</h2>
-        <p>[Insert your agreement terms here]</p>
-      </div>
+      <TermsAndConditions agreement={agreement} />
 
       <div>
         <h3 className="font-semibold mb-2">Please check all items:</h3>
-        {Object.entries(checkedItems).map(([key, value]) => (
-          <div key={key} className="flex items-center mb-2">
+        {agreement.agreedItems.map((item, index) => (
+          <div key={index} className="flex items-center mb-2">
             <input
               type="checkbox"
-              id={key}
-              name={key}
-              checked={value}
+              id={`item${index}`}
+              name={`item${index}`}
+              checked={checkedItems[`item${index}`] || false}
               onChange={handleCheckboxChange}
               className="mr-2"
             />
-            <label htmlFor={key}>I agree to {key}</label>
+            <label htmlFor={`item${index}`}>{item}</label>
           </div>
         ))}
       </div>

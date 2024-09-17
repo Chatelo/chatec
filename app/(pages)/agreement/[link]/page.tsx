@@ -31,10 +31,20 @@ export default async function AgreementPage({
     return <div>You are not authorized to view this agreement.</div>;
   }
 
+  // Fetch the latest DigitalAgreement for this user
+  const agreement = await prisma.digitalAgreement.findFirst({
+    where: { userId: agreementLink.userId },
+    orderBy: { createdAt: "desc" },
+  });
+
+  if (!agreement) {
+    return <div>Agreement not found.</div>;
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">Digital Agreement</h1>
-      <AgreementForm agreementLinkId={agreementLink.id} />
+      <AgreementForm agreementLinkId={agreementLink.id} agreement={agreement} />
     </div>
   );
 }
