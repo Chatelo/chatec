@@ -16,6 +16,7 @@ model DigitalAgreement {
   userId        Int
   agreementText String
   signature     String
+  agreedItems    String[]
   createdAt     DateTime @default(now())
 }
 model AgreementLink {

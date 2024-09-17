@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { agreementLinkId } = await request.json();
+  const { agreementLinkId, signature, agreedItems } = await request.json();
 
   try {
     const agreementLink = await prisma.agreementLink.findUnique({
@@ -37,7 +37,8 @@ export async function POST(request: Request) {
       data: {
         userId: agreementLink.userId,
         agreementText: "Standard agreement text", // You might want to store this elsewhere
-        signature: session.user.email, // Using email as signature for simplicity
+        signature: signature,
+        agreedItems: agreedItems,
       },
     });
 
