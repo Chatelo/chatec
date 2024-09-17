@@ -6,6 +6,7 @@ const transporter = nodemailer.createTransport({
   // service: "gmail",
   host: process.env.SMTP_HOST,
   port: parseInt(process.env.SMTP_PORT || "587"),
+  secure: process.env.SMTP_PORT === "465",
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
@@ -27,6 +28,11 @@ export async function sendNotification(
     console.log(`Email sent to ${to}`);
   } catch (error) {
     console.error("Error sending email:", error);
+    if ((error as any).response) {
+      if (error instanceof Error && (error as any).response) {
+        console.error((error as any).response.body);
+      }
+    }
   }
 }
 
