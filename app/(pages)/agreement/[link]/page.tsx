@@ -56,7 +56,7 @@ export default async function AgreementPage({
     };
 
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 mt-16">
         <h1 className="text-2xl font-bold mb-4">Digital Agreement</h1>
         <p className="mb-4">
           {agreementTemplate.agreementText}{" "}
@@ -92,7 +92,7 @@ function ErrorMessage({
   statusCode: number;
 }) {
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 mt-16">
       <h1 className="text-2xl font-bold text-red-600">Error {statusCode}</h1>
       <p>{message}</p>
     </div>
