@@ -119,11 +119,11 @@ const TermsAndConditions: React.FC<TermsAndConditionsProps> = ({
           agreements.
         </p>
         <h2 className="text-xl font-semibold mt-4">Agreed Items</h2>
-        <ul>
+        {/* <ul>
           {agreement.agreedItems.map((item, index) => (
             <li key={index}>{item}</li>
           ))}
-        </ul>
+        </ul> */}
         <p className="font-bold mt-4">
           BY CLICKING "I AGREE" OR BY ACCESSING OR USING SIGIRA'S SERVICES,
           CLIENT ACKNOWLEDGES THAT THEY HAVE READ THIS AGREEMENT, UNDERSTAND IT,
