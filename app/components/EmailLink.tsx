@@ -96,7 +96,7 @@ const EmailLink: React.FC<EmailLinkProps> = ({ agreementLink }) => (
           lineHeight: "1.5",
         }}
       >
-        <strong>Please note:</strong> This link will expire in 7 days.
+        <strong>Please note:</strong> This link will expire in 1 day.
       </p>
       <p
         style={{
@@ -119,7 +119,7 @@ const EmailLink: React.FC<EmailLinkProps> = ({ agreementLink }) => (
       >
         Best regards,
         <br />
-        Your Company Name
+        Sigira Technologies.
       </p>
     </div>
     <div
