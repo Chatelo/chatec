@@ -1,15 +1,12 @@
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
-  //TODO  Configure your email service here
-  //TODO  For example, using Gmail:
-  // service: "gmail",
-  host: process.env.SMTP_HOST,
-  port: parseInt(process.env.SMTP_PORT || "587"),
-  secure: false,
+  host: process.env.ZOHO_SMTP_HOST,
+  port: parseInt(process.env.ZOHO_SMTP_PORT || "465"),
+  secure: true, // use SSL
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+    user: process.env.ZOHO_SMTP_USER,
+    pass: process.env.ZOHO_SMTP_PASSWORD,
   },
 });
 
@@ -20,7 +17,7 @@ export async function sendNotification(
 ) {
   try {
     await transporter.sendMail({
-      from: process.env.OUR_EMAIL,
+      from: process.env.ZOHO_SMTP_USER,
       to,
       subject,
       text,
@@ -59,10 +56,10 @@ export async function sendAgreementNotification(
 }
 
 export async function sendAdminNotification(subject: string, text: string) {
-  const adminEmails = process.env.CONTACT_EMAI?.split(",") || [];
+  const adminEmails = process.env.CONTACT_EMAIL?.split(",") || [];
 
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: process.env.ZOHO_SMTP_USER,
     to: adminEmails.join(","),
     subject,
     text,

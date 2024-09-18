@@ -6,12 +6,10 @@ import EmailTemplate from "@/app/components/EmailTemplate";
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASSWORD,
+    user: process.env.ZOHO_SMTP_USER,
+    pass: process.env.ZOHO_SMTP_PASSWORD,
   },
 });
-
-const ADMIN_EMAIL = process.env.SMTP_FROM_EMAIL;
 
 export async function addSubscriber(
   email: string
@@ -21,7 +19,7 @@ export async function addSubscriber(
   }
 
   try {
-    if (!process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
+    if (!process.env.ZOHO_SMTP_USER || !process.env.ZOHO_SMTP_PASSWORD) {
       throw new Error("Missing required environment variables");
     }
 
@@ -78,8 +76,8 @@ async function sendNewSubscriberNotification(
   const subscriberCount = await prisma.subscriber.count();
 
   const mailOptions = {
-    from: process.env.SMTP_USER,
-    to: ADMIN_EMAIL,
+    from: process.env.ZOHO_SMTP_USER,
+    to: process.env.ADMIN_EMAIL,
     subject: "New Newsletter Subscriber",
     text: `A new user has subscribed to your newsletter: ${subscriberEmail}`,
     html: `
@@ -103,7 +101,7 @@ async function sendWelcomeEmail(subscriberEmail: string): Promise<void> {
   const emailHtml = await render(EmailTemplate());
 
   const mailOptions = {
-    from: process.env.SMTP_USER,
+    from: process.env.ZOHO_SMTP_USER,
     to: subscriberEmail,
     subject: "Welcome to Our Newsletter!",
     text: "Thank you for subscribing to our newsletter. We're excited to have you on board!",
@@ -145,8 +143,8 @@ export async function removeSubscriber(email: string): Promise<boolean> {
 
 export async function testEmailSending(): Promise<void> {
   const testMailOptions = {
-    from: process.env.SMTP_USER,
-    to: ADMIN_EMAIL,
+    from: process.env.ZOHO_SMTP_USER,
+    to: process.env.ADMIN_EMAIL,
     subject: "Test Email",
     text: "This is a test email to verify the email sending functionality.",
   };

@@ -6,19 +6,20 @@ export async function POST(request: Request) {
 
   // Create a transporter using SMTP
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT || "587"),
+    host: process.env.ZOHO_SMTP_HOST,
+    port: parseInt(process.env.ZOHO_SMTP_PORT || "465"),
+    secure: true, // use SSL
     auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASSWORD,
+      user: process.env.ZOHO_SMTP_USER,
+      pass: process.env.ZOHO_SMTP_PASSWORD,
     },
   });
 
   try {
     // Send email
     await transporter.sendMail({
-      from: `"Contact Form" <${process.env.CONTACT_EMAIL}>`,
-      to: process.env.CONTACT_EMAIL,
+      from: `"Contact Form" <${process.env.ZOHO_SMTP_USER}>`,
+      to: process.env.ZOHO_SMTP_USER,
       subject: `New Contact Sigira Message from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
       html: `<p><strong>Name:</strong> ${name}</p>
