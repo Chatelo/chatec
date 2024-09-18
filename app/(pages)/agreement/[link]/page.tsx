@@ -54,7 +54,7 @@ export default async function AgreementPage({
     }
 
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 mt-16">
         <h1 className="text-2xl font-bold mb-4">Digital Agreement</h1>
         <AgreementForm
           agreementLinkId={agreementLink.id}
@@ -91,7 +91,7 @@ function ErrorMessage({
   statusCode: number;
 }) {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 mt-16">
       <div
         className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
         role="alert"
