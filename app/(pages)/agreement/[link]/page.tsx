@@ -32,7 +32,7 @@ export default async function AgreementPage({
       throw new AppError("Agreement link not found.", 404);
     }
     if (!agreementLink.isValid) {
-      throw new AppError("This agreement link is invalid.", 400);
+      throw new AppError("This agreement is invalid.", 400);
     }
     if (new Date() > agreementLink.expiresAt) {
       throw new AppError("This agreement link has expired.", 410);
