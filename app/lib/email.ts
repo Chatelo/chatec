@@ -1,4 +1,6 @@
 import nodemailer from "nodemailer";
+import EmailLink from "@/app/components/EmailLink";
+import { renderToString } from "react-dom/server";
 
 const transporter = nodemailer.createTransport({
   host: process.env.ZOHO_SMTP_HOST,
@@ -13,22 +15,20 @@ const transporter = nodemailer.createTransport({
 export async function sendNotification(
   to: string,
   subject: string,
-  text: string
+  html: string
 ) {
   try {
     await transporter.sendMail({
       from: process.env.ZOHO_SMTP_USER,
       to,
       subject,
-      text,
+      html,
     });
     console.log(`Email sent to ${to}`);
   } catch (error) {
     console.error("Error sending email:", error);
     if ((error as any).response) {
-      if (error instanceof Error && (error as any).response) {
-        console.error((error as any).response.body);
-      }
+      console.error((error as any).response.body);
     }
   }
 }
@@ -38,21 +38,9 @@ export async function sendAgreementNotification(
   agreementLink: string
 ) {
   const subject = "New Agreement Available";
-  const text = `
-    Hello,
+  const html = renderToString(EmailLink({ agreementLink }));
 
-    A new agreement is available for your review and acceptance.
-    Please click the following link to view and accept the agreement:
-
-    ${process.env.NEXT_PUBLIC_BASE_URL}/agreement/${agreementLink}
-
-    This link will expire in 7 days.
-
-    Best regards,
-    Your Company Name
-  `;
-
-  await sendNotification(to, subject, text);
+  await sendNotification(to, subject, html);
 }
 
 export async function sendAdminNotification(subject: string, text: string) {
