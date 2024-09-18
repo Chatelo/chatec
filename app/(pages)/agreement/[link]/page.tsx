@@ -3,7 +3,7 @@ import prisma from "@/app/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/lib/auth";
 import { AgreementForm } from "@/app/components/AgreementForm";
-import TermsAndConditions from "@/app/components/TermsAndConditions";
+import TermsModal from "@/app/components/TermsModal";
 
 class AppError extends Error {
   constructor(public message: string, public statusCode: number) {
@@ -42,7 +42,7 @@ export default async function AgreementPage({
     }
 
     const agreementTemplate = {
-      id: 0, // You might want to generate a proper ID here
+      id: 0,
       userId: agreementLink.userId,
       agreementText: `By signing this agreement, you agree to the Sigira Technologies Service Agreement.`,
       signature: "",
@@ -56,9 +56,12 @@ export default async function AgreementPage({
     };
 
     return (
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold mb-4">Digital Agreement</h1>
-        <TermsAndConditions agreement={agreementTemplate} />
+        <p className="mb-4">
+          {agreementTemplate.agreementText}{" "}
+          <TermsModal agreement={agreementTemplate} />
+        </p>
         <AgreementForm
           agreementLinkId={agreementLink.id}
           agreement={agreementTemplate}
