@@ -4,7 +4,7 @@ import StructuredData from "./components/StructuredData";
 import AnimatedServiceCard from "./components/AnimatedServiceCard";
 import { services } from "@/app/data/servicesList";
 import NewsletterSubscription from "./components/NewsletterSubscription";
-
+// Home page
 export default function Home() {
   const structuredData = {
     "@context": "https://schema.org",
