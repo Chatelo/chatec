@@ -85,7 +85,7 @@ const EmailLink: React.FC<EmailLinkProps> = ({ agreementLink }) => (
             transition: "all 0.3s ease",
           }}
         >
-          View Agreement
+          View and accept Agreement
         </a>
       </div>
       <p
