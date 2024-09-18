@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import EmailLink from "@/app/components/EmailLink";
-import { renderToString } from "react-dom/server";
+import { render } from "@react-email/render";
 
 const transporter = nodemailer.createTransport({
   host: process.env.ZOHO_SMTP_HOST,
@@ -38,7 +38,7 @@ export async function sendAgreementNotification(
   agreementLink: string
 ) {
   const subject = "New Agreement Available";
-  const html = renderToString(EmailLink({ agreementLink }));
+  const html = await render(<EmailLink agreementLink={agreementLink} />);
 
   await sendNotification(to, subject, html);
 }
