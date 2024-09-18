@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/components/ui/button";
-import TermsAndConditions from "@/app/components/TermsAndConditions";
+// import TermsAndConditions from "@/app/components/TermsAndConditions";
 import { DigitalAgreement } from "@/app/types/index";
 
 interface AgreementFormProps {
@@ -70,7 +70,7 @@ export const AgreementForm: React.FC<AgreementFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <TermsAndConditions agreement={agreement} />
+      {/* <TermsAndConditions agreement={agreement} /> */}
 
       <div>
         <h3 className="font-semibold mb-2">Please check all items:</h3>
