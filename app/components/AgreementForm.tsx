@@ -58,7 +58,7 @@ export const AgreementForm: React.FC<AgreementFormProps> = ({
 
       if (response.ok) {
         alert("Agreement accepted successfully!");
-        router.push("/dashboard");
+        router.push("/");
       } else {
         throw new Error("Failed to accept agreement");
       }
