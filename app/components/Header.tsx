@@ -199,7 +199,7 @@ export default function Header() {
                 Sign Out
               </MenuLink>
               <div className="py-2 px-4 text-gray-800 dark:text-gray-200">
-                Welcome,{" "}
+                Hey,{" "}
                 {getFirstName(session.user?.name) ||
                   session.user?.email ||
                   "User"}
