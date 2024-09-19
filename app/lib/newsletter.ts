@@ -146,22 +146,22 @@ export async function removeSubscriber(email: string): Promise<boolean> {
   }
 }
 
-export async function testEmailSending(): Promise<void> {
-  const testMailOptions = {
-    from: process.env.ZOHO_SMTP_USER,
-    to: process.env.ADMIN_EMAIL,
-    subject: "Test Email",
-    text: "This is a test email to verify the email sending functionality.",
-  };
+// export async function testEmailSending(): Promise<void> {
+//   const testMailOptions = {
+//     from: process.env.ZOHO_SMTP_USER,
+//     to: process.env.ADMIN_EMAIL,
+//     subject: "Test Email",
+//     text: "This is a test email to verify the email sending functionality.",
+//   };
 
-  try {
-    console.log("Attempting to send test email...");
-    const info = await transporter.sendMail(testMailOptions);
-    console.log("Test email sent successfully:", info.response);
-  } catch (error) {
-    console.error("Error sending test email:", error);
-    console.error("Error details:", JSON.stringify(error, null, 2));
-    console.error("Mail options:", JSON.stringify(testMailOptions, null, 2));
-    throw new Error("Failed to send test email");
-  }
-}
+//   try {
+//     console.log("Attempting to send test email...");
+//     const info = await transporter.sendMail(testMailOptions);
+//     console.log("Test email sent successfully:", info.response);
+//   } catch (error) {
+//     console.error("Error sending test email:", error);
+//     console.error("Error details:", JSON.stringify(error, null, 2));
+//     console.error("Mail options:", JSON.stringify(testMailOptions, null, 2));
+//     throw new Error("Failed to send test email");
+//   }
+// }
