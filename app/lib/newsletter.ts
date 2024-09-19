@@ -86,7 +86,7 @@ async function sendNewSubscriberNotification(
          <h1>New Subscriber!</h1>
          <p>A new user has subscribed to your newsletter:</p>
          <p><strong>${subscriberEmail}</strong></p>
-         <p>Subscriber: ${subscriberCount}</p>
+         <p>Subscribers: ${subscriberCount}</p>
        `,
   };
 
