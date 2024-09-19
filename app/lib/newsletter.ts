@@ -44,7 +44,7 @@ export async function addSubscriber(
     await sendWelcomeEmail(email);
 
     return {
-      message: "Subscription successful! You've been added to the newsletter.",
+      message: `Subscription successful! You've been added to the newsletter. Please check ${email} for a welcome message.`,
       status: 201,
     };
   } catch (error) {
