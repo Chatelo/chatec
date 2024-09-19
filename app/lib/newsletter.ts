@@ -4,7 +4,9 @@ import { render } from "@react-email/render";
 import EmailTemplate from "@/app/components/EmailTemplate";
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: process.env.ZOHO_SMTP_HOST,
+  port: parseInt(process.env.ZOHO_SMTP_PORT || "465"),
+  secure: true, // Use SSL
   auth: {
     user: process.env.ZOHO_SMTP_USER,
     pass: process.env.ZOHO_SMTP_PASSWORD,
@@ -81,18 +83,21 @@ async function sendNewSubscriberNotification(
     subject: "New Newsletter Subscriber",
     text: `A new user has subscribed to your newsletter: ${subscriberEmail}`,
     html: `
-      <h1>New Subscriber!</h1>
-      <p>A new user has subscribed to your newsletter:</p>
-      <p><strong>${subscriberEmail}</strong></p>
-      <p>Current subscriber count: ${subscriberCount}</p>
-    `,
+         <h1>New Subscriber!</h1>
+         <p>A new user has subscribed to your newsletter:</p>
+         <p><strong>${subscriberEmail}</strong></p>
+         <p>Current subscriber count: ${subscriberCount}</p>
+       `,
   };
 
   try {
-    await transporter.sendMail(mailOptions);
+    console.log("Attempting to send notification email...");
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Notification email sent successfully:", info.response);
   } catch (error) {
     console.error("Error sending notification email:", error);
     console.error("Error details:", JSON.stringify(error, null, 2));
+    console.error("Mail options:", JSON.stringify(mailOptions, null, 2));
     throw new Error("Failed to send notification email");
   }
 }
@@ -150,11 +155,13 @@ export async function testEmailSending(): Promise<void> {
   };
 
   try {
-    await transporter.sendMail(testMailOptions);
-    console.log("Test email sent successfully");
+    console.log("Attempting to send test email...");
+    const info = await transporter.sendMail(testMailOptions);
+    console.log("Test email sent successfully:", info.response);
   } catch (error) {
     console.error("Error sending test email:", error);
     console.error("Error details:", JSON.stringify(error, null, 2));
+    console.error("Mail options:", JSON.stringify(testMailOptions, null, 2));
     throw new Error("Failed to send test email");
   }
 }
