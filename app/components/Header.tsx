@@ -5,6 +5,12 @@ import { useState, ReactNode, useEffect, useRef } from "react";
 import { useSession, signOut } from "next-auth/react";
 import DarkModeToggle from "./DarkModeToggle";
 
+// Helper function to get the first name
+const getFirstName = (fullName: string | null | undefined): string => {
+  if (!fullName) return "User";
+  return fullName.split(" ")[0];
+};
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -118,8 +124,12 @@ export default function Header() {
                   </Link>
                 )}
                 <span className="text-gray-800 dark:text-gray-200">
-                  Hi, {session.user?.name || session.user?.email || "User"}
+                  Hi,{" "}
+                  {getFirstName(session.user?.name) ||
+                    session.user?.email ||
+                    "User"}
                 </span>
+
                 <button
                   onClick={handleSignOut}
                   className="text-red-400 hover:text-blue-500 dark:text-red-400 dark:hover:text-blue-400 transition-colors duration-200"
@@ -189,7 +199,10 @@ export default function Header() {
                 Sign Out
               </MenuLink>
               <div className="py-2 px-4 text-gray-800 dark:text-gray-200">
-                Welcome, {session.user?.name || session.user?.email || "User"}
+                Welcome,{" "}
+                {getFirstName(session.user?.name) ||
+                  session.user?.email ||
+                  "User"}
               </div>
             </>
           ) : (
