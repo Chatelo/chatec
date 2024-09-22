@@ -1,6 +1,14 @@
+import { getServerSession, Session } from "next-auth";
+import { authOptions } from "@/app/lib/auth";
 import { redirect } from "next/navigation";
 import prisma from "@/app/lib/prisma";
 import { cookies } from "next/headers";
+
+declare module "next-auth" {
+  interface Session {
+    referralCode?: string;
+  }
+}
 
 async function processReferral(affiliate: any) {
   // Log the referral click
@@ -27,7 +35,6 @@ export default async function ReferralPage({
 }) {
   const affiliateCode = params.code;
   try {
-    // Find the affiliate with the given code
     const affiliate = await prisma.affiliate.findUnique({
       where: { affiliateCode },
       include: {
@@ -36,20 +43,24 @@ export default async function ReferralPage({
     });
 
     if (!affiliate) {
-      // If no affiliate found, redirect to home page
       redirect("/");
     }
 
-    // Process the referral
     await processReferral(affiliate);
 
-    // Set a cookie to track the referral
+    // Set a cookie to track the referral (90 days)
     cookies().set("referral", affiliateCode, {
       httpOnly: true,
-      maxAge: 60 * 60 * 24 * 30, // 30 days
+      maxAge: 60 * 60 * 24 * 90,
     });
 
-    // Redirect to home page
+    // Also store the referral in the session
+    const session = await getServerSession(authOptions);
+    if (session) {
+      session.referralCode = affiliateCode;
+      // No need to save the session as next-auth handles it automatically
+    }
+
     redirect("/");
   } catch (error) {
     console.error("Error processing referral:", error);

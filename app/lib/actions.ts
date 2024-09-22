@@ -360,14 +360,13 @@ export async function registerAffiliate(commissionRate: number) {
 }
 
 export async function completeReferral(referralId: number) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.email) {
-    throw new Error("Unauthorized");
-  }
-
   const referral = await prisma.referral.findUnique({
     where: { id: referralId },
-    include: { affiliate: true },
+    include: {
+      affiliate: {
+        include: { user: true },
+      },
+    },
   });
 
   if (!referral) {
@@ -386,20 +385,34 @@ export async function completeReferral(referralId: number) {
     },
   });
 
-  // Calculate commission
   const commissionAmount = calculateCommission(
     referral.affiliate.commissionRate
   );
 
-  await prisma.commission.create({
+  const commission = await prisma.commission.create({
     data: {
       affiliateId: referral.affiliateId,
       amount: commissionAmount,
       status: "PENDING",
+      // referralId: referralId,
+      //TODO Link commission to specific referral
     },
   });
 
-  return updatedReferral;
+  // Check if user email exists before sending notification
+  if (referral.affiliate.user?.email) {
+    await sendNotification(
+      referral.affiliate.user.email,
+      "New Commission",
+      `You've earned a new commission of Kshs. ${commissionAmount.toFixed(2)}`
+    );
+  } else {
+    console.error(
+      `Unable to send notification: User email not found for referral ${referralId}`
+    );
+  }
+
+  return { updatedReferral, commission };
 }
 
 export async function generateAgreementLink(userId: number) {

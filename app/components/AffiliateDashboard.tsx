@@ -94,6 +94,32 @@ export const AffiliateDashboard: React.FC<{ affiliate: Affiliate }> = ({
           </ul>
         </CardContent>
       </Card>
+      <Card className="col-span-full">
+        <CardHeader>Detailed Commission Report</CardHeader>
+        <CardContent>
+          <table className="w-full">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Referral ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              {affiliate.commissions.map((commission) => (
+                <tr key={commission.id}>
+                  <td>{commission.createdAt.toLocaleDateString()}</td>
+                  <td>Kshs. {commission.amount.toFixed(2)}</td>
+                  <td>{commission.status}</td>
+                  {/* TODO : commented out because it doesnt exist in type, to fix later */}
+                  {/* <td>{commission.referralId}</td> */}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
     </div>
   );
 };
