@@ -77,28 +77,29 @@ export default async function AffiliateDashboardPage() {
       : undefined,
   });
 
-  // Forward declaration of mapAffiliate
+  // Forward declare mapAffiliate
   let mapAffiliate: (affiliateData: any) => Affiliate;
 
-  // Map Commission data
-  const mapCommission = (commission: any): Commission => ({
+  const mapCommission = (commission: any, affiliateData: any): Commission => ({
     id: commission.id,
     affiliateId: commission.affiliateId,
     amount: commission.amount,
     status: commission.status,
     createdAt: commission.createdAt,
-    affiliate: mapAffiliate(user.affiliate), // This will use the mapAffiliate function
+    get affiliate() {
+      return mapAffiliate(affiliateData);
+    },
   });
 
-  // Map ReferralClick data
-  const mapReferralClick = (click: any): ReferralClick => ({
+  const mapReferralClick = (click: any, affiliateData: any): ReferralClick => ({
     id: click.id,
     affiliateId: click.affiliateId,
     clickedAt: click.clickedAt,
-    affiliate: mapAffiliate(user.affiliate), // This will use the mapAffiliate function
+    get affiliate() {
+      return mapAffiliate(affiliateData);
+    },
   });
 
-  // Map Affiliate data
   mapAffiliate = (affiliateData: any): Affiliate => ({
     id: affiliateData.id,
     userId: affiliateData.userId,
@@ -110,8 +111,12 @@ export default async function AffiliateDashboardPage() {
     totalCommissions: totalCommissions,
     user: mapUser(affiliateData.user),
     referrals: affiliateData.referrals.map(mapReferral),
-    commissions: affiliateData.commissions.map(mapCommission),
-    referralClicks: affiliateData.referralClicks.map(mapReferralClick),
+    commissions: affiliateData.commissions.map((commission: Commission) =>
+      mapCommission(commission, affiliateData)
+    ),
+    referralClicks: affiliateData.referralClicks.map((click: ReferralClick) =>
+      mapReferralClick(click, affiliateData)
+    ),
   });
 
   // Map the user's affiliate data

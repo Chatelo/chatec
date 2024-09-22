@@ -90,7 +90,7 @@ export type ReferralClick = {
   id: number;
   affiliateId: number;
   clickedAt: Date;
-  affiliate: Affiliate;
+  affiliate?: Affiliate;
 };
 
 export type Referral = {
@@ -110,7 +110,7 @@ export type Commission = {
   amount: number;
   status: string;
   createdAt: Date;
-  affiliate: Affiliate;
+  affiliate?: Affiliate;
 };
 
 export type Subscriber = {
