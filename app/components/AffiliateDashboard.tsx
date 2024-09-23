@@ -112,7 +112,7 @@ export const AffiliateDashboard: React.FC<{ affiliate: Affiliate }> = ({
                   <td>{commission.createdAt.toLocaleDateString()}</td>
                   <td>Kshs. {commission.amount.toFixed(2)}</td>
                   <td>{commission.status}</td>
-                  {/* TODO : commented out because it doesnt exist in type, to fix later */}
+                  {/* TODO : commented out because it doesnt exist in type, to fix */}
                   {/* <td>{commission.referralId}</td> */}
                 </tr>
               ))}
