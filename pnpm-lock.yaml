@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@copilotkit/react-core':
-        specifier: ^1.3.0
-        version: 1.3.0(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^1.3.1
+        version: 1.3.1(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@copilotkit/react-textarea':
-        specifier: 1.3.0
-        version: 1.3.0(@types/react-dom@18.3.0)(@types/react@18.3.5)(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react@18.3.1)
+        specifier: 1.3.1
+        version: 1.3.1(@types/react-dom@18.3.0)(@types/react@18.3.5)(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react@18.3.1)
       '@copilotkit/react-ui':
-        specifier: ^1.3.0
-        version: 1.3.0(@types/react@18.3.5)(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^1.3.1
+        version: 1.3.1(@types/react@18.3.5)(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@heroicons/react':
         specifier: ^2.1.5
         version: 2.1.5(react@18.3.1)
@@ -204,32 +204,32 @@ packages:
     resolution: {integrity: sha512-/l42B1qxpG6RdfYf343Uw1vmDjeNhneUXtzhojE7pDgfpEypmRhI6j1kr17XCVv4Cgl9HdAiQY2x0GwKm7rWCw==}
     engines: {node: '>=6.9.0'}
 
-  '@copilotkit/react-core@1.3.0':
-    resolution: {integrity: sha512-gjiINkCYYQXML+pms1fOwaC0IQKJYYbZL9ZTYCVJxiqEDJimR/TiZW7FBeI33+yXz6xyPuAp+CDTvv/NJboWbA==}
+  '@copilotkit/react-core@1.3.1':
+    resolution: {integrity: sha512-GuzziiuaAAWw8x7vVM87pxHc4npuxbjplTJeM4Dn7NWAqnOGgBwpxtvj/A0XwORbxtqf9ewqOa2G/vHmThqWzw==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
 
-  '@copilotkit/react-textarea@1.3.0':
-    resolution: {integrity: sha512-4UWoR95jnkrvdjvowBI093dgk3gfthbWFpvbZlaJ7BmxzgHMveTXTpKFuFrrJEaipmXm9nptazHQeCAxOQS2cg==}
+  '@copilotkit/react-textarea@1.3.1':
+    resolution: {integrity: sha512-WWahndBMyvcELSDXoNXQPL7Gf71qCqJ8IQuJ6y37NOUQnyx0PaZ9ZvAE0fqLsDIE/5O6kYkJuUdHaVeJec4WKg==}
     peerDependencies:
       react: ^18.2.0
 
-  '@copilotkit/react-ui@1.3.0':
-    resolution: {integrity: sha512-munMu0+ZCc7a4krl0vVdzmSR72RiINkQer0UdStz7u+uveqw5UKI9XJgHTjnvSqSo1IKuN4C4HcfVGydV911Fw==}
+  '@copilotkit/react-ui@1.3.1':
+    resolution: {integrity: sha512-Z+TYohUzs1Xk5ZmsFXhLdfXg5bvseb6+aOR5MtQE8BcYeaRF+umq75OlUAzZtuHGEcWAE4J/iCGXn2rcB0FNtA==}
     peerDependencies:
       react: ^18.2.0
 
-  '@copilotkit/runtime-client-gql@1.3.0':
-    resolution: {integrity: sha512-JRR/gkLPtLTqVBAbtocBcvYDdxuIk0Lp+I46BxMggs4ic/tmozBvR64zwONv1B5IS3kVMgUqdmlF2oXkh8QVzA==}
+  '@copilotkit/runtime-client-gql@1.3.1':
+    resolution: {integrity: sha512-Hd9EUWB+FGllHKGpRHS7n8UzgLEErUFofl6rZEpndlz6osWCGUo/DoJL8q9QD8GA3iBwzrbOMyRvEnt04M3/rQ==}
     peerDependencies:
       react: ^18.2.0
 
-  '@copilotkit/runtime@1.3.0':
-    resolution: {integrity: sha512-ciHWDn4P9AP6MtdNto6+Twx7mzzrL2Fc+C18T/0jGaZIY0nN+tCDt2IynJYI+wkd3tzAq+AQHAtyZfMNUND+0Q==}
+  '@copilotkit/runtime@1.3.1':
+    resolution: {integrity: sha512-tNio8dc/SYFZdN9w6eFl4S2jKqjBMmDNBf618rkD9UU4fAFD3EiLpbw0P5i4oeFASVC4/J2xuNimgGIt1sTqjA==}
 
-  '@copilotkit/shared@1.3.0':
-    resolution: {integrity: sha512-U5Fuc+n2euoD/r8zVaDZF9Z5VGRYAHrD40PkFhWIvHP8MYFQd7CxmEqnMCvOVxqsHjTzTiE5Kb27EKUmv4inEg==}
+  '@copilotkit/shared@1.3.1':
+    resolution: {integrity: sha512-0vm4SbbcXkDAZCydHs9rVXGmGtBGgR9Eh+UiHSKArKADb9Y4JvnEYTwRGcs6c+jBV2FNkPUgDevNmaooW9iciQ==}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -872,6 +872,83 @@ packages:
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
     hasBin: true
 
+  '@mui/core-downloads-tracker@5.16.7':
+    resolution: {integrity: sha512-RtsCt4Geed2/v74sbihWzzRs+HsIQCfclHeORh5Ynu2fS4icIKozcSubwuG7vtzq2uW3fOR1zITSP84TNt2GoQ==}
+
+  '@mui/material@5.16.7':
+    resolution: {integrity: sha512-cwwVQxBhK60OIOqZOVLFt55t01zmarKJiJUWbk0+8s/Ix5IaUzAShqlJchxsIQ4mSrWqgcKCCXKtIlG5H+/Jmg==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@emotion/react': ^11.5.0
+      '@emotion/styled': ^11.3.0
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
+      react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      '@types/react':
+        optional: true
+
+  '@mui/private-theming@5.16.6':
+    resolution: {integrity: sha512-rAk+Rh8Clg7Cd7shZhyt2HGTTE5wYKNSJ5sspf28Fqm/PZ69Er9o6KX25g03/FG2dfpg5GCwZh/xOojiTfm3hw==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
+  '@mui/styled-engine@5.16.6':
+    resolution: {integrity: sha512-zaThmS67ZmtHSWToTiHslbI8jwrmITcN93LQaR2lKArbvS7Z3iLkwRoiikNWutx9MBs8Q6okKvbZq1RQYB3v7g==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@emotion/react': ^11.4.1
+      '@emotion/styled': ^11.3.0
+      react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+
+  '@mui/system@5.16.7':
+    resolution: {integrity: sha512-Jncvs/r/d/itkxh7O7opOunTqbbSSzMTHzZkNLM+FjAOg+cYAZHrPDlYe1ZGKUYORwwb2XexlWnpZp0kZ4AHuA==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@emotion/react': ^11.5.0
+      '@emotion/styled': ^11.3.0
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      '@types/react':
+        optional: true
+
+  '@mui/types@7.2.17':
+    resolution: {integrity: sha512-oyumoJgB6jDV8JFzRqjBo2daUuHpzDjoO/e3IrRhhHo/FxJlaVhET6mcNrKHUq2E+R+q3ql0qAtvQ4rfWHhAeQ==}
+    peerDependencies:
+      '@types/react': ^17.0.0 || ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
+  '@mui/utils@5.16.6':
+    resolution: {integrity: sha512-tWiQqlhxAt3KENNiSRL+DIn9H5xNVK6Jjf70x3PnfQPz1MPBdh7yyIcAyVBT9xiw7hP3SomRhPR7hzBMBCjqEA==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
   '@next-auth/prisma-adapter@1.0.7':
     resolution: {integrity: sha512-Cdko4KfcmKjsyHFrWwZ//lfLUbcLqlyFqjd/nYE2m3aZ7tjMNUjpks47iw7NTCnXf+5UWz5Ypyt1dSs1EP5QJw==}
     peerDependencies:
@@ -963,6 +1040,9 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+
+  '@popperjs/core@2.11.8':
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
   '@prisma/client@5.19.1':
     resolution: {integrity: sha512-x30GFguInsgt+4z5I4WbkZP2CGpotJMUXy+Gl/aaUjHn2o1DnLYNTA+q9XdYmAQZM8fIIkvUiA2NpgosM3fneg==}
@@ -1409,6 +1489,9 @@ packages:
 
   '@types/react-dom@18.3.0':
     resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
+
+  '@types/react-transition-group@4.4.11':
+    resolution: {integrity: sha512-RM05tAniPZ5DZPzzNFP+DmrcOdD0efDUxMy3145oljWSl3x9ZV5vhme98gTxFrj2lhXvmGNnUiuDyJgY9IKkNA==}
 
   '@types/react@18.3.5':
     resolution: {integrity: sha512-WeqMfGJLGuLCqHGYRGHxnKrXcTitc6L/nBUWfWPcTarG3t9PsquqUMuVeXZeca+mglY4Vo5GZjCi0A3Or2lnxA==}
@@ -2027,6 +2110,9 @@ packages:
   doctrine@2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
     engines: {node: '>=0.10.0'}
+
+  dom-helpers@5.2.1:
+    resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
 
   dom-serializer@2.0.0:
     resolution: {integrity: sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==}
@@ -3765,11 +3851,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
 
-  react-icons@5.3.0:
-    resolution: {integrity: sha512-DnUk8aFbTyQPSkCfF8dbX6kQjXA9DktMeJqfjrg6cK9vwQVMxmcA3BfP4QoiztVmEHtwlTgLFsPuH2NskKT6eg==}
-    peerDependencies:
-      react: '*'
-
   react-infinite-scroll-component@6.1.0:
     resolution: {integrity: sha512-SQu5nCqy8DxQWpnUVLx7V7b7LcA37aM7tvoWjTLZp1dk6EJibM5/4EJKzOnl07/BsM1Y40sKLuqjCwwH/xV0TQ==}
     peerDependencies:
@@ -3843,6 +3924,12 @@ packages:
     resolution: {integrity: sha512-+zq2myprEnQmH5yw6Gqc8lD55QHnpKaU8TOcFeC/Lg/MQSs8UknEA0JC4nTZGFAXC2J2Hyj/ijJ7NlabyPi2gg==}
     peerDependencies:
       react: '>= 0.14.0'
+
+  react-transition-group@4.4.5:
+    resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}
+    peerDependencies:
+      react: '>=16.6.0'
+      react-dom: '>=16.6.0'
 
   react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
@@ -4614,10 +4701,10 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
 
-  '@copilotkit/react-core@1.3.0(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@copilotkit/react-core@1.3.1(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@copilotkit/runtime-client-gql': 1.3.0(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react@18.3.1)
-      '@copilotkit/shared': 1.3.0
+      '@copilotkit/runtime-client-gql': 1.3.1(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react@18.3.1)
+      '@copilotkit/shared': 1.3.1
       '@scarf/scarf': 1.3.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -4746,14 +4833,15 @@ snapshots:
       - youtube-transcript
       - youtubei.js
 
-  '@copilotkit/react-textarea@1.3.0(@types/react-dom@18.3.0)(@types/react@18.3.5)(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react@18.3.1)':
+  '@copilotkit/react-textarea@1.3.1(@types/react-dom@18.3.0)(@types/react@18.3.5)(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react@18.3.1)':
     dependencies:
-      '@copilotkit/react-core': 1.3.0(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@copilotkit/runtime-client-gql': 1.3.0(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react@18.3.1)
-      '@copilotkit/shared': 1.3.0
+      '@copilotkit/react-core': 1.3.1(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@copilotkit/runtime-client-gql': 1.3.1(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react@18.3.1)
+      '@copilotkit/shared': 1.3.1
       '@emotion/css': 11.13.0
       '@emotion/react': 11.13.3(@types/react@18.3.5)(react@18.3.1)
       '@emotion/styled': 11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1)
+      '@mui/material': 5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-dialog': 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-label': 2.1.0(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-separator': 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -4766,7 +4854,6 @@ snapshots:
       material-icons: 1.13.12
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      react-icons: 5.3.0(react@18.3.1)
       slate: 0.94.1
       slate-history: 0.93.0(slate@0.94.1)
       slate-react: 0.98.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(slate@0.94.1)
@@ -4897,11 +4984,11 @@ snapshots:
       - youtube-transcript
       - youtubei.js
 
-  '@copilotkit/react-ui@1.3.0(@types/react@18.3.5)(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@copilotkit/react-ui@1.3.1(@types/react@18.3.5)(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@copilotkit/react-core': 1.3.0(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@copilotkit/runtime-client-gql': 1.3.0(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react@18.3.1)
-      '@copilotkit/shared': 1.3.0
+      '@copilotkit/react-core': 1.3.1(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@copilotkit/runtime-client-gql': 1.3.1(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react@18.3.1)
+      '@copilotkit/shared': 1.3.1
       '@headlessui/react': 2.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-markdown: 8.0.7(@types/react@18.3.5)(react@18.3.1)
@@ -5034,10 +5121,10 @@ snapshots:
       - youtube-transcript
       - youtubei.js
 
-  '@copilotkit/runtime-client-gql@1.3.0(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react@18.3.1)':
+  '@copilotkit/runtime-client-gql@1.3.1(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(react@18.3.1)':
     dependencies:
-      '@copilotkit/runtime': 1.3.0(class-validator@0.14.1)(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)
-      '@copilotkit/shared': 1.3.0
+      '@copilotkit/runtime': 1.3.1(class-validator@0.14.1)(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)
+      '@copilotkit/shared': 1.3.1
       '@urql/core': 5.0.6(graphql@16.9.0)
       class-transformer: 0.5.1
       class-validator: 0.14.1
@@ -5170,10 +5257,10 @@ snapshots:
       - youtube-transcript
       - youtubei.js
 
-  '@copilotkit/runtime@1.3.0(class-validator@0.14.1)(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)':
+  '@copilotkit/runtime@1.3.1(class-validator@0.14.1)(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)':
     dependencies:
       '@anthropic-ai/sdk': 0.27.3
-      '@copilotkit/shared': 1.3.0
+      '@copilotkit/shared': 1.3.1
       '@google/generative-ai': 0.11.5
       '@graphql-yoga/plugin-defer-stream': 3.7.0(graphql-yoga@5.7.0(graphql@16.9.0))(graphql@16.9.0)
       '@langchain/community': 0.0.53(html-to-text@9.0.5)(langchain@0.1.37(html-to-text@9.0.5)(ignore@5.3.2)(lodash@4.17.21)(openai@4.61.0(zod@3.23.8)))(lodash@4.17.21)(openai@4.61.0(zod@3.23.8))
@@ -5318,7 +5405,7 @@ snapshots:
       - youtube-transcript
       - youtubei.js
 
-  '@copilotkit/shared@1.3.0':
+  '@copilotkit/shared@1.3.1':
     dependencies:
       '@segment/analytics-node': 2.1.2
       chalk: 4.1.2
@@ -5778,6 +5865,81 @@ snapshots:
       - encoding
       - supports-color
 
+  '@mui/core-downloads-tracker@5.16.7': {}
+
+  '@mui/material@5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.6
+      '@mui/core-downloads-tracker': 5.16.7
+      '@mui/system': 5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1)
+      '@mui/types': 7.2.17(@types/react@18.3.5)
+      '@mui/utils': 5.16.6(@types/react@18.3.5)(react@18.3.1)
+      '@popperjs/core': 2.11.8
+      '@types/react-transition-group': 4.4.11
+      clsx: 2.1.1
+      csstype: 3.1.3
+      prop-types: 15.8.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-is: 18.3.1
+      react-transition-group: 4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    optionalDependencies:
+      '@emotion/react': 11.13.3(@types/react@18.3.5)(react@18.3.1)
+      '@emotion/styled': 11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1)
+      '@types/react': 18.3.5
+
+  '@mui/private-theming@5.16.6(@types/react@18.3.5)(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.6
+      '@mui/utils': 5.16.6(@types/react@18.3.5)(react@18.3.1)
+      prop-types: 15.8.1
+      react: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.5
+
+  '@mui/styled-engine@5.16.6(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.6
+      '@emotion/cache': 11.13.1
+      csstype: 3.1.3
+      prop-types: 15.8.1
+      react: 18.3.1
+    optionalDependencies:
+      '@emotion/react': 11.13.3(@types/react@18.3.5)(react@18.3.1)
+      '@emotion/styled': 11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1)
+
+  '@mui/system@5.16.7(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.6
+      '@mui/private-theming': 5.16.6(@types/react@18.3.5)(react@18.3.1)
+      '@mui/styled-engine': 5.16.6(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(react@18.3.1)
+      '@mui/types': 7.2.17(@types/react@18.3.5)
+      '@mui/utils': 5.16.6(@types/react@18.3.5)(react@18.3.1)
+      clsx: 2.1.1
+      csstype: 3.1.3
+      prop-types: 15.8.1
+      react: 18.3.1
+    optionalDependencies:
+      '@emotion/react': 11.13.3(@types/react@18.3.5)(react@18.3.1)
+      '@emotion/styled': 11.13.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1)
+      '@types/react': 18.3.5
+
+  '@mui/types@7.2.17(@types/react@18.3.5)':
+    optionalDependencies:
+      '@types/react': 18.3.5
+
+  '@mui/utils@5.16.6(@types/react@18.3.5)(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.6
+      '@mui/types': 7.2.17(@types/react@18.3.5)
+      '@types/prop-types': 15.7.12
+      clsx: 2.1.1
+      prop-types: 15.8.1
+      react: 18.3.1
+      react-is: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.5
+
   '@next-auth/prisma-adapter@1.0.7(@prisma/client@5.19.1(prisma@5.19.1))(next-auth@4.24.7(next@14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(nodemailer@6.9.15)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
       '@prisma/client': 5.19.1(prisma@5.19.1)
@@ -5836,6 +5998,8 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@popperjs/core@2.11.8': {}
 
   '@prisma/client@5.19.1(prisma@5.19.1)':
     optionalDependencies:
@@ -6297,6 +6461,10 @@ snapshots:
   '@types/qs@6.9.16': {}
 
   '@types/react-dom@18.3.0':
+    dependencies:
+      '@types/react': 18.3.5
+
+  '@types/react-transition-group@4.4.11':
     dependencies:
       '@types/react': 18.3.5
 
@@ -6948,6 +7116,11 @@ snapshots:
   doctrine@2.1.0:
     dependencies:
       esutils: 2.0.3
+
+  dom-helpers@5.2.1:
+    dependencies:
+      '@babel/runtime': 7.25.6
+      csstype: 3.1.3
 
   dom-serializer@2.0.0:
     dependencies:
@@ -8974,10 +9147,6 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  react-icons@5.3.0(react@18.3.1):
-    dependencies:
-      react: 18.3.1
-
   react-infinite-scroll-component@6.1.0(react@18.3.1):
     dependencies:
       react: 18.3.1
@@ -9066,6 +9235,15 @@ snapshots:
       prismjs: 1.29.0
       react: 18.3.1
       refractor: 3.6.0
+
+  react-transition-group@4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      '@babel/runtime': 7.25.6
+      dom-helpers: 5.2.1
+      loose-envify: 1.4.0
+      prop-types: 15.8.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   react@18.3.1:
     dependencies:
