@@ -106,8 +106,8 @@ const EmailLink: React.FC<EmailLinkProps> = ({ agreementLink }) => (
           lineHeight: "1.5",
         }}
       >
-        If you have any questions or concerns, please don't hesitate to contact
-        us.
+        If you have any questions or concerns, please don&apos;t hesitate to
+        contact us.
       </p>
       <p
         style={{
