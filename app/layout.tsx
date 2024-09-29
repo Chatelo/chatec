@@ -36,13 +36,6 @@ export const metadata: Metadata = {
     images: "/opengraph-image.png",
 
     siteName: "Sigira Technologies",
-    // images: [
-    //   {
-    //     url: "https://sigira.com/sigira-og.png",
-    //     width: 1200,
-    //     height: 630,
-    //   },
-    // ],
     locale: "en_US",
     type: "website",
   },
@@ -190,8 +183,8 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.className} dark:bg-gray-900 dark:text-white`}>
-        <CopilotWrapper>
-          <SessionProvider session={session}>
+        <SessionProvider session={session}>
+          <CopilotWrapper>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <Header />
               <main>{children}</main>
@@ -207,8 +200,8 @@ export default async function RootLayout({
               <Footer />
               <WhatsAppFloat />
             </ThemeProvider>
-          </SessionProvider>
-        </CopilotWrapper>
+          </CopilotWrapper>
+        </SessionProvider>
       </body>
     </html>
   );
