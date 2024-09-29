@@ -29,16 +29,16 @@ const TermsAndConditions: React.FC<TermsAndConditionsProps> = ({
         <p>{agreement.agreementText}</p>
         <h2 className="text-xl font-semibold mt-4">1. Acceptance of Terms</h2>
         <p>
-          By engaging Sigira's services or using any of Sigira's digital
-          products, Client agrees to be bound by the terms and conditions set
-          forth in this Agreement.
+          By engaging Sigira&apos;s services or using any of Sigira&apos;s
+          digital products, Client agrees to be bound by the terms and
+          conditions set forth in this Agreement.
         </p>
         <h2 className="text-xl font-semibold mt-4">2. Services Description</h2>
         <p>
           Sigira provides a range of digital services including but not limited
           to web development, mobile app development, UI/UX design, cloud
-          solutions, and SEO ("Services"). Client agrees to use the Services in
-          compliance with applicable laws and regulations.
+          solutions, and SEO (&quot;Services&quot;). Client agrees to use the
+          Services in compliance with applicable laws and regulations.
         </p>
         <h2 className="text-xl font-semibold mt-4">
           3. Client Responsibilities
@@ -52,8 +52,8 @@ const TermsAndConditions: React.FC<TermsAndConditionsProps> = ({
         <h2 className="text-xl font-semibold mt-4">4. Privacy and Data Use </h2>
         <p>
           {" "}
-          Sigira will collect and use Client's information in accordance with
-          its Privacy Policy, which is incorporated by reference into this
+          Sigira will collect and use Client&apos;s information in accordance
+          with its Privacy Policy, which is incorporated by reference into this
           Agreement. For cloud solutions, Sigira implements industry-standard
           security measures, but Client acknowledges that no system is entirely
           secure.
@@ -63,11 +63,11 @@ const TermsAndConditions: React.FC<TermsAndConditionsProps> = ({
         </h2>
         <p>
           All content, designs, code, and other materials created by Sigira in
-          the course of providing the Services, excluding Client's pre-existing
-          materials, shall be the property of Sigira until full payment is
-          received, at which point ownership transfers to Client. For SEO
-          services, Client retains ownership of all content created for their
-          use.
+          the course of providing the Services, excluding Client&apos;s
+          pre-existing materials, shall be the property of Sigira until full
+          payment is received, at which point ownership transfers to Client. For
+          SEO services, Client retains ownership of all content created for
+          their use.
         </p>
         <h2 className="text-xl font-semibold mt-4">
           6. Limitation of Liability{" "}
@@ -77,7 +77,7 @@ const TermsAndConditions: React.FC<TermsAndConditionsProps> = ({
           any indirect, incidental, special, consequential, or punitive damages,
           or any loss of profits or revenues, whether incurred directly or
           indirectly, or any loss of data, use, goodwill, or other intangible
-          losses resulting from (a) Client's use or inability to use the
+          losses resulting from (a) Client&apos;s use or inability to use the
           Services; (b) any unauthorized access to or use of our servers and/or
           any personal information stored therein.
         </p>
@@ -91,8 +91,8 @@ const TermsAndConditions: React.FC<TermsAndConditionsProps> = ({
         <h2 className="text-xl font-semibold mt-4">8. Changes to Agreement </h2>
         <p>
           Sigira reserves the right to change this Agreement at any time.
-          Client's continued use of the Services after such changes constitutes
-          acceptance of the new terms.
+          Client&apos;s continued use of the Services after such changes
+          constitutes acceptance of the new terms.
         </p>
         <h2 className="text-xl font-semibold mt-4">9. Governing Law </h2>
         <p>
@@ -125,9 +125,9 @@ const TermsAndConditions: React.FC<TermsAndConditionsProps> = ({
           ))}
         </ul> */}
         <p className="font-bold mt-4">
-          BY CLICKING "I AGREE" OR BY ACCESSING OR USING SIGIRA'S SERVICES,
-          CLIENT ACKNOWLEDGES THAT THEY HAVE READ THIS AGREEMENT, UNDERSTAND IT,
-          AND AGREE TO BE BOUND BY ITS TERMS AND CONDITIONS.
+          BY CLICKING &quot;I AGREE&quot; OR BY ACCESSING OR USING SIGIRA&apos;S
+          SERVICES, CLIENT ACKNOWLEDGES THAT THEY HAVE READ THIS AGREEMENT,
+          UNDERSTAND IT, AND AGREE TO BE BOUND BY ITS TERMS AND CONDITIONS.
         </p>
       </CardContent>
     </Card>

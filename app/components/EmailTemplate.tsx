@@ -38,8 +38,8 @@ const EmailTemplate = () => (
           lineHeight: "1.5",
         }}
       >
-        Thank you for subscribing to our newsletter. We're excited to have you
-        on board!
+        Thank you for subscribing to our newsletter. We&apos;re excited to have
+        you on board!
       </p>
       <p
         style={{
@@ -49,7 +49,7 @@ const EmailTemplate = () => (
           lineHeight: "1.5",
         }}
       >
-        You'll be receiving our latest updates and exclusive content soon.
+        You&apos;ll be receiving our latest updates and exclusive content soon.
       </p>
       <div
         style={{
