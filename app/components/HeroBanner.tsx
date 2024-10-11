@@ -30,11 +30,11 @@ const HeroBanner = () => {
   }, []);
 
   return (
-    <div className="text-center">
-      <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 animate-fade-in">
+    <div className="text-center bg-skin-fill">
+      <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 animate-fade-in text-skin-base">
         Building the Future of Web and Mobile
       </h1>
-      <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-4 animate-fade-in">
+      <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-4 animate-fade-in text-skin-base">
         We create cutting-edge applications that drive business growth and user
         engagement as well as personal blogs.
       </p>
