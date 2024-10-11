@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import clsx from "clsx";
-import XIcon from "@heroicons/react/24/solid";
 
 export default function Footer() {
   const [isFixed, setIsFixed] = useState(false);
