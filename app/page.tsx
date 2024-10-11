@@ -24,7 +24,7 @@ export default function Home() {
 
       <div className="w-full">
         <section className="w-full bg-gray-100 mt-8">
-          <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+          <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 bg-skin-fill">
             <HeroBanner />
           </div>
         </section>
