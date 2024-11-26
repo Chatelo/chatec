@@ -1,11 +1,13 @@
-import PrismaClient from "@prisma/client";
-// import { withAccelerate } from "@prisma/extension-accelerate";
+import { PrismaClient } from "@prisma/client";
 
-// export const prisma = new PrismaClient.PrismaClient().$extends(
-//   withAccelerate()
-// );
+declare global {
+  var prisma: PrismaClient | undefined;
+}
 
-// TODO to enable accelerate, uncomment the following lines and fix "prisma" type error in the app
+const prisma = global.prisma || new PrismaClient();
 
-export const prisma = new PrismaClient.PrismaClient();
+if (process.env.NODE_ENV !== "production") {
+  global.prisma = prisma;
+}
+
 export default prisma;
