@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { prisma } from "@/app/lib/prisma";
+import prisma from "@/app/lib/prisma";
 import { render } from "@react-email/render";
 import EmailTemplate from "@/app/components/EmailTemplate";
 
